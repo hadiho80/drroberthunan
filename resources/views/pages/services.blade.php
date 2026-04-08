@@ -30,7 +30,7 @@
         <div class="page-shell">
             @include('partials.site-header')
 
-            <main class="site-main">
+            <main class="site-main grid gap-10 pb-20 md:gap-20 md:pb-40">
                 <section class="{{ $pagePadX }} {{ $pageSectionTop }} pb-6 md:pb-8 lg:pb-10 bg-white">
                     <div class="{{ $pageContentMax }}">
                         <div class="mb-[12px] max-w-[360px] md:mb-[14px] md:max-w-[440px] lg:mb-[18px] lg:max-w-[520px]">
@@ -39,7 +39,7 @@
                             <p class="mt-[6px] text-[0.54rem] leading-[1.48] text-[#495057] md:mt-[8px] md:text-[0.58rem] md:leading-[1.58] lg:mt-[10px] lg:text-[0.72rem] lg:leading-[1.7]">{{ $pageIntro }}</p>
                         </div>
 
-                        <div class="grid grid-cols-1 gap-[10px] md:gap-[12px] lg:grid-cols-2 lg:gap-[14px]">
+                        <div class="grid grid-cols-1 gap-10 md:gap-20 lg:grid-cols-2">
                             @foreach($servicePages as $page)
                                 <article class="overflow-hidden rounded-[4px] border border-[var(--site-line)] bg-white shadow-[0_12px_28px_rgba(14,68,106,0.04)]">
                                     <div class="relative min-h-[88px] overflow-hidden md:min-h-[120px] lg:min-h-[132px]">

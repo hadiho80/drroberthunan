@@ -22,13 +22,13 @@
         <div class="page-shell">
             @include('partials.site-header')
 
-            <main class="site-main">
+            <main class="site-main grid gap-10 pb-20 md:gap-20 md:pb-40">
                 <section class="{{ $pagePadX }} bg-[#eef6fc] py-7 md:py-10 lg:py-12">
-                    <div class="{{ $pageHeroMax }} grid grid-cols-1 items-center gap-6 md:grid-cols-[240px_minmax(0,1fr)] md:gap-8 lg:grid-cols-[340px_minmax(0,1fr)] lg:gap-14">
-                        <div class="mx-auto w-full max-w-[220px] overflow-hidden rounded-[10px] bg-[#dcecf7] shadow-[0_10px_24px_rgba(14,68,106,0.08)] md:max-w-none">
-                            <img class="h-[264px] w-full object-cover object-top md:h-[300px] lg:h-[360px]" src="{{ $profilePhoto }}" alt="{{ $doctorName }}">
+                    <div class="{{ $pageHeroMax }} grid grid-cols-1 items-center justify-items-center gap-6 md:gap-8 lg:grid-cols-[340px_minmax(0,1fr)] lg:justify-items-stretch lg:gap-14">
+                        <div class="mx-auto w-fit max-w-[220px] overflow-hidden rounded-[10px] bg-[#dcecf7] shadow-[0_10px_24px_rgba(14,68,106,0.08)] md:max-w-none">
+                            <img class="h-[264px] w-auto object-cover object-top md:h-[400px] lg:h-[360px] lg:w-full" src="{{ $profilePhoto }}" alt="{{ $doctorName }}">
                         </div>
-                        <div class="text-[#24435a]">
+                        <div class="text-left text-[#24435a]">
                             <h1 class="m-0 font-sans text-[32px] leading-[1.08] font-extrabold tracking-[-0.03em] text-[#0E446A] md:text-[40px] md:leading-[1.05] lg:max-w-[540px]">{{ $doctorName }}</h1>
                             <h3 class="mt-4 max-w-[650px] font-sans text-[24px] leading-[1.45] font-medium text-[#00223A] md:text-[32px] md:leading-[1.4]">{{ $profileIntro }}</h3>
                         </div>
@@ -36,7 +36,7 @@
                 </section>
 
                 <section class="{{ $pagePadX }} bg-white py-7 md:py-9 lg:py-12">
-                    <div class="{{ $pageContentMax }} grid grid-cols-1 gap-4 md:gap-5 lg:gap-6">
+                    <div class="{{ $pageContentMax }} grid grid-cols-1 gap-10 md:gap-20">
                         @foreach($profileSections as $section)
                             <article class="rounded-[6px] border border-[#d9e7f2] bg-white px-4 py-4 shadow-[0_6px_18px_rgba(14,68,106,0.04)] md:px-5 md:py-5 lg:px-8 lg:py-6">
                                 <h2 class="m-0 font-sans text-[24px] leading-[1.25] font-semibold text-[#00223A] md:text-[32px]">{{ $section['title'] }}</h2>

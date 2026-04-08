@@ -9,7 +9,7 @@
         'url' => url()->current(),
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     $pagePadX = 'px-4 md:px-6 lg:px-10';
-    $pageSectionTop = 'pt-6 md:pt-8 lg:pt-10';
+    $pageSectionTop = '';
     $pageContentMax = 'mx-auto w-full max-w-[1100px]';
     $serviceVisualMap = [
         'obstetrics' => asset('assets/highlights/obstetrics.png'),
@@ -38,21 +38,23 @@
         <div class="page-shell">
             @include('partials.site-header')
 
-            <main class="site-main">
+            <main class="site-main grid gap-10 pb-20 md:gap-20 md:pb-40">
                 @if($customLayout === 'endometriosis')
-                    <section class="service-detail-page-hero relative isolate min-h-[240px] overflow-hidden {{ $pagePadX }} py-6 md:min-h-[340px] md:py-8 lg:min-h-[360px] lg:py-10">
+                    <section class="service-detail-page-hero relative isolate h-[351px] overflow-hidden {{ $pagePadX }} py-6 md:h-[595px] md:py-8 lg:py-10">
                         <img class="absolute inset-0 -z-20 h-full w-full object-cover" src="{{ $serviceHeroImage }}" alt="{{ $servicePage['title'] }}">
                         <span class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,27,42,0.84)_0%,rgba(8,27,42,0.62)_44%,rgba(8,27,42,0.2)_100%)]"></span>
-                        <div class="{{ $pageContentMax }} relative flex min-h-[192px] items-start pt-3 md:min-h-[260px] md:items-center md:pt-0">
-                            <div class="w-full max-w-[360px] text-left text-white md:max-w-[420px]">
-                                <h1 class="m-0 font-sans text-[32px] leading-[1.08] font-extrabold tracking-[-0.03em] text-white md:text-[40px] md:leading-[1.05]">{{ strtoupper($servicePage['title']) }}</h1>
-                                <p class="mt-3 font-sans text-[14px] leading-[1.6] font-normal text-white/90 md:text-[18px]">{{ $servicePage['hero_body'] ?? $servicePage['intro'] }}</p>
+                        <div class="{{ $pageContentMax }} relative flex h-full items-center">
+                            <div class="ml-10 lg:ml-[130px]">
+                                <div class="w-full max-w-[360px] text-left text-white md:max-w-[420px]">
+                                    <h1 class="m-0 font-sans text-[32px] leading-[1.08] font-extrabold tracking-[-0.03em] text-white md:text-[40px] md:leading-[1.05]">{{ strtoupper($servicePage['title']) }}</h1>
+                                    <p class="mt-3 font-sans text-[14px] leading-[1.6] font-normal text-white/90 md:text-[18px]">{{ $servicePage['hero_body'] ?? $servicePage['intro'] }}</p>
+                                </div>
                             </div>
                         </div>
                     </section>
 
                     <section class="{{ $pagePadX }} {{ $pageSectionTop }} pb-6 md:pb-8 lg:pb-10 bg-white">
-                        <div class="{{ $pageContentMax }} grid gap-4 md:gap-5 lg:gap-6">
+                        <div class="{{ $pageContentMax }} grid gap-10 md:gap-20">
                             <article class="rounded-[6px] border border-[#d9e7f2] bg-white px-4 py-4 shadow-[0_6px_18px_rgba(14,68,106,0.04)] md:px-5 md:py-5 lg:px-8 lg:py-6">
                                 <div class="grid gap-3">
                                     @foreach($servicePage['feature_copy'] ?? [] as $paragraph)
@@ -98,19 +100,21 @@
                         </div>
                     </section>
                 @elseif($customLayout === 'hysterectomy')
-                    <section class="service-detail-page-hero relative isolate min-h-[240px] overflow-hidden {{ $pagePadX }} py-6 md:min-h-[340px] md:py-8 lg:min-h-[360px] lg:py-10">
+                    <section class="service-detail-page-hero relative isolate h-[351px] overflow-hidden {{ $pagePadX }} py-6 md:h-[595px] md:py-8 lg:py-10">
                         <img class="absolute inset-0 -z-20 h-full w-full object-cover" src="{{ $serviceHeroImage }}" alt="{{ $servicePage['title'] }}">
                         <span class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,27,42,0.84)_0%,rgba(8,27,42,0.62)_44%,rgba(8,27,42,0.2)_100%)]"></span>
-                        <div class="{{ $pageContentMax }} relative flex min-h-[192px] items-start pt-3 md:min-h-[260px] md:items-center md:pt-0">
-                            <div class="w-full max-w-[390px] text-left text-white md:max-w-[470px]">
-                                <h1 class="m-0 font-sans text-[32px] leading-[1.08] font-extrabold tracking-[-0.03em] text-white md:text-[40px] md:leading-[1.05]">{{ strtoupper($servicePage['title']) }}</h1>
-                                <p class="mt-3 font-sans text-[14px] leading-[1.6] font-normal text-white/90 md:text-[18px]">{{ $servicePage['hero_body'] ?? $servicePage['intro'] }}</p>
+                        <div class="{{ $pageContentMax }} relative flex h-full items-center">
+                            <div class="ml-10 lg:ml-[130px]">
+                                <div class="w-full max-w-[390px] text-left text-white md:max-w-[470px]">
+                                    <h1 class="m-0 font-sans text-[32px] leading-[1.08] font-extrabold tracking-[-0.03em] text-white md:text-[40px] md:leading-[1.05]">{{ strtoupper($servicePage['title']) }}</h1>
+                                    <p class="mt-3 font-sans text-[14px] leading-[1.6] font-normal text-white/90 md:text-[18px]">{{ $servicePage['hero_body'] ?? $servicePage['intro'] }}</p>
+                                </div>
                             </div>
                         </div>
                     </section>
 
                     <section class="{{ $pagePadX }} {{ $pageSectionTop }} pb-6 md:pb-8 lg:pb-10 bg-white">
-                        <div class="{{ $pageContentMax }} grid gap-4 md:gap-5 lg:gap-6">
+                        <div class="{{ $pageContentMax }} grid gap-10 md:gap-20">
                             <article class="rounded-[6px] border border-[#d9e7f2] bg-white px-4 py-4 shadow-[0_6px_18px_rgba(14,68,106,0.04)] md:px-5 md:py-5 lg:px-8 lg:py-6">
                                 <h2 class="m-0 font-sans text-[24px] leading-[1.25] font-semibold text-[#00223A] md:text-[32px]">{{ $servicePage['overview_title'] }}</h2>
                                 <ul class="mt-3 grid list-disc gap-2 pl-[1.2em] marker:text-[#495057] md:gap-[0.35rem] lg:mt-4 lg:gap-[0.45rem]">
@@ -129,19 +133,21 @@
                         </div>
                     </section>
                 @elseif($customLayout === 'laparoscopy')
-                    <section class="service-detail-page-hero relative isolate min-h-[240px] overflow-hidden {{ $pagePadX }} py-6 md:min-h-[340px] md:py-8 lg:min-h-[360px] lg:py-10">
+                    <section class="service-detail-page-hero relative isolate h-[351px] overflow-hidden {{ $pagePadX }} py-6 md:h-[595px] md:py-8 lg:py-10">
                         <img class="absolute inset-0 -z-20 h-full w-full object-cover" src="{{ $serviceHeroImage }}" alt="{{ $servicePage['title'] }}">
                         <span class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,27,42,0.84)_0%,rgba(8,27,42,0.62)_44%,rgba(8,27,42,0.2)_100%)]"></span>
-                        <div class="{{ $pageContentMax }} relative flex min-h-[192px] items-start pt-3 md:min-h-[260px] md:items-center md:pt-0">
-                            <div class="w-full max-w-[410px] text-left text-white md:max-w-[520px]">
-                                <h1 class="m-0 font-sans text-[32px] leading-[1.08] font-extrabold tracking-[-0.03em] text-white md:text-[40px] md:leading-[1.05]">{{ strtoupper($servicePage['title']) }}</h1>
-                                <p class="mt-3 font-sans text-[14px] leading-[1.6] font-normal text-white/90 md:text-[18px]">{{ $servicePage['hero_body'] ?? $servicePage['intro'] }}</p>
+                        <div class="{{ $pageContentMax }} relative flex h-full items-center">
+                            <div class="ml-10 lg:ml-[130px]">
+                                <div class="w-full max-w-[410px] text-left text-white md:max-w-[520px]">
+                                    <h1 class="m-0 font-sans text-[32px] leading-[1.08] font-extrabold tracking-[-0.03em] text-white md:text-[40px] md:leading-[1.05]">{{ strtoupper($servicePage['title']) }}</h1>
+                                    <p class="mt-3 font-sans text-[14px] leading-[1.6] font-normal text-white/90 md:text-[18px]">{{ $servicePage['hero_body'] ?? $servicePage['intro'] }}</p>
+                                </div>
                             </div>
                         </div>
                     </section>
 
                     <section class="{{ $pagePadX }} {{ $pageSectionTop }} pb-6 md:pb-8 lg:pb-10 bg-white">
-                        <div class="{{ $pageContentMax }} grid gap-4 md:gap-5 lg:gap-6">
+                        <div class="{{ $pageContentMax }} grid gap-10 md:gap-20">
                             <article class="rounded-[6px] border border-[#d9e7f2] bg-white px-4 py-4 shadow-[0_6px_18px_rgba(14,68,106,0.04)] md:px-5 md:py-5 lg:px-8 lg:py-6">
                                 <h2 class="m-0 font-sans text-[24px] leading-[1.25] font-semibold text-[#00223A] md:text-[32px]">{{ $servicePage['overview_title'] }}</h2>
                                 <ul class="mt-3 grid list-disc gap-2 pl-[1.2em] marker:text-[#495057] md:gap-[0.35rem] lg:mt-4 lg:gap-[0.45rem]">
@@ -194,19 +200,21 @@
                         </div>
                     </section>
                 @elseif($customLayout === 'myoma')
-                    <section class="service-detail-page-hero relative isolate min-h-[240px] overflow-hidden {{ $pagePadX }} py-6 md:min-h-[340px] md:py-8 lg:min-h-[360px] lg:py-10">
+                    <section class="service-detail-page-hero relative isolate h-[351px] overflow-hidden {{ $pagePadX }} py-6 md:h-[595px] md:py-8 lg:py-10">
                         <img class="absolute inset-0 -z-20 h-full w-full object-cover" src="{{ $serviceHeroImage }}" alt="{{ $servicePage['title'] }}">
                         <span class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,27,42,0.84)_0%,rgba(8,27,42,0.62)_44%,rgba(8,27,42,0.2)_100%)]"></span>
-                        <div class="{{ $pageContentMax }} relative flex min-h-[192px] items-start pt-3 md:min-h-[260px] md:items-center md:pt-0">
-                            <div class="w-full max-w-[430px] text-left text-white md:max-w-[520px]">
-                                <h1 class="m-0 font-sans text-[32px] leading-[1.08] font-extrabold tracking-[-0.03em] text-white md:text-[40px] md:leading-[1.05]">{{ strtoupper($servicePage['title']) }}</h1>
-                                <p class="mt-3 font-sans text-[14px] leading-[1.6] font-normal text-white/90 md:text-[18px]">{{ $servicePage['hero_body'] ?? $servicePage['intro'] }}</p>
+                        <div class="{{ $pageContentMax }} relative flex h-full items-center">
+                            <div class="ml-10 lg:ml-[130px]">
+                                <div class="w-full max-w-[430px] text-left text-white md:max-w-[520px]">
+                                    <h1 class="m-0 font-sans text-[32px] leading-[1.08] font-extrabold tracking-[-0.03em] text-white md:text-[40px] md:leading-[1.05]">{{ strtoupper($servicePage['title']) }}</h1>
+                                    <p class="mt-3 font-sans text-[14px] leading-[1.6] font-normal text-white/90 md:text-[18px]">{{ $servicePage['hero_body'] ?? $servicePage['intro'] }}</p>
+                                </div>
                             </div>
                         </div>
                     </section>
 
                     <section class="{{ $pagePadX }} {{ $pageSectionTop }} pb-6 md:pb-8 lg:pb-10 bg-white">
-                        <div class="{{ $pageContentMax }} grid gap-4 md:gap-5 lg:gap-6">
+                        <div class="{{ $pageContentMax }} grid gap-10 md:gap-20">
                             @if(!empty($servicePage['feature_copy']))
                                 <article class="rounded-[6px] border border-[#d9e7f2] bg-white px-4 py-4 shadow-[0_6px_18px_rgba(14,68,106,0.04)] md:px-5 md:py-5 lg:px-8 lg:py-6">
                                     <div class="grid gap-3">
@@ -247,19 +255,21 @@
                         </div>
                     </section>
                 @elseif($customLayout === 'ovarian-cyst')
-                    <section class="service-detail-page-hero relative isolate min-h-[240px] overflow-hidden {{ $pagePadX }} py-6 md:min-h-[340px] md:py-8 lg:min-h-[360px] lg:py-10">
+                    <section class="service-detail-page-hero relative isolate h-[351px] overflow-hidden {{ $pagePadX }} py-6 md:h-[595px] md:py-8 lg:py-10">
                         <img class="absolute inset-0 -z-20 h-full w-full object-cover" src="{{ $serviceHeroImage }}" alt="{{ $servicePage['title'] }}">
                         <span class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,27,42,0.84)_0%,rgba(8,27,42,0.62)_44%,rgba(8,27,42,0.2)_100%)]"></span>
-                        <div class="{{ $pageContentMax }} relative flex min-h-[192px] items-start pt-3 md:min-h-[260px] md:items-center md:pt-0">
-                            <div class="w-full max-w-[430px] text-left text-white md:max-w-[540px]">
-                                <h1 class="m-0 font-sans text-[32px] leading-[1.08] font-extrabold tracking-[-0.03em] text-white md:text-[40px] md:leading-[1.05]">{{ strtoupper($servicePage['title']) }}</h1>
-                                <p class="mt-3 font-sans text-[14px] leading-[1.6] font-normal text-white/90 md:text-[18px]">{{ $servicePage['hero_body'] ?? $servicePage['intro'] }}</p>
+                        <div class="{{ $pageContentMax }} relative flex h-full items-center">
+                            <div class="ml-10 lg:ml-[130px]">
+                                <div class="w-full max-w-[430px] text-left text-white md:max-w-[540px]">
+                                    <h1 class="m-0 font-sans text-[32px] leading-[1.08] font-extrabold tracking-[-0.03em] text-white md:text-[40px] md:leading-[1.05]">{{ strtoupper($servicePage['title']) }}</h1>
+                                    <p class="mt-3 font-sans text-[14px] leading-[1.6] font-normal text-white/90 md:text-[18px]">{{ $servicePage['hero_body'] ?? $servicePage['intro'] }}</p>
+                                </div>
                             </div>
                         </div>
                     </section>
 
                     <section class="{{ $pagePadX }} {{ $pageSectionTop }} pb-6 md:pb-8 lg:pb-10 bg-white">
-                        <div class="{{ $pageContentMax }} grid gap-4 md:gap-5 lg:gap-6">
+                        <div class="{{ $pageContentMax }} grid gap-10 md:gap-20">
                             <article class="rounded-[6px] border border-[#d9e7f2] bg-white px-4 py-4 shadow-[0_6px_18px_rgba(14,68,106,0.04)] md:px-5 md:py-5 lg:px-8 lg:py-6">
                                 <h2 class="m-0 font-sans text-[24px] leading-[1.25] font-semibold text-[#00223A] md:text-[32px]">{{ $servicePage['overview_title'] }}</h2>
                                 <ul class="mt-3 grid list-disc gap-2 pl-[1.2em] marker:text-[#495057] md:gap-[0.35rem] lg:mt-4 lg:gap-[0.45rem]">
@@ -314,19 +324,21 @@
                         </div>
                     </section>
                 @else
-                    <section class="service-detail-page-hero relative isolate min-h-[210px] overflow-hidden {{ $pagePadX }} py-6 md:min-h-[320px] md:py-8 lg:min-h-[430px] lg:py-12">
+                    <section class="service-detail-page-hero relative isolate h-[351px] overflow-hidden {{ $pagePadX }} py-6 md:h-[595px] md:py-8 lg:py-12">
                         <img class="absolute inset-0 -z-20 h-full w-full object-cover" src="{{ $serviceHeroImage }}" alt="{{ $servicePage['title'] }}">
                         <span class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,27,42,0.82)_0%,rgba(8,27,42,0.58)_46%,rgba(8,27,42,0.22)_100%)]"></span>
-                        <div class="{{ $pageContentMax }} relative flex min-h-[162px] items-center md:min-h-[240px] lg:min-h-[335px]">
-                            <div class="w-full text-left text-white md:max-w-[420px] lg:max-w-[520px]">
-                                <p class="mb-3 font-sans text-[24px] leading-[1.2] font-normal text-white/90 md:text-[32px]">{{ $servicePage['eyebrow'] }}</p>
-                                <h1 class="m-0 w-full font-sans text-[32px] leading-[1.08] font-extrabold tracking-[-0.03em] text-white md:text-[40px] md:leading-[1.05]">{{ strtoupper($servicePage['title']).$serviceHeroSuffix }}</h1>
+                        <div class="{{ $pageContentMax }} relative flex h-full items-center">
+                            <div class="ml-10 lg:ml-[130px]">
+                                <div class="w-full text-left text-white md:max-w-[420px] lg:max-w-[520px]">
+                                    <p class="mb-3 font-sans text-[24px] leading-[1.2] font-normal text-white/90 md:text-[32px]">{{ $servicePage['eyebrow'] }}</p>
+                                    <h1 class="m-0 w-full font-sans text-[32px] leading-[1.08] font-extrabold tracking-[-0.03em] text-white md:text-[40px] md:leading-[1.05]">{{ strtoupper($servicePage['title']).$serviceHeroSuffix }}</h1>
+                                </div>
                             </div>
                         </div>
                     </section>
 
                     <section class="{{ $pagePadX }} {{ $pageSectionTop }} pb-6 md:pb-8 lg:pb-10 bg-white">
-                        <div class="{{ $pageContentMax }} grid gap-4 md:gap-5 lg:gap-6">
+                        <div class="{{ $pageContentMax }} grid gap-10 md:gap-20">
                             @if($showServiceIntro)
                                 <div class="max-w-[980px]">
                                     <h3 class="m-0 font-sans text-[24px] leading-[1.45] font-medium text-[#00223A] md:text-[32px] md:leading-[1.4]">{{ $servicePage['intro'] }}</h3>
