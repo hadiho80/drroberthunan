@@ -49,10 +49,10 @@
                                     <div class="mt-5 flex items-center gap-3 font-sans text-[14px] leading-[1.4] font-semibold text-[#00223A] md:text-[18px]">
                                         <span>Ask Me A Question:</span>
                                         <a href="mailto:{{ $contactEmail }}" aria-label="Email">
-                                            <img class="h-[18px] w-auto md:h-[22px]" src="{{ asset('assets/footer/icon-mail.png') }}" alt="">
+                                            <img class="h-[18px] w-auto md:h-[22px]" style="filter: brightness(0) saturate(100%) invert(10%) sepia(20%) saturate(2339%) hue-rotate(172deg) brightness(96%) contrast(102%);" src="{{ asset('assets/footer/icon-mail.png') }}" alt="">
                                         </a>
                                         <a href="{{ $whatsAppLink }}" target="_blank" rel="noreferrer" aria-label="WhatsApp">
-                                            <img class="h-[18px] w-[18px] md:h-[22px] md:w-[22px]" src="{{ asset('assets/footer/icon-wa.png') }}" alt="">
+                                            <img class="h-[18px] w-[18px] md:h-[22px] md:w-[22px]" style="filter: brightness(0) saturate(100%) invert(10%) sepia(20%) saturate(2339%) hue-rotate(172deg) brightness(96%) contrast(102%);" src="{{ asset('assets/footer/icon-wa.png') }}" alt="">
                                         </a>
                                     </div>
                                 </div>
