@@ -1,5 +1,5 @@
 <footer class="site-footer">
-    <div class="mx-auto w-full max-w-[1090px]">
+    <div class="mx-auto w-full max-w-[1440px]">
         <div class="footer-main-grid grid grid-cols-2 gap-x-5 gap-y-5 md:grid-cols-[1.18fr_0.72fr_0.82fr] md:gap-x-[18px] md:gap-y-[18px] lg:grid-cols-[1.15fr_0.72fr_0.82fr_1.24fr] lg:gap-x-10 lg:gap-y-4">
             <div class="footer-brand-block col-span-2 gap-[10px] md:col-span-1 md:gap-[10px] lg:col-span-1 lg:gap-[14px]">
                 <img class="footer-logo footer-logo-hospital w-[142px] md:w-[122px] lg:w-[160px]" src="{{ asset('assets/footer/national-hospital-footer.png') }}" alt="National Hospital logo">
