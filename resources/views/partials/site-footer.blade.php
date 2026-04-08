@@ -1,9 +1,9 @@
 <footer class="site-footer">
     <div class="mx-auto w-full max-w-[1090px]">
-        <div class="grid grid-cols-2 gap-x-5 gap-y-5 md:grid-cols-[1.18fr_0.72fr_0.82fr] md:gap-x-[18px] md:gap-y-[18px] lg:grid-cols-[1.15fr_0.72fr_0.82fr_1.24fr] lg:gap-x-10 lg:gap-y-4">
+        <div class="footer-main-grid grid grid-cols-2 gap-x-5 gap-y-5 md:grid-cols-[1.18fr_0.72fr_0.82fr] md:gap-x-[18px] md:gap-y-[18px] lg:grid-cols-[1.15fr_0.72fr_0.82fr_1.24fr] lg:gap-x-10 lg:gap-y-4">
             <div class="footer-brand-block col-span-2 gap-[10px] md:col-span-1 md:gap-[10px] lg:col-span-1 lg:gap-[14px]">
-                <img class="w-[142px] md:w-[122px] lg:w-[160px]" src="{{ asset('assets/footer/national-hospital-footer.png') }}" alt="National Hospital logo">
-                <img class="w-[168px] md:w-[146px] lg:w-[182px]" src="{{ asset('assets/footer/nhscope-footer.png') }}" alt="NH Scope logo">
+                <img class="footer-logo footer-logo-hospital w-[142px] md:w-[122px] lg:w-[160px]" src="{{ asset('assets/footer/national-hospital-footer.png') }}" alt="National Hospital logo">
+                <img class="footer-logo footer-logo-scope w-[168px] md:w-[146px] lg:w-[182px]" src="{{ asset('assets/footer/nhscope-footer.png') }}" alt="NH Scope logo">
                 <p class="max-w-[216px] text-[0.58rem] leading-[1.58] font-normal text-white/88 [font-family:'DM_Sans',sans-serif] md:max-w-[148px] md:text-[0.5rem] md:leading-[1.58] lg:max-w-[228px] lg:text-[0.64rem] lg:leading-[1.72]">{{ $contactAddress }}</p>
             </div>
 
@@ -41,12 +41,12 @@
                     <span class="text-[0.6rem] font-semibold text-white [font-family:'DM_Sans',sans-serif] md:text-[0.52rem] lg:text-[0.64rem]">Ask Me A Question:</span>
                     <a href="mailto:{{ $contactEmail }}" aria-label="Email">
                         <span class="footer-icon-button">
-                            <img class="h-[15px] w-auto md:h-[13px] lg:h-[18px]" src="{{ asset('assets/footer/icon-mail.png') }}" alt="">
+                            <img class="footer-contact-icon footer-contact-icon-mail" src="{{ asset('assets/footer/icon-mail.png') }}" alt="">
                         </span>
                     </a>
                     <a href="{{ $whatsAppLink }}" target="_blank" rel="noreferrer" aria-label="WhatsApp">
                         <span class="footer-icon-button">
-                            <img class="h-[15px] w-[15px] md:h-[13px] md:w-[13px] lg:h-[18px] lg:w-[18px]" src="{{ asset('assets/footer/icon-wa.png') }}" alt="">
+                            <img class="footer-contact-icon footer-contact-icon-wa" src="{{ asset('assets/footer/icon-wa.png') }}" alt="">
                         </span>
                     </a>
                 </div>
