@@ -8,9 +8,9 @@
         'description' => $pageIntro,
         'url' => url()->current(),
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    $pagePadX = 'px-[10px] md:px-6 lg:px-16';
-    $pageSectionTop = 'pt-[14px] md:pt-6 lg:pt-7';
-    $pageContentMax = 'mx-auto w-full max-w-[860px]';
+    $pagePadX = 'px-4 md:px-6 lg:px-10';
+    $pageHeroMax = 'mx-auto w-full max-w-[1100px]';
+    $pageContentMax = 'mx-auto w-full max-w-[1100px]';
     $profilePhoto = $doctorProfileImage;
     $profileIntro = $doctorProfileIntro;
 @endphp
@@ -23,30 +23,33 @@
             @include('partials.site-header')
 
             <main class="site-main">
-                <section class="{{ $pagePadX }} {{ $pageSectionTop }} bg-white">
-                    <div class="{{ $pageContentMax }} grid grid-cols-1 gap-[14px] md:grid-cols-[112px_minmax(0,1fr)] md:items-start md:gap-[18px] lg:grid-cols-[156px_minmax(0,1fr)] lg:gap-[24px]">
-                        <div class="mx-auto w-[104px] overflow-hidden rounded-[4px] border border-[#d9e7f2] bg-[#f7fbff] md:mx-0 md:w-full">
-                            <img class="h-[116px] w-full object-cover object-top md:h-[120px] lg:h-[158px]" src="{{ $profilePhoto }}" alt="{{ $doctorName }}">
+                <section class="{{ $pagePadX }} bg-[#eef6fc] py-7 md:py-10 lg:py-12">
+                    <div class="{{ $pageHeroMax }} grid grid-cols-1 items-center gap-6 md:grid-cols-[240px_minmax(0,1fr)] md:gap-8 lg:grid-cols-[340px_minmax(0,1fr)] lg:gap-14">
+                        <div class="mx-auto w-full max-w-[220px] overflow-hidden rounded-[10px] bg-[#dcecf7] shadow-[0_10px_24px_rgba(14,68,106,0.08)] md:max-w-none">
+                            <img class="h-[264px] w-full object-cover object-top md:h-[300px] lg:h-[360px]" src="{{ $profilePhoto }}" alt="{{ $doctorName }}">
                         </div>
-                        <div class="md:pt-[2px]">
-                            <p class="mb-[6px] text-[0.5rem] font-extrabold uppercase tracking-[0.12em] text-[#1971c2] md:mb-[8px] md:text-[0.56rem] lg:mb-[10px] lg:text-[0.72rem]">Doctor's Profile</p>
-                            <h1 class="m-0 text-[0.82rem] leading-[1.12] font-extrabold tracking-[-0.03em] text-[#0e446a] md:text-[0.82rem] md:leading-[1.14] lg:text-[1.32rem] lg:leading-[1.1]">{{ $doctorName }}</h1>
-                            <p class="mt-[6px] text-[0.52rem] leading-[1.45] font-semibold text-[#212529] md:text-[0.46rem] md:leading-[1.45] lg:mt-[8px] lg:text-[0.7rem] lg:leading-[1.48]">{{ $doctorSubtitle }}</p>
-                            <p class="mt-[8px] text-[0.54rem] leading-[1.56] text-[#495057] md:mt-[8px] md:text-[0.46rem] md:leading-[1.62] lg:mt-[10px] lg:max-w-[540px] lg:text-[0.72rem] lg:leading-[1.72]">{{ $profileIntro }}</p>
+                        <div class="text-[#24435a]">
+                            <h1 class="m-0 font-sans text-[32px] leading-[1.08] font-extrabold tracking-[-0.03em] text-[#0E446A] md:text-[40px] md:leading-[1.05] lg:max-w-[540px]">{{ $doctorName }}</h1>
+                            <h3 class="mt-4 max-w-[650px] font-sans text-[24px] leading-[1.45] font-medium text-[#00223A] md:text-[32px] md:leading-[1.4]">{{ $profileIntro }}</h3>
                         </div>
                     </div>
                 </section>
 
-                <section class="{{ $pagePadX }} pt-[18px] pb-6 md:pt-[18px] md:pb-8 lg:pt-[22px] lg:pb-10 bg-white">
-                    <div class="{{ $pageContentMax }} grid grid-cols-1 gap-[12px] md:gap-[12px] lg:gap-[14px]">
+                <section class="{{ $pagePadX }} bg-white py-7 md:py-9 lg:py-12">
+                    <div class="{{ $pageContentMax }} grid grid-cols-1 gap-4 md:gap-5 lg:gap-6">
                         @foreach($profileSections as $section)
-                            <article class="rounded-[3px] border border-[#d9e7f2] bg-white px-[12px] py-[10px] md:px-[14px] md:py-[12px] lg:px-[20px] lg:py-[16px]">
-                                <h2 class="mb-[8px] text-[0.64rem] leading-[1.2] font-extrabold text-[#0e446a] md:mb-[8px] md:text-[0.5rem] lg:mb-[10px] lg:text-[0.82rem]">{{ $section['title'] }}</h2>
-                                <div class="grid gap-[5px] text-[0.52rem] leading-[1.48] text-[#495057] md:gap-[5px] md:text-[0.45rem] md:leading-[1.55] lg:gap-[7px] lg:text-[0.7rem] lg:leading-[1.68]">
+                            <article class="rounded-[6px] border border-[#d9e7f2] bg-white px-4 py-4 shadow-[0_6px_18px_rgba(14,68,106,0.04)] md:px-5 md:py-5 lg:px-8 lg:py-6">
+                                <h2 class="m-0 font-sans text-[24px] leading-[1.25] font-semibold text-[#00223A] md:text-[32px]">{{ $section['title'] }}</h2>
+
+                                @if(!empty($section['intro']))
+                                    <p class="mt-3 mb-0 font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]">{{ $section['intro'] }}</p>
+                                @endif
+
+                                <ul class="mt-3 list-disc pl-[1.2em] grid gap-2 marker:text-[#495057] md:gap-[0.35rem] lg:mt-4 lg:gap-[0.45rem]">
                                     @foreach($section['items'] as $item)
-                                        <p class="m-0">{{ $item }}</p>
+                                        <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]"><span>{{ $item }}</span></li>
                                     @endforeach
-                                </div>
+                                </ul>
                             </article>
                         @endforeach
                     </div>
