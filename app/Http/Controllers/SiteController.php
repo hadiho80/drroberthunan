@@ -286,8 +286,8 @@ class SiteController extends Controller
                     'Recovery: Most patients can return to normal activities sooner than with traditional, larger-incision surgery.',
                 ],
                 'gallery_images' => [
-                    asset('assets/highlights/laparoscopy.png'),
-                    asset('assets/highlights/gynecology.png'),
+                    asset('assets/services/laparoscopy-illustration-1.png'),
+                    asset('assets/services/laparoscopy-illustration-2.png'),
                 ],
                 'sections' => [
                     [
@@ -334,9 +334,9 @@ class SiteController extends Controller
                     'Myoma, or uterine fibroids is a benign condition in which smooth muscle grow either inside or outside the uterus. Uterine myoma consist of muscle and fibrous tissue. Uterine myomas are classified as benign tumors, with very rare chances of cancerous changes. The size of these benign tumors can vary, ranging from as small as a marble to as large as a tennis ball, or even bigger in some cases.',
                 ],
                 'gallery_images' => [
-                    asset('assets/highlights/myoma.png'),
-                    asset('assets/highlights/ovarian-cyst.png'),
-                    asset('assets/highlights/endometriosis.png'),
+                    asset('assets/services/myoma-illustration-1.png'),
+                    asset('assets/services/myoma-illustration-2.png'),
+                    asset('assets/services/myoma-illustration-3.png'),
                 ],
                 'sections' => [
                     [
@@ -379,7 +379,7 @@ class SiteController extends Controller
                     'Endometriosis tissue can act like the lining inside the uterus and tends to respond to hormones through each menstrual cycle. This may result in swelling, bleeding, inflammation, irritation, and eventually scar tissue. Because this tissue is outside the uterus, the blood and inflammation cannot leave the body normally, which can lead to persistent pain or adhesions.',
                     'The disease can affect different parts of the pelvis and may involve the ovaries, fallopian tubes, bowel, bladder, or the outer surface of the uterus. Imaging and consultation help us understand the location and extent of disease before making treatment recommendations.',
                 ],
-                'feature_image' => asset('assets/highlights/endometriosis.png'),
+                'feature_image' => asset('assets/services/endometriosis-illustration.png'),
                 'sections' => [
                     [
                         'title' => 'Symptoms',
@@ -437,11 +437,14 @@ class SiteController extends Controller
                     'Treatment: Functional cysts often disappear without treatment within 6-8 weeks. Treatment for symptomatic or persistent cysts may include pain relief, observation, hormonal therapy, or laparoscopic surgery.',
                     'Diagnostic Options: Pelvic Ultrasound is often used to evaluate the size, content, and location of the cyst.',
                 ],
-                'feature_image' => asset('assets/highlights/ovarian-cyst.png'),
+                'feature_images' => [
+                    asset('assets/services/ovarian-cyst-illustration-1.png'),
+                    asset('assets/services/ovarian-cyst-illustration-2.png'),
+                ],
                 'gallery_images' => [
-                    asset('assets/highlights/ovarian-cyst.png'),
-                    asset('assets/highlights/laparoscopy.png'),
-                    asset('assets/highlights/minimally-invasive-surgery.png'),
+                    asset('assets/services/ovarian-cyst-photo-1.png'),
+                    asset('assets/services/ovarian-cyst-photo-2.png'),
+                    asset('assets/services/ovarian-cyst-photo-3.png'),
                 ],
                 'sections' => [
                     [

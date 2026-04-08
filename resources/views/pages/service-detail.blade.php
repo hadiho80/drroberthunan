@@ -62,7 +62,9 @@
                             </article>
 
                             <article class="rounded-[6px] border border-[#d9e7f2] bg-white px-4 py-4 shadow-[0_6px_18px_rgba(14,68,106,0.04)] md:px-5 md:py-5 lg:px-8 lg:py-6">
-                                <img class="mx-auto w-full max-w-[760px] rounded-[4px] object-contain" src="{{ $servicePage['feature_image'] ?? $serviceHeroImage }}" alt="{{ $servicePage['title'] }} illustration">
+                                <div class="mx-auto w-full max-w-[840px] overflow-hidden rounded-[4px] border border-[#e3edf5] bg-white">
+                                    <img class="mx-auto w-full object-contain" src="{{ $servicePage['feature_image'] ?? $serviceHeroImage }}" alt="{{ $servicePage['title'] }} illustration">
+                                </div>
                             </article>
 
                             @foreach($servicePage['sections'] as $section)
@@ -182,7 +184,7 @@
                                 <article class="rounded-[6px] border border-[#d9e7f2] bg-white px-4 py-4 shadow-[0_6px_18px_rgba(14,68,106,0.04)] md:px-5 md:py-5 lg:px-8 lg:py-6">
                                     <div class="grid gap-4 md:grid-cols-2 md:gap-6">
                                         @foreach($servicePage['gallery_images'] as $image)
-                                            <div class="overflow-hidden rounded-[4px] border border-[#e3edf5] bg-white">
+                                            <div class="overflow-hidden rounded-[4px] border border-[#e3edf5] bg-white p-3 md:p-4">
                                                 <img class="h-full w-full object-contain" src="{{ $image }}" alt="{{ $servicePage['title'] }} procedure illustration">
                                             </div>
                                         @endforeach
@@ -219,7 +221,7 @@
                                 <article class="rounded-[6px] border border-[#d9e7f2] bg-white px-4 py-4 shadow-[0_6px_18px_rgba(14,68,106,0.04)] md:px-5 md:py-5 lg:px-8 lg:py-6">
                                     <div class="grid gap-4 md:grid-cols-3 md:gap-4">
                                         @foreach($servicePage['gallery_images'] as $image)
-                                            <div class="overflow-hidden rounded-[4px] border border-[#e3edf5] bg-white">
+                                            <div class="overflow-hidden rounded-[4px] border border-[#e3edf5] bg-white p-3 md:p-4">
                                                 <img class="h-full w-full object-contain" src="{{ $image }}" alt="{{ $servicePage['title'] }} illustration">
                                             </div>
                                         @endforeach
@@ -267,9 +269,15 @@
                                 </ul>
                             </article>
 
-                            @if(!empty($servicePage['feature_image']))
+                            @if(!empty($servicePage['feature_images']))
                                 <article class="rounded-[6px] border border-[#d9e7f2] bg-white px-4 py-4 shadow-[0_6px_18px_rgba(14,68,106,0.04)] md:px-5 md:py-5 lg:px-8 lg:py-6">
-                                    <img class="mx-auto w-full max-w-[820px] rounded-[4px] object-contain" src="{{ $servicePage['feature_image'] }}" alt="{{ $servicePage['title'] }} illustration">
+                                    <div class="grid gap-4 md:grid-cols-2 md:gap-6">
+                                        @foreach($servicePage['feature_images'] as $image)
+                                            <div class="overflow-hidden rounded-[4px] border border-[#e3edf5] bg-white p-3 md:p-4">
+                                                <img class="h-full w-full object-contain" src="{{ $image }}" alt="{{ $servicePage['title'] }} illustration">
+                                            </div>
+                                        @endforeach
+                                    </div>
                                 </article>
                             @endif
 
@@ -296,7 +304,7 @@
                                 <article class="rounded-[6px] border border-[#d9e7f2] bg-white px-4 py-4 shadow-[0_6px_18px_rgba(14,68,106,0.04)] md:px-5 md:py-5 lg:px-8 lg:py-6">
                                     <div class="grid gap-4 md:grid-cols-3 md:gap-4">
                                         @foreach($servicePage['gallery_images'] as $image)
-                                            <div class="overflow-hidden rounded-[4px] border border-[#e3edf5] bg-white">
+                                            <div class="overflow-hidden rounded-[4px] border border-[#e3edf5] bg-white p-3 md:p-4">
                                                 <img class="h-full w-full object-contain" src="{{ $image }}" alt="{{ $servicePage['title'] }} surgical image">
                                             </div>
                                         @endforeach
