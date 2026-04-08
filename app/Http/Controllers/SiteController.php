@@ -137,8 +137,9 @@ class SiteController extends Controller
             [
                 'slug' => 'obstetrics',
                 'title' => 'Obstetrics',
-                'eyebrow' => 'Pregnancy Care',
+                'eyebrow' => 'Services',
                 'intro' => 'Safe and structured support from early pregnancy through post-partum care.',
+                'show_intro' => false,
                 'hero_theme' => 'obstetrics',
                 'overview_title' => 'Pre-Pregnancy',
                 'overview' => [
@@ -151,8 +152,8 @@ class SiteController extends Controller
                         'title' => 'Early Pregnancy Care',
                         'list' => [
                             'Early pregnancy scan and viability assessment',
-                            'Management of early pregnancy complaints',
-                            'Management of early pregnancy complication',
+                            'Management of early pregnancy complaints (e.g. nausea, vomiting, bleeding)',
+                            'Management of early pregnancy complication (e.g. bleeding, ectopic pregnancy, recurrent miscarriage)',
                         ],
                     ],
                     [
@@ -160,16 +161,20 @@ class SiteController extends Controller
                         'list' => [
                             '1st trimester antenatal check-up and dating scan',
                             'First trimester screening',
-                            'Management of first trimester complication',
+                            'Management of first trimester pregnancy complaints and complication',
                             'Detailed scan and 2nd trimester pregnancy assessment',
-                            'Plan on delivery mode and trimester pregnancy',
+                            'Screening and management of gestational diabetes and preeclampsia',
+                            'Plan on delivery mode and 3rd trimester pregnancy',
+                            'Screening and management preeclampsia and other complications in late pregnancy',
+                            'Vaccinations during pregnancy',
+                            'Nutritional and lifestyle guidance',
                         ],
                     ],
                     [
                         'title' => 'Labour & Delivery Planning',
                         'list' => [
-                            'Vaginal birth and delivery care',
-                            'Mode of delivery advice after previous caesarean section',
+                            'Vaginal birth, assisted delivery, and caesarean section counseling',
+                            'The mode of delivery may differ pending individual maternal and pregnancy factors. This may be a vaginal delivery, an assisted vaginal delivery or caesarean section.',
                             'Anaesthesia and paediatric team for safe delivery',
                         ],
                     ],
@@ -178,7 +183,9 @@ class SiteController extends Controller
                         'list' => [
                             'Physical recovery assessment and wound care',
                             'Breastfeeding support and lactation counselling',
+                            'Postnatal treatment and contraception',
                             'Emotional wellbeing and post-partum depression screening',
+                            'Optimal recovery postpartum management',
                         ],
                     ],
                 ],
@@ -186,10 +193,12 @@ class SiteController extends Controller
             [
                 'slug' => 'gynaecology',
                 'title' => 'Gynaecology',
-                'eyebrow' => 'Women\'s Health',
+                'eyebrow' => 'Services',
                 'intro' => 'Assessment, diagnosis, and treatment planning for common and complex gynecologic concerns.',
+                'show_intro' => false,
                 'hero_theme' => 'gynaecology',
                 'overview_title' => 'Assessment and treatment of',
+                'overview_split_columns' => false,
                 'overview' => [
                     'Abnormal menstrual cycles such irregular cycles, prolonged menses, heavy menstrual bleeding, anaemia',
                     'Menstrual and acute / chronic pelvic pain',
@@ -197,10 +206,14 @@ class SiteController extends Controller
                     'Vaginal discharge',
                     'Menopausal check up',
                     'Contraception and family planning',
+                    'Cervical cancer screening: PAP smear and high risk HPV test',
+                    'Vaccinations: Cervical cancer HPV vaccine',
+                    'Ultrasound Pelvis, STI screening',
                 ],
                 'sections' => [
                     [
                         'title' => 'Gynecological conditions such as:',
+                        'split_columns' => true,
                         'list' => [
                             'Myoma / fibroids',
                             'Adenomyosis',
@@ -218,9 +231,12 @@ class SiteController extends Controller
             [
                 'slug' => 'minimally-invasive-surgery',
                 'title' => 'Minimally Invasive Surgery',
-                'eyebrow' => 'Advanced Procedure',
-                'intro' => 'Laparoscopic and minimally invasive approaches designed for precision, recovery, and patient comfort.',
+                'eyebrow' => 'Services',
+                'intro' => 'At NHScope, we specialise in minimally invasive surgical techniques, or known as LAPAROSCOPY that allow for painless surgery, minimal wound, faster recovery, better outcome using laparoscopy or robotic laparoscopy approaches.',
+                'hero_suffix' => ' / PAINLESS',
+                'show_intro' => true,
                 'hero_theme' => 'mis',
+                'overview_split_columns' => true,
                 'overview_title' => 'Surgical Treatment for the Following Conditions',
                 'overview' => [
                     'Myoma / fibroids',
@@ -230,8 +246,13 @@ class SiteController extends Controller
                     'Chronic pelvic pain',
                     'Abdominal / pelvic adhesion',
                     'Thickened endometrium',
-                    'Endometrial hyperplasia / cancer',
-                    'Abnormal menstrual bleeding',
+                    'Endometrial hyperplasia / precancer of the uterus',
+                    'Abnormal menstrual bleeding (heavy, irregular, prolonged)',
+                    'Cervical and endocervical polyps',
+                    'Endometrial polyps',
+                    'Ectopic pregnancy',
+                    'Hydrosalpinx or diseased fallopian tubes',
+                    'Cervical intraepithelial neoplasia (CIN)',
                 ],
                 'sections' => [
                     [
@@ -241,7 +262,8 @@ class SiteController extends Controller
                             'Myomectomy',
                             'Diagnostic hysteroscopy',
                             'Dilatation and curettage (D&C)',
-                            'Adhesiolysis for intrauterine adhesions',
+                            'Adhesiolysis for intrauterine adhesions (Asherman syndrome)',
+                            'Retained IUD (intrauterine device)',
                         ],
                     ],
                 ],
