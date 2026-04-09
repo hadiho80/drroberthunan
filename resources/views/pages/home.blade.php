@@ -102,7 +102,7 @@
                             <h1>Tailored Care for Your Unique Journey</h1>
                             <p>Committed to excellence, we combine compassionate, evidence-based treatments with the highest safety standards, ensuring gentle and effective care.</p>
                             <div class="hero-actions">
-                                <a href="{{ route('site.services') }}" class="button-primary">How We Can Help</a>
+                                <a href="#contact-section" class="button-primary">How We Can Help</a>
                             </div>
                         </div>
                         <div class="home-hero-visual">
@@ -141,7 +141,7 @@
                             <h2 class="{{ $sectionSubtitleClass }} md:text-[1.02rem] md:leading-[1.16] lg:text-[2.2rem] lg:leading-[1.08]">About NH Scope</h2>
                             <p class="{{ $sectionBodyClass }} md:text-[0.76rem] md:leading-[1.68] lg:text-[0.96rem] lg:leading-[1.76]">NH scope is a group of compassionate doctors, focus on endoscopic surgery. We are a team with various expertise : gynaecology, digestive surgery, urology, otorinolaringology and orthopedic surgeon.</p>
                             <p class="{{ $sectionBodyClass }} md:text-[0.76rem] md:leading-[1.68] lg:text-[0.96rem] lg:leading-[1.76]">TOGETHER WE CAN and we will provide the best treatment at National Hospital Surabaya</p>
-                            <a href="{{ route('site.profile') }}" class="button-primary w-fit justify-self-start min-h-[24px] px-[10px] text-[0.5rem] md:min-h-[36px] md:px-[18px] md:text-[0.78rem] lg:min-h-[46px] lg:px-5 lg:text-[0.9rem]">Find Out More</a>
+                            <a href="https://drive.google.com/file/d/1YCi7xpGNYxXPTS3yY91W1FJXyJW09xBF/view?usp=sharing" class="button-primary w-fit justify-self-start min-h-[24px] px-[10px] text-[0.5rem] md:min-h-[36px] md:px-[18px] md:text-[0.78rem] lg:min-h-[46px] lg:px-5 lg:text-[0.9rem]">Find Out More</a>
                         </article>
                         <article class="about-nh-media w-full min-h-[172px] overflow-hidden rounded-[12px] md:min-h-[206px] md:rounded-[10px] lg:max-w-[560px] lg:min-h-[320px] lg:justify-self-start lg:rounded-[16px]">
                             <img class="h-full w-full object-cover object-center" src="{{ asset('assets/hero/about-nh-scope.png') }}" alt="NH Scope doctors">
@@ -183,7 +183,7 @@
                     </div>
                 </section>
 
-                <section class="contact-section {{ $homeSectionPadTop }} {{ $homeSectionPadBottom }} bg-[#eef7ff]">
+                <section id="contact-section" class="contact-section {{ $homeSectionPadTop }} {{ $homeSectionPadBottom }} bg-[#eef7ff]">
                     <div class="{{ $homeContentMax }} max-w-[286px] bg-[#eef7ff] md:max-w-full">
                         <h2 class="{{ $sectionTitleLeftClass }}">Contact Us</h2>
                         <div class="grid grid-cols-1 gap-4 md:gap-5 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start lg:gap-10">

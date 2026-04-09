@@ -81,7 +81,7 @@ class SiteController extends Controller
             'seoImage' => asset('assets/hero/doctor.png'),
             'doctorName' => 'dr. Robert Hunan Purwaka, Sp.OG, D.MAS, FMIS',
             'doctorSubtitle' => 'Obstetrician & Gynecologist',
-            'doctorProfileImage' => asset('assets/hero/doctor.png'),
+            'doctorProfileImage' => asset('assets/hero/doctor-profile-hero.jpg'),
             'doctorProfileIntro' => 'Dr. Robert Hunan is an Obstetrician-gynecologist, specialized in Laparoscopic Surgery and Aesthetic Gynecology. He currently practices at National Hospital Surabaya, and also member of NHScope.',
             'contactPhone' => '+628121043450',
             'contactEmail' => 'roberthunan@gmail.com',

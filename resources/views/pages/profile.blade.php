@@ -8,7 +8,7 @@
         'description' => $pageIntro,
         'url' => url()->current(),
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    $pagePadX = 'px-4 md:px-6 lg:px-10';
+    $pagePadX = 'px-5 md:px-10 lg:px-10';
     $pageHeroMax = 'mx-auto w-full max-w-[1100px]';
     $pageContentMax = 'mx-auto w-full max-w-[1100px]';
     $profilePhoto = $doctorProfileImage;
@@ -23,14 +23,14 @@
             @include('partials.site-header')
 
             <main class="site-main grid gap-10 pb-20 md:gap-20 md:pb-40">
-                <section class="{{ $pagePadX }} bg-[#eef6fc] py-7 md:py-10 lg:py-12">
-                    <div class="{{ $pageHeroMax }} grid grid-cols-1 items-center justify-items-center gap-6 md:gap-8 lg:grid-cols-[340px_minmax(0,1fr)] lg:justify-items-stretch lg:gap-14">
-                        <div class="mx-auto w-fit max-w-[220px] overflow-hidden rounded-[10px] bg-[#dcecf7] shadow-[0_10px_24px_rgba(14,68,106,0.08)] md:max-w-none">
-                            <img class="h-[264px] w-auto object-cover object-top md:h-[400px] lg:h-[360px] lg:w-full" src="{{ $profilePhoto }}" alt="{{ $doctorName }}">
+                <section class="{{ $pagePadX }} profile-hero-section bg-[#eef6fc]">
+                    <div class="{{ $pageHeroMax }} profile-hero-inner">
+                        <div class="profile-hero-photo mx-auto overflow-hidden rounded-[10px] bg-[#dcecf7] shadow-[0_10px_24px_rgba(14,68,106,0.08)]">
+                            <img class="profile-hero-photo-image" src="{{ $profilePhoto }}" alt="{{ $doctorName }}">
                         </div>
-                        <div class="text-left text-[#24435a]">
-                            <h1 class="m-0 font-sans text-[32px] leading-[1.08] font-extrabold tracking-[-0.03em] text-[#0E446A] md:text-[40px] md:leading-[1.05] lg:max-w-[540px]">{{ $doctorName }}</h1>
-                            <h3 class="mt-4 max-w-[650px] font-sans text-[24px] leading-[1.45] font-medium text-[#00223A] md:text-[32px] md:leading-[1.4]">{{ $profileIntro }}</h3>
+                        <div class="profile-hero-copy text-left text-[#24435a]">
+                            <h1 class="m-0 font-sans text-[32px] leading-[1.08] font-extrabold tracking-[-0.03em] text-[#0E446A] md:text-[40px] md:leading-[1.05]">{{ $doctorName }}</h1>
+                            <h3 class="font-sans text-[24px] leading-[1.45] font-medium text-[#00223A] md:text-[32px] md:leading-[1.4]">{{ $profileIntro }}</h3>
                         </div>
                     </div>
                 </section>

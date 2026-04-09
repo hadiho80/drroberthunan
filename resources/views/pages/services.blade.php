@@ -31,7 +31,7 @@
             @include('partials.site-header')
 
             <main class="site-main grid gap-10 pb-20 md:gap-20 md:pb-40">
-                <section class="{{ $pagePadX }} {{ $pageSectionTop }} pb-6 md:pb-8 lg:pb-10 bg-white">
+                <section class="services-page-section {{ $pagePadX }} {{ $pageSectionTop }} pb-6 md:pb-8 lg:pb-10 bg-white">
                     <div class="{{ $pageContentMax }}">
                         <div class="mb-[12px] max-w-[360px] md:mb-[14px] md:max-w-[440px] lg:mb-[18px] lg:max-w-[520px]">
                             <p class="mb-[6px] text-[0.5rem] font-extrabold uppercase tracking-[0.12em] text-[#1971c2] md:mb-[8px] md:text-[0.56rem] lg:mb-[10px] lg:text-[0.72rem]">Services</p>

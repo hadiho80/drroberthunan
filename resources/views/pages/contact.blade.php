@@ -21,7 +21,7 @@
             @include('partials.site-header')
 
             <main class="site-main">
-                <section class="{{ $pagePadX }} {{ $pageSectionTop }} pb-8 md:pb-10 lg:pb-12 bg-[#eef6fc]">
+                <section class="contact-page-section {{ $pagePadX }} {{ $pageSectionTop }} pb-8 md:pb-10 lg:pb-12 bg-[#eef6fc]">
                     <div class="{{ $pageContentMax }}">
                         <div class="grid grid-cols-1 gap-7 md:gap-8 lg:gap-10">
                             <div class="grid grid-cols-1 gap-7 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.05fr)] md:items-start md:gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:gap-14">
@@ -58,7 +58,7 @@
                                 </div>
                             </div>
 
-                            <form class="contact-page-form grid gap-3 border-t border-[#d7e7f3] pt-6 md:gap-4 md:pt-7 lg:pt-8" action="#">
+                            <form class="contact-page-form contact-page-enquiry-form grid gap-3 border-t border-[#d7e7f3] pt-6 md:gap-4 md:pt-7 lg:pt-8" action="#">
                                 <input class="w-full rounded-[4px] border border-[#cfe0ec] bg-white px-3 py-[10px] font-sans text-[14px] font-normal text-[#495057] placeholder:text-[#8aa0b1] md:px-4 md:py-3 md:text-[18px]" type="text" placeholder="Name *">
                                 <div class="contact-page-form-row grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-4">
                                     <input class="w-full rounded-[4px] border border-[#cfe0ec] bg-white px-3 py-[10px] font-sans text-[14px] font-normal text-[#495057] placeholder:text-[#8aa0b1] md:px-4 md:py-3 md:text-[18px]" type="text" placeholder="Phone No. *">
