@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Service;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
 class SiteController extends Controller
@@ -54,6 +57,42 @@ class SiteController extends Controller
             'pageTitle' => 'Contact Us',
             'pageIntro' => 'Reach our team for appointment scheduling, questions, and follow-up support.',
         ]);
+    }
+
+    public function submitEnquiry(Request $request): RedirectResponse
+    {
+        $data = $this->sharedData();
+
+        $payload = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255'],
+            'message' => ['nullable', 'string', 'max:5000'],
+            'source' => ['nullable', 'string', 'max:100'],
+        ]);
+
+        $recipient = $data['contactEmail'];
+        $source = $payload['source'] ?? 'website';
+        $message = trim((string) ($payload['message'] ?? ''));
+
+        $body = implode("\n", [
+            'New enquiry received',
+            'Source: '.$source,
+            'Name: '.$payload['name'],
+            'Phone: '.$payload['phone'],
+            'Email: '.$payload['email'],
+            '',
+            'Message:',
+            $message !== '' ? $message : '-',
+        ]);
+
+        Mail::raw($body, function ($mail) use ($recipient, $payload, $source): void {
+            $mail->to($recipient)
+                ->replyTo($payload['email'], $payload['name'])
+                ->subject('Website enquiry from '.$source);
+        });
+
+        return back()->with('enquiry_status', 'Your enquiry has been sent.');
     }
 
     private function sharedData(): array

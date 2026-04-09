@@ -186,12 +186,19 @@
                 <section id="contact-section" class="contact-section {{ $homeSectionPadTop }} {{ $homeSectionPadBottom }} bg-[#eef7ff]">
                     <div class="{{ $homeContentMax }} max-w-[286px] bg-[#eef7ff] md:max-w-full">
                         <h2 class="{{ $sectionTitleLeftClass }}">Contact Us</h2>
+                        @if(session('enquiry_status'))
+                            <div class="mb-4 rounded-[6px] border border-[#b8d6ea] bg-white px-4 py-3 font-sans text-[14px] leading-[1.6] font-medium text-[#0E446A] md:mb-5 md:text-[16px]">
+                                {{ session('enquiry_status') }}
+                            </div>
+                        @endif
                         <div class="grid grid-cols-1 gap-4 md:gap-5 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start lg:gap-10">
-                            <form class="grid gap-[8px] md:gap-[12px] lg:gap-4" action="#">
-                                <input class="{{ $contactFieldClass }}" type="text" placeholder="Name *">
-                                <input class="{{ $contactFieldClass }}" type="text" placeholder="Phone No. *">
-                                <input class="{{ $contactFieldClass }}" type="email" placeholder="Email *">
-                                <textarea class="{{ $contactFieldClass }} min-h-[120px] resize-none md:min-h-[160px] lg:min-h-[128px]" rows="6" placeholder="Message"></textarea>
+                            <form class="grid gap-[8px] md:gap-[12px] lg:gap-4" action="{{ route('site.enquiry.submit') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="source" value="home page">
+                                <input class="{{ $contactFieldClass }}" type="text" name="name" placeholder="Name *" required>
+                                <input class="{{ $contactFieldClass }}" type="text" name="phone" placeholder="Phone No. *" required>
+                                <input class="{{ $contactFieldClass }}" type="email" name="email" placeholder="Email *" required>
+                                <textarea class="{{ $contactFieldClass }} min-h-[120px] resize-none md:min-h-[160px] lg:min-h-[128px]" rows="6" name="message" placeholder="Message"></textarea>
                                 <div>
                                     <button type="submit" class="button-primary min-h-[30px] min-w-[102px] px-3 text-[0.58rem] md:min-h-[40px] md:min-w-[160px] md:px-[20px] md:text-[0.82rem] lg:min-h-[48px] lg:min-w-[188px] lg:px-[22px] lg:text-[0.92rem]">Send An Enquiry</button>
                                 </div>
@@ -207,9 +214,5 @@
             @include('partials.site-footer')
         </div>
 
-        <a href="{{ $whatsAppLink }}" class="floating-whatsapp" target="_blank" rel="noreferrer" aria-label="Chat via WhatsApp">
-            <img src="{{ asset('assets/footer/icon-wa.png') }}" alt="">
-            <span>WhatsApp</span>
-        </a>
     </div>
 @endsection

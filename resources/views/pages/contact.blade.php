@@ -24,6 +24,12 @@
                 <section class="contact-page-section {{ $pagePadX }} {{ $pageSectionTop }} pb-8 md:pb-10 lg:pb-12 bg-[#eef6fc]">
                     <div class="{{ $pageContentMax }}">
                         <div class="grid grid-cols-1 gap-7 md:gap-8 lg:gap-10">
+                            @if(session('enquiry_status'))
+                                <div class="rounded-[6px] border border-[#b8d6ea] bg-white px-4 py-3 font-sans text-[14px] leading-[1.6] font-medium text-[#0E446A] md:text-[16px]">
+                                    {{ session('enquiry_status') }}
+                                </div>
+                            @endif
+
                             <div class="grid grid-cols-1 gap-7 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.05fr)] md:items-start md:gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:gap-14">
                                 <div>
                                     <h1 class="m-0 font-sans text-[32px] leading-[1.08] font-extrabold tracking-[-0.03em] text-[#0E446A] md:text-[40px] md:leading-[1.05]">{{ strtoupper($pageTitle) }}</h1>
@@ -58,13 +64,15 @@
                                 </div>
                             </div>
 
-                            <form class="contact-page-form contact-page-enquiry-form grid gap-3 border-t border-[#d7e7f3] pt-6 md:gap-4 md:pt-7 lg:pt-8" action="#">
-                                <input class="w-full rounded-[4px] border border-[#cfe0ec] bg-white px-3 py-[10px] font-sans text-[14px] font-normal text-[#495057] placeholder:text-[#8aa0b1] md:px-4 md:py-3 md:text-[18px]" type="text" placeholder="Name *">
+                            <form class="contact-page-form contact-page-enquiry-form grid gap-3 border-t border-[#d7e7f3] pt-6 md:gap-4 md:pt-7 lg:pt-8" action="{{ route('site.enquiry.submit') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="source" value="contact page">
+                                <input class="w-full rounded-[4px] border border-[#cfe0ec] bg-white px-3 py-[10px] font-sans text-[14px] font-normal text-[#495057] placeholder:text-[#8aa0b1] md:px-4 md:py-3 md:text-[18px]" type="text" name="name" placeholder="Name *" required>
                                 <div class="contact-page-form-row grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-4">
-                                    <input class="w-full rounded-[4px] border border-[#cfe0ec] bg-white px-3 py-[10px] font-sans text-[14px] font-normal text-[#495057] placeholder:text-[#8aa0b1] md:px-4 md:py-3 md:text-[18px]" type="text" placeholder="Phone No. *">
-                                    <input class="w-full rounded-[4px] border border-[#cfe0ec] bg-white px-3 py-[10px] font-sans text-[14px] font-normal text-[#495057] placeholder:text-[#8aa0b1] md:px-4 md:py-3 md:text-[18px]" type="email" placeholder="Email *">
+                                    <input class="w-full rounded-[4px] border border-[#cfe0ec] bg-white px-3 py-[10px] font-sans text-[14px] font-normal text-[#495057] placeholder:text-[#8aa0b1] md:px-4 md:py-3 md:text-[18px]" type="text" name="phone" placeholder="Phone No. *" required>
+                                    <input class="w-full rounded-[4px] border border-[#cfe0ec] bg-white px-3 py-[10px] font-sans text-[14px] font-normal text-[#495057] placeholder:text-[#8aa0b1] md:px-4 md:py-3 md:text-[18px]" type="email" name="email" placeholder="Email *" required>
                                 </div>
-                                <textarea class="min-h-[140px] w-full resize-none rounded-[4px] border border-[#cfe0ec] bg-white px-3 py-3 font-sans text-[14px] font-normal text-[#495057] placeholder:text-[#8aa0b1] md:min-h-[170px] md:px-4 md:py-3 md:text-[18px]" rows="7" placeholder="Message"></textarea>
+                                <textarea class="min-h-[140px] w-full resize-none rounded-[4px] border border-[#cfe0ec] bg-white px-3 py-3 font-sans text-[14px] font-normal text-[#495057] placeholder:text-[#8aa0b1] md:min-h-[170px] md:px-4 md:py-3 md:text-[18px]" rows="7" name="message" placeholder="Message"></textarea>
                                 <div>
                                     <button type="submit" class="inline-flex min-h-[40px] items-center justify-center rounded-[6px] bg-[#0E446A] px-5 font-sans text-[14px] font-semibold text-white transition-colors hover:bg-[#0b3656] md:min-h-[46px] md:px-6 md:text-[16px]">Send An Enquiry</button>
                                 </div>

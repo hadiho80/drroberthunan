@@ -31,5 +31,10 @@
 </head>
 <body class="site-body">
     @yield('content')
+
+    <a href="{{ $whatsAppLink ?? 'https://wa.me/' }}" class="floating-whatsapp" target="_blank" rel="noreferrer" aria-label="Chat via WhatsApp">
+        <img src="{{ asset('assets/footer/icon-wa.png') }}" alt="">
+        <span>WhatsApp</span>
+    </a>
 </body>
 </html>
