@@ -12,7 +12,7 @@
                 <ul class="m-0 grid list-none gap-[8px] p-0 md:gap-[7px] lg:gap-[10px]">
                     <li><a class="text-[0.58rem] leading-[1.3] font-normal text-white/88 [font-family:'DM_Sans',sans-serif] transition-opacity hover:opacity-100 md:text-[0.5rem] lg:text-[0.64rem]" href="{{ route('site.home') }}">Home</a></li>
                     <li><a class="text-[0.58rem] leading-[1.3] font-normal text-white/88 [font-family:'DM_Sans',sans-serif] transition-opacity hover:opacity-100 md:text-[0.5rem] lg:text-[0.64rem]" href="{{ route('site.profile') }}">Doctor's Profile</a></li>
-                    <li><a class="text-[0.58rem] leading-[1.3] font-normal text-white/88 [font-family:'DM_Sans',sans-serif] transition-opacity hover:opacity-100 md:text-[0.5rem] lg:text-[0.64rem]" href="{{ route('site.services') }}">Services</a></li>
+                    <li><a class="text-[0.58rem] leading-[1.3] font-normal text-white/88 [font-family:'DM_Sans',sans-serif] transition-opacity hover:opacity-100 md:text-[0.5rem] lg:text-[0.64rem]" href="https://national-hospital.com/id/mitra/mitra-asuransi?t=1774324454" target="_blank" rel="noreferrer">Insurance</a></li>
                     <li><a class="text-[0.58rem] leading-[1.3] font-normal text-white/88 [font-family:'DM_Sans',sans-serif] transition-opacity hover:opacity-100 md:text-[0.5rem] lg:text-[0.64rem]" href="{{ route('site.contact') }}">Contact Us</a></li>
                 </ul>
             </div>
