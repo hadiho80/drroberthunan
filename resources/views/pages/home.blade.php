@@ -32,47 +32,47 @@
         [
             'title' => 'Obstetrics',
             'url' => route('site.service.show', 'obstetrics'),
-            'image' => asset('assets/highlights/obstetrics.png'),
+            'image' => asset('assets/highlights/obstetrics-latest.jpg'),
         ],
         [
             'title' => 'Gynecology',
             'url' => route('site.service.show', 'gynaecology'),
-            'image' => asset('assets/highlights/gynecology.png'),
+            'image' => asset('assets/highlights/gynaecology-latest.jpg'),
         ],
         [
             'title' => 'Minimally invasive surgery',
             'url' => route('site.service.show', 'minimally-invasive-surgery'),
-            'image' => asset('assets/highlights/minimally-invasive-surgery.png'),
+            'image' => asset('assets/highlights/minimally-invasive-surgery-latest.png'),
         ],
         [
             'title' => 'NHScope',
             'url' => 'https://drive.google.com/file/d/1YCi7xpGNYxXPTS3yY91W1FJXyJW09xBF/view?usp=sharing',
-            'image' => asset('assets/highlights/nhscope.png'),
+            'image' => asset('assets/highlights/nhscope-latest.png'),
         ],
         [
             'title' => 'Laparoscopy',
             'url' => route('site.service.show', 'laparoscopy'),
-            'image' => asset('assets/highlights/laparoscopy.png'),
+            'image' => asset('assets/highlights/laparoscopy-latest.png'),
         ],
         [
             'title' => 'Myoma',
             'url' => route('site.service.show', 'myoma'),
-            'image' => asset('assets/highlights/myoma.png'),
+            'image' => asset('assets/highlights/myoma-latest.png'),
         ],
         [
             'title' => 'Endometriosis',
             'url' => route('site.service.show', 'endometriosis'),
-            'image' => asset('assets/highlights/endometriosis.png'),
+            'image' => asset('assets/highlights/endometriosis-latest.png'),
         ],
         [
             'title' => 'Ovarian cyst',
             'url' => route('site.service.show', 'ovarian-cyst'),
-            'image' => asset('assets/highlights/ovarian-cyst.png'),
+            'image' => asset('assets/highlights/ovarian-cyst-latest.jpg'),
         ],
         [
             'title' => 'Hysterectomy',
             'url' => route('site.service.show', 'hysterectomy'),
-            'image' => asset('assets/highlights/hysterectomy.png'),
+            'image' => asset('assets/highlights/hysterectomy-latest.jpg'),
         ],
     ];
     $homeSectionPadX = 'px-[10px] md:px-[22px] lg:px-20';
@@ -122,7 +122,7 @@
                 <section class="doctor-intro-section">
                     <div class="doctor-intro-inner {{ $homeContentMax }}">
                         <div class="doctor-intro-photo">
-                            <img src="{{ asset('assets/hero/doctor.png') }}" alt="{{ $doctorName }}">
+                            <img src="{{ asset('assets/hero/meet-doctor-intro.jpg') }}" alt="{{ $doctorName }}">
                         </div>
                         <div class="doctor-intro-copy">
                             <h2>Meet dr. Robert Hunan Purwaka, Sp.OG, D.MAS, F.MIS</h2>
@@ -164,7 +164,7 @@
                     </div>
                 </section>
 
-                <section class="highlights-section {{ $homeSectionClass }}">
+                <section class="highlights-section {{ $homeSectionPadTop }} {{ $homeSectionPadBottom }} bg-white">
                     <h2 class="{{ $sectionTitleClass }}">Highlights</h2>
                     <div class="{{ $homeContentMax }} grid max-w-[286px] grid-cols-1 overflow-hidden rounded-[12px] md:max-w-full md:grid-cols-3 lg:rounded-[14px]">
                         @foreach($highlightItems as $item)
@@ -177,13 +177,13 @@
                     </div>
                 </section>
 
-                <section class="highlight-bottom-section {{ $homeSectionClass }}">
+                <section class="highlight-bottom-section {{ $homeSectionPadTop }} {{ $homeSectionPadBottom }} bg-white">
                     <div class="{{ $homeContentMax }} max-w-[286px] overflow-hidden rounded-[12px] md:max-w-full lg:rounded-[10px]">
                         <img class="block w-full aspect-[335/177] object-cover [filter:contrast(1.03)_saturate(1.04)]" src="{{ asset('assets/highlights/highlight-bottom.png') }}" alt="NH Scope highlight">
                     </div>
                 </section>
 
-                <section class="contact-section {{ $homeSectionPadX }} {{ $homeSectionPadTop }} {{ $homeSectionPadBottom }} bg-[#eef7ff]">
+                <section class="contact-section {{ $homeSectionPadTop }} {{ $homeSectionPadBottom }} bg-[#eef7ff]">
                     <div class="{{ $homeContentMax }} max-w-[286px] bg-[#eef7ff] md:max-w-full">
                         <h2 class="{{ $sectionTitleLeftClass }}">Contact Us</h2>
                         <div class="grid grid-cols-1 gap-4 md:gap-5 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start lg:gap-10">
