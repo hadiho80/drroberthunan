@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\HomePageController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\SitemapController;
@@ -15,7 +16,15 @@ Route::post('/enquiry', [SiteController::class, 'submitEnquiry'])->name('site.en
 Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
 
 Route::prefix('admin')->group(function () {
-    Route::get('/', [HomePageController::class, 'index'])->name('admin.homepage.index');
-    Route::post('/homepage', [HomePageController::class, 'update'])->name('admin.homepage.update');
-    Route::resource('/services', ServiceController::class)->names('admin.services')->except(['show']);
+    Route::middleware('guest')->group(function () {
+        Route::get('/login', [AuthController::class, 'create'])->name('admin.login');
+        Route::post('/login', [AuthController::class, 'store'])->name('admin.login.store');
+    });
+
+    Route::middleware('auth')->group(function () {
+        Route::post('/logout', [AuthController::class, 'destroy'])->name('admin.logout');
+        Route::get('/', [HomePageController::class, 'index'])->name('admin.homepage.index');
+        Route::post('/homepage', [HomePageController::class, 'update'])->name('admin.homepage.update');
+        Route::resource('/services', ServiceController::class)->names('admin.services')->except(['show']);
+    });
 });

@@ -21,6 +21,18 @@
         </aside>
 
         <main class="admin-main">
+            <div class="admin-topbar">
+                <div>
+                    <p class="admin-topbar-label">Login sebagai</p>
+                    <strong>{{ auth()->user()?->email }}</strong>
+                </div>
+
+                <form action="{{ route('admin.logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="button-secondary">Logout</button>
+                </form>
+            </div>
+
             @if(session('status'))
                 <div class="admin-alert">{{ session('status') }}</div>
             @endif
