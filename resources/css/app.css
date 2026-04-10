@@ -2545,8 +2545,7 @@
     border-radius: 0;
     background: url("/assets/hero/banner-home-detail.jpg") no-repeat center top /
         cover;
-    opacity: 0.16;
-    mix-blend-mode: multiply;
+    opacity: 0.12;
 }
 
 .home-hero-background::after {
@@ -2571,6 +2570,16 @@
             rgba(255, 255, 255, 0.72) 30px,
             transparent 31px
         );
+}
+
+.home-hero-background,
+.home-hero-image,
+.doctor-intro-photo,
+.about-nh-media,
+.service-detail-page-hero,
+.highlights-section > div > a,
+.highlight-bottom-section > div {
+    contain: paint;
 }
 
 .home-hero-copy {
@@ -2754,19 +2763,7 @@
     }
 
     .home-hero-background::after {
-        background:
-            radial-gradient(
-                circle at 18% 58%,
-                rgba(255, 255, 255, 0.84) 0,
-                rgba(255, 255, 255, 0.84) 34px,
-                transparent 35px
-            ),
-            radial-gradient(
-                circle at 18% 58%,
-                rgba(194, 214, 230, 0.34) 0,
-                rgba(194, 214, 230, 0.34) 88px,
-                transparent 89px
-            );
+        display: none;
     }
 
     .home-hero-copy {
@@ -2853,19 +2850,7 @@
     }
 
     .home-hero-background::after {
-        background:
-            radial-gradient(
-                circle at 16% 58%,
-                rgba(255, 255, 255, 0.82) 0,
-                rgba(255, 255, 255, 0.82) 24px,
-                transparent 25px
-            ),
-            radial-gradient(
-                circle at 16% 58%,
-                rgba(194, 214, 230, 0.34) 0,
-                rgba(194, 214, 230, 0.34) 62px,
-                transparent 63px
-            );
+        display: none;
     }
 
     .home-hero-copy {

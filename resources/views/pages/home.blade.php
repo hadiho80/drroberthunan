@@ -171,7 +171,7 @@
                             <a href="{{ $item['url'] }}" class="relative flex min-h-[120px] items-end justify-center overflow-hidden px-2 py-[10px] text-center text-[0.68rem] text-white md:min-h-[136px] md:px-[10px] md:py-3 md:text-[0.96rem] lg:min-h-[188px] lg:px-4 lg:py-4 lg:text-[1rem]">
                                 <img class="absolute inset-0 h-full w-full object-cover" src="{{ $item['image'] }}" alt="{{ $item['title'] }}" loading="lazy" decoding="async">
                                 <span class="absolute inset-0 bg-[linear-gradient(180deg,rgba(14,68,106,0.08)_0%,rgba(14,68,106,0.46)_100%)]"></span>
-                                <span class="relative max-w-[90%] font-bold [font-family:'DM_Sans',sans-serif] leading-[1.2] [text-shadow:0_2px_10px_rgba(8,30,48,0.28)]">{{ $item['title'] }}</span>
+                                <span class="relative max-w-[90%] font-bold [font-family:'DM_Sans',sans-serif] leading-[1.2]">{{ $item['title'] }}</span>
                             </a>
                         @endforeach
                     </div>
@@ -179,7 +179,7 @@
 
                 <section class="highlight-bottom-section {{ $homeSectionPadTop }} {{ $homeSectionPadBottom }} bg-white">
                     <div class="{{ $homeContentMax }} max-w-[286px] overflow-hidden rounded-[12px] md:max-w-full lg:rounded-[10px]">
-                        <img class="block w-full aspect-[335/177] object-cover [filter:contrast(1.03)_saturate(1.04)]" src="{{ asset('assets/highlights/highlight-bottom.png') }}" alt="NH Scope highlight" loading="lazy" decoding="async">
+                        <img class="block w-full aspect-[335/177] object-cover" src="{{ asset('assets/highlights/highlight-bottom.png') }}" alt="NH Scope highlight" loading="lazy" decoding="async">
                     </div>
                 </section>
 
