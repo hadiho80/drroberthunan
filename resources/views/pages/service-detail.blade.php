@@ -16,8 +16,8 @@
         'gynaecology' => asset('assets/service-hero/gynaecology-hero.jpg'),
         'minimally-invasive-surgery' => asset('assets/service-hero/minimally-invasive-surgery-hero.png'),
         'laparoscopy' => asset('assets/service-hero/laparoscopy-hero.png'),
-        'myoma' => asset('assets/service-hero/myoma-hero.png'),
-        'endometriosis' => asset('assets/service-hero/endometriosis-hero.png'),
+        'myoma' => asset('assets/service-hero/myoma-hero.jpg'),
+        'endometriosis' => asset('assets/service-hero/endometriosis-hero.jpg'),
         'ovarian-cyst' => asset('assets/service-hero/ovarian-cyst-hero.jpg'),
         'hysterectomy' => asset('assets/service-hero/hysterectomy-hero.jpg'),
     ];
@@ -41,7 +41,7 @@
             <main class="site-main service-detail-main pb-20 md:pb-40">
                 @if($customLayout === 'endometriosis')
                     <section class="service-detail-page-section service-detail-page-hero relative isolate h-[351px] overflow-hidden {{ $pagePadX }} py-6 md:h-[595px] md:py-8 lg:py-10">
-                        <img class="absolute inset-0 -z-20 h-full w-full object-cover" src="{{ $serviceHeroImage }}" alt="{{ $servicePage['title'] }}">
+                        <img class="absolute inset-0 -z-20 h-full w-full object-cover" src="{{ $serviceHeroImage }}" alt="{{ $servicePage['title'] }}" fetchpriority="high" decoding="async">
                         <span class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,27,42,0.84)_0%,rgba(8,27,42,0.62)_44%,rgba(8,27,42,0.2)_100%)]"></span>
                         <div class="{{ $pageContentMax }} relative flex h-full items-center">
                             <div class="ml-10 lg:ml-20">
@@ -65,7 +65,7 @@
 
                             <article class="rounded-[6px] border border-[#d9e7f2] bg-white px-4 py-4 shadow-[0_6px_18px_rgba(14,68,106,0.04)] md:px-5 md:py-5 lg:px-8 lg:py-6">
                                 <div class="mx-auto w-full max-w-[840px] overflow-hidden rounded-[4px] border border-[#e3edf5] bg-white">
-                                    <img class="mx-auto w-full object-contain" src="{{ $servicePage['feature_image'] ?? $serviceHeroImage }}" alt="{{ $servicePage['title'] }} illustration">
+                                    <img class="mx-auto w-full object-contain" src="{{ $servicePage['feature_image'] ?? $serviceHeroImage }}" alt="{{ $servicePage['title'] }} illustration" loading="lazy" decoding="async">
                                 </div>
                             </article>
 
@@ -101,7 +101,7 @@
                     </section>
                 @elseif($customLayout === 'hysterectomy')
                     <section class="service-detail-page-section service-detail-page-hero relative isolate h-[351px] overflow-hidden {{ $pagePadX }} py-6 md:h-[595px] md:py-8 lg:py-10">
-                        <img class="absolute inset-0 -z-20 h-full w-full object-cover" src="{{ $serviceHeroImage }}" alt="{{ $servicePage['title'] }}">
+                        <img class="absolute inset-0 -z-20 h-full w-full object-cover" src="{{ $serviceHeroImage }}" alt="{{ $servicePage['title'] }}" fetchpriority="high" decoding="async">
                         <span class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,27,42,0.84)_0%,rgba(8,27,42,0.62)_44%,rgba(8,27,42,0.2)_100%)]"></span>
                         <div class="{{ $pageContentMax }} relative flex h-full items-center">
                             <div class="ml-10 lg:ml-20">
@@ -134,7 +134,7 @@
                     </section>
                 @elseif($customLayout === 'laparoscopy')
                     <section class="service-detail-page-section service-detail-page-hero relative isolate h-[351px] overflow-hidden {{ $pagePadX }} py-6 md:h-[595px] md:py-8 lg:py-10">
-                        <img class="absolute inset-0 -z-20 h-full w-full object-cover" src="{{ $serviceHeroImage }}" alt="{{ $servicePage['title'] }}">
+                        <img class="absolute inset-0 -z-20 h-full w-full object-cover" src="{{ $serviceHeroImage }}" alt="{{ $servicePage['title'] }}" fetchpriority="high" decoding="async">
                         <span class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,27,42,0.84)_0%,rgba(8,27,42,0.62)_44%,rgba(8,27,42,0.2)_100%)]"></span>
                         <div class="{{ $pageContentMax }} relative flex h-full items-center">
                             <div class="ml-10 lg:ml-20">
@@ -191,7 +191,7 @@
                                     <div class="grid gap-4 md:grid-cols-2 md:gap-6">
                                         @foreach($servicePage['gallery_images'] as $image)
                                             <div class="overflow-hidden rounded-[4px] border border-[#e3edf5] bg-white p-3 md:p-4">
-                                                <img class="h-full w-full object-contain" src="{{ $image }}" alt="{{ $servicePage['title'] }} procedure illustration">
+                                                <img class="h-full w-full object-contain" src="{{ $image }}" alt="{{ $servicePage['title'] }} procedure illustration" loading="lazy" decoding="async">
                                             </div>
                                         @endforeach
                                     </div>
@@ -201,7 +201,7 @@
                     </section>
                 @elseif($customLayout === 'myoma')
                     <section class="service-detail-page-section service-detail-page-hero relative isolate h-[351px] overflow-hidden {{ $pagePadX }} py-6 md:h-[595px] md:py-8 lg:py-10">
-                        <img class="absolute inset-0 -z-20 h-full w-full object-cover" src="{{ $serviceHeroImage }}" alt="{{ $servicePage['title'] }}">
+                        <img class="absolute inset-0 -z-20 h-full w-full object-cover" src="{{ $serviceHeroImage }}" alt="{{ $servicePage['title'] }}" fetchpriority="high" decoding="async">
                         <span class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,27,42,0.84)_0%,rgba(8,27,42,0.62)_44%,rgba(8,27,42,0.2)_100%)]"></span>
                         <div class="{{ $pageContentMax }} relative flex h-full items-center">
                             <div class="ml-10 lg:ml-20">
@@ -230,7 +230,7 @@
                                     <div class="grid gap-4 md:grid-cols-3 md:gap-4">
                                         @foreach($servicePage['gallery_images'] as $image)
                                             <div class="overflow-hidden rounded-[4px] border border-[#e3edf5] bg-white p-3 md:p-4">
-                                                <img class="h-full w-full object-contain" src="{{ $image }}" alt="{{ $servicePage['title'] }} illustration">
+                                                <img class="h-full w-full object-contain" src="{{ $image }}" alt="{{ $servicePage['title'] }} illustration" loading="lazy" decoding="async">
                                             </div>
                                         @endforeach
                                     </div>
@@ -256,7 +256,7 @@
                     </section>
                 @elseif($customLayout === 'ovarian-cyst')
                     <section class="service-detail-page-section service-detail-page-hero relative isolate h-[351px] overflow-hidden {{ $pagePadX }} py-6 md:h-[595px] md:py-8 lg:py-10">
-                        <img class="absolute inset-0 -z-20 h-full w-full object-cover" src="{{ $serviceHeroImage }}" alt="{{ $servicePage['title'] }}">
+                        <img class="absolute inset-0 -z-20 h-full w-full object-cover" src="{{ $serviceHeroImage }}" alt="{{ $servicePage['title'] }}" fetchpriority="high" decoding="async">
                         <span class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,27,42,0.84)_0%,rgba(8,27,42,0.62)_44%,rgba(8,27,42,0.2)_100%)]"></span>
                         <div class="{{ $pageContentMax }} relative flex h-full items-center">
                             <div class="ml-10 lg:ml-20">
@@ -284,7 +284,7 @@
                                     <div class="grid gap-4 md:grid-cols-2 md:gap-6">
                                         @foreach($servicePage['feature_images'] as $image)
                                             <div class="overflow-hidden rounded-[4px] border border-[#e3edf5] bg-white p-3 md:p-4">
-                                                <img class="h-full w-full object-contain" src="{{ $image }}" alt="{{ $servicePage['title'] }} illustration">
+                                                <img class="h-full w-full object-contain" src="{{ $image }}" alt="{{ $servicePage['title'] }} illustration" loading="lazy" decoding="async">
                                             </div>
                                         @endforeach
                                     </div>
@@ -315,7 +315,7 @@
                                     <div class="grid gap-4 md:grid-cols-3 md:gap-4">
                                         @foreach($servicePage['gallery_images'] as $image)
                                             <div class="overflow-hidden rounded-[4px] border border-[#e3edf5] bg-white p-3 md:p-4">
-                                                <img class="h-full w-full object-contain" src="{{ $image }}" alt="{{ $servicePage['title'] }} surgical image">
+                                                <img class="h-full w-full object-contain" src="{{ $image }}" alt="{{ $servicePage['title'] }} surgical image" loading="lazy" decoding="async">
                                             </div>
                                         @endforeach
                                     </div>
@@ -325,7 +325,7 @@
                     </section>
                 @else
                     <section class="service-detail-page-section service-detail-page-hero relative isolate h-[351px] overflow-hidden {{ $pagePadX }} py-6 md:h-[595px] md:py-8 lg:py-12">
-                        <img class="absolute inset-0 -z-20 h-full w-full object-cover" src="{{ $serviceHeroImage }}" alt="{{ $servicePage['title'] }}">
+                        <img class="absolute inset-0 -z-20 h-full w-full object-cover" src="{{ $serviceHeroImage }}" alt="{{ $servicePage['title'] }}" fetchpriority="high" decoding="async">
                         <span class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,27,42,0.82)_0%,rgba(8,27,42,0.58)_46%,rgba(8,27,42,0.22)_100%)]"></span>
                         <div class="{{ $pageContentMax }} relative flex h-full items-center">
                             <div class="ml-10 lg:ml-20">

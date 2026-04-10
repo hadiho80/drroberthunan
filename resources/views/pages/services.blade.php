@@ -43,7 +43,7 @@
                             @foreach($servicePages as $page)
                                 <article class="overflow-hidden rounded-[4px] border border-[var(--site-line)] bg-white shadow-[0_12px_28px_rgba(14,68,106,0.04)]">
                                     <div class="relative min-h-[88px] overflow-hidden md:min-h-[120px] lg:min-h-[132px]">
-                                        <img class="absolute inset-0 h-full w-full object-cover" src="{{ $serviceVisualMap[$page['slug']] ?? asset('assets/highlights/nhscope.png') }}" alt="{{ $page['title'] }}">
+                                        <img class="absolute inset-0 h-full w-full object-cover" src="{{ $serviceVisualMap[$page['slug']] ?? asset('assets/highlights/nhscope.png') }}" alt="{{ $page['title'] }}" loading="lazy" decoding="async">
                                         <span class="absolute inset-0 bg-[linear-gradient(180deg,rgba(14,68,106,0.18)_0%,rgba(14,68,106,0.52)_100%)]"></span>
                                     </div>
                                     <div class="grid gap-[8px] p-[10px] md:gap-[8px] md:p-[12px] lg:gap-[10px] lg:p-[15px]">

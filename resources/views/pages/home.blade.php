@@ -47,7 +47,7 @@
         [
             'title' => 'NHScope',
             'url' => 'https://drive.google.com/file/d/1YCi7xpGNYxXPTS3yY91W1FJXyJW09xBF/view?usp=sharing',
-            'image' => asset('assets/highlights/nhscope-latest.png'),
+            'image' => asset('assets/highlights/nhscope-latest.jpg'),
         ],
         [
             'title' => 'Laparoscopy',
@@ -57,12 +57,12 @@
         [
             'title' => 'Myoma',
             'url' => route('site.service.show', 'myoma'),
-            'image' => asset('assets/highlights/myoma-latest.png'),
+            'image' => asset('assets/highlights/myoma-latest.jpg'),
         ],
         [
             'title' => 'Endometriosis',
             'url' => route('site.service.show', 'endometriosis'),
-            'image' => asset('assets/highlights/endometriosis-latest.png'),
+            'image' => asset('assets/highlights/endometriosis-latest.jpg'),
         ],
         [
             'title' => 'Ovarian cyst',
@@ -107,13 +107,13 @@
                         </div>
                         <div class="home-hero-visual">
                             <div class="hero-logo-card hero-logo-card-scope">
-                                <img src="{{ asset('assets/branding/nhscope-logo-dark.png') }}" alt="NH Scope">
+                                <img src="{{ asset('assets/branding/nhscope-logo-dark.png') }}" alt="NH Scope" decoding="async">
                             </div>
                             <div class="hero-logo-card hero-logo-card-hospital">
-                                <img src="{{ asset('assets/branding/national-hospital-logo.png') }}" alt="National Hospital">
+                                <img src="{{ asset('assets/branding/national-hospital-logo.png') }}" alt="National Hospital" decoding="async">
                             </div>
                             <div class="home-hero-image">
-                                <img src="{{ asset('assets/hero/doctor.png') }}" alt="{{ $siteName }}">
+                                <img src="{{ asset('assets/hero/doctor.png') }}" alt="{{ $siteName }}" fetchpriority="high" decoding="async">
                             </div>
                         </div>
                     </div>
@@ -122,7 +122,7 @@
                 <section class="doctor-intro-section">
                     <div class="doctor-intro-inner {{ $homeContentMax }}">
                         <div class="doctor-intro-photo">
-                            <img src="{{ asset('assets/hero/meet-doctor-intro.jpg') }}" alt="{{ $doctorName }}">
+                            <img src="{{ asset('assets/hero/meet-doctor-intro.jpg') }}" alt="{{ $doctorName }}" loading="lazy" decoding="async">
                         </div>
                         <div class="doctor-intro-copy">
                             <h2>Meet dr. Robert Hunan Purwaka, Sp.OG, D.MAS, F.MIS</h2>
@@ -144,7 +144,7 @@
                             <a href="https://drive.google.com/file/d/1YCi7xpGNYxXPTS3yY91W1FJXyJW09xBF/view?usp=sharing" class="button-primary w-fit justify-self-start min-h-[24px] px-[10px] text-[0.5rem] md:min-h-[36px] md:px-[18px] md:text-[0.78rem] lg:min-h-[46px] lg:px-5 lg:text-[0.9rem]">Find Out More</a>
                         </article>
                         <article class="about-nh-media w-full min-h-[172px] overflow-hidden rounded-[12px] md:min-h-[206px] md:rounded-[10px] lg:max-w-[560px] lg:min-h-[320px] lg:justify-self-start lg:rounded-[16px]">
-                            <img class="h-full w-full object-cover object-center" src="{{ asset('assets/hero/about-nh-scope.png') }}" alt="NH Scope doctors">
+                            <img class="h-full w-full object-cover object-center" src="{{ asset('assets/hero/about-nh-scope.png') }}" alt="NH Scope doctors" loading="lazy" decoding="async">
                         </article>
                     </div>
                 </section>
@@ -155,7 +155,7 @@
                         @foreach($serviceCards as $item)
                             <a href="{{ $item['url'] }}" class="grid min-h-[100px] content-start gap-[8px] rounded-[5px] border border-[#D3E2EE] bg-white px-[13px] pt-[12px] pb-[12px] shadow-[0_4px_12px_rgba(14,68,106,0.06)] transition-transform duration-200 ease-out hover:-translate-y-0.5 hover:border-[#B8D0E2] hover:shadow-[0_12px_24px_rgba(14,68,106,0.1)] md:min-h-[90px] md:px-[14px] md:pt-[14px] md:pb-[14px] lg:min-h-[176px] lg:gap-4 lg:rounded-[8px] lg:px-5 lg:pt-5 lg:pb-5">
                                 <span class="service-card-icon-wrap mb-0 inline-flex h-6 w-6 items-center justify-start bg-transparent md:mb-[2px] md:h-[22px] md:w-[22px] lg:mb-0 lg:h-[28px] lg:w-[28px]" aria-hidden="true">
-                                    <img class="service-card-icon object-contain" src="{{ $item['icon'] }}" alt="">
+                                    <img class="service-card-icon object-contain" src="{{ $item['icon'] }}" alt="" loading="lazy" decoding="async">
                                 </span>
                                 <h3 class="{{ $sectionSubtitleClass }}">{{ $item['label'] }}</h3>
                                 <p class="{{ $sectionBodyClass }} md:max-w-[320px] md:text-[0.68rem] md:leading-[1.66] lg:max-w-none">{{ $item['copy'] }}</p>
@@ -169,7 +169,7 @@
                     <div class="{{ $homeContentMax }} grid max-w-[286px] grid-cols-1 overflow-hidden rounded-[12px] md:max-w-full md:grid-cols-3 lg:rounded-[14px]">
                         @foreach($highlightItems as $item)
                             <a href="{{ $item['url'] }}" class="relative flex min-h-[120px] items-end justify-center overflow-hidden px-2 py-[10px] text-center text-[0.68rem] text-white md:min-h-[136px] md:px-[10px] md:py-3 md:text-[0.96rem] lg:min-h-[188px] lg:px-4 lg:py-4 lg:text-[1rem]">
-                                <img class="absolute inset-0 h-full w-full object-cover" src="{{ $item['image'] }}" alt="{{ $item['title'] }}">
+                                <img class="absolute inset-0 h-full w-full object-cover" src="{{ $item['image'] }}" alt="{{ $item['title'] }}" loading="lazy" decoding="async">
                                 <span class="absolute inset-0 bg-[linear-gradient(180deg,rgba(14,68,106,0.08)_0%,rgba(14,68,106,0.46)_100%)]"></span>
                                 <span class="relative max-w-[90%] font-bold [font-family:'DM_Sans',sans-serif] leading-[1.2] [text-shadow:0_2px_10px_rgba(8,30,48,0.28)]">{{ $item['title'] }}</span>
                             </a>
@@ -179,7 +179,7 @@
 
                 <section class="highlight-bottom-section {{ $homeSectionPadTop }} {{ $homeSectionPadBottom }} bg-white">
                     <div class="{{ $homeContentMax }} max-w-[286px] overflow-hidden rounded-[12px] md:max-w-full lg:rounded-[10px]">
-                        <img class="block w-full aspect-[335/177] object-cover [filter:contrast(1.03)_saturate(1.04)]" src="{{ asset('assets/highlights/highlight-bottom.png') }}" alt="NH Scope highlight">
+                        <img class="block w-full aspect-[335/177] object-cover [filter:contrast(1.03)_saturate(1.04)]" src="{{ asset('assets/highlights/highlight-bottom.png') }}" alt="NH Scope highlight" loading="lazy" decoding="async">
                     </div>
                 </section>
 
@@ -204,7 +204,7 @@
                                 </div>
                             </form>
                             <div class="overflow-hidden rounded-[12px] md:rounded-[14px] lg:rounded-[14px]">
-                                <img class="block w-full aspect-[1/0.82] object-cover md:aspect-[1/0.74] lg:aspect-[1/1.08]" src="{{ asset('assets/contact/contact-us-home.png') }}" alt="National Hospital building">
+                                <img class="block w-full aspect-[1/0.82] object-cover md:aspect-[1/0.74] lg:aspect-[1/1.08]" src="{{ asset('assets/contact/contact-us-home.png') }}" alt="National Hospital building" loading="lazy" decoding="async">
                             </div>
                         </div>
                     </div>

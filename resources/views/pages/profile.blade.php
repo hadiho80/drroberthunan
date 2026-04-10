@@ -26,7 +26,7 @@
                 <section class="{{ $pagePadX }} profile-hero-section bg-[#eef6fc]">
                     <div class="{{ $pageHeroMax }} profile-hero-inner">
                         <div class="profile-hero-photo mx-auto overflow-hidden rounded-[10px] bg-[#dcecf7] shadow-[0_10px_24px_rgba(14,68,106,0.08)]">
-                            <img class="profile-hero-photo-image" src="{{ $profilePhoto }}" alt="{{ $doctorName }}">
+                            <img class="profile-hero-photo-image" src="{{ $profilePhoto }}" alt="{{ $doctorName }}" fetchpriority="high" decoding="async">
                         </div>
                         <div class="profile-hero-copy text-left text-[#24435a]">
                             <h1 class="m-0 font-sans text-[32px] leading-[1.08] font-extrabold tracking-[-0.03em] text-[#0E446A] md:text-[40px] md:leading-[1.05]">{{ $doctorName }}</h1>
