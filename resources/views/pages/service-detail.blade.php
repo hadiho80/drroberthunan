@@ -1,13 +1,6 @@
 @php
-    $seoTitle = $seoTitleDefault.' | '.$servicePage['title'];
-    $seoDescription = $servicePage['intro'];
-    $structuredData = json_encode([
-        '@context' => 'https://schema.org',
-        '@type' => 'MedicalProcedure',
-        'name' => $servicePage['title'],
-        'description' => $servicePage['intro'],
-        'url' => url()->current(),
-    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    $seoTitle = $servicePage['title'].' | '.$doctorName.' in Surabaya';
+    $seoDescription = $servicePage['intro'].' Learn more about consultation and treatment with '.$doctorName.' at '.$clinicName.'.';
     $pagePadX = 'px-4 md:px-6 lg:px-10';
     $pageSectionTop = '';
     $pageContentMax = 'mx-auto w-full max-w-[1100px]';
@@ -22,6 +15,8 @@
         'hysterectomy' => asset('assets/service-hero/hysterectomy-hero.jpg'),
     ];
     $serviceHeroImage = $serviceVisualMap[$servicePage['slug']] ?? asset('assets/highlights/nhscope.png');
+    $seoImageAlt = $servicePage['title'].' service by '.$doctorName;
+    $seoImageType = str_ends_with($serviceHeroImage, '.jpg') || str_ends_with($serviceHeroImage, '.jpeg') ? 'image/jpeg' : 'image/png';
     $serviceHeroSuffix = $servicePage['hero_suffix'] ?? '';
     $showServiceIntro = $servicePage['show_intro'] ?? true;
     $customLayout = $servicePage['custom_layout'] ?? null;
@@ -29,6 +24,51 @@
     $overviewColumns = $overviewSplitColumns
         ? array_chunk($servicePage['overview'], (int) ceil(count($servicePage['overview']) / 2))
         : [];
+    $structuredData = json_encode([
+        '@context' => 'https://schema.org',
+        '@graph' => [
+            [
+                '@type' => 'MedicalProcedure',
+                '@id' => url()->current().'#procedure',
+                'name' => $servicePage['title'],
+                'description' => $seoDescription,
+                'url' => url()->current(),
+                'image' => $serviceHeroImage,
+                'bodyLocation' => 'Women reproductive health',
+                'areaServed' => [
+                    '@type' => 'City',
+                    'name' => $contactCity,
+                ],
+                'provider' => [
+                    '@type' => 'Physician',
+                    'name' => $doctorName,
+                ],
+            ],
+            [
+                '@type' => 'BreadcrumbList',
+                'itemListElement' => [
+                    [
+                        '@type' => 'ListItem',
+                        'position' => 1,
+                        'name' => 'Home',
+                        'item' => route('site.home'),
+                    ],
+                    [
+                        '@type' => 'ListItem',
+                        'position' => 2,
+                        'name' => 'Services',
+                        'item' => route('site.services'),
+                    ],
+                    [
+                        '@type' => 'ListItem',
+                        'position' => 3,
+                        'name' => $servicePage['title'],
+                        'item' => url()->current(),
+                    ],
+                ],
+            ],
+        ],
+    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 @endphp
 
 @extends('layouts.site')

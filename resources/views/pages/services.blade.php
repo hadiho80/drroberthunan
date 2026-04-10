@@ -1,12 +1,49 @@
 @php
-    $seoTitle = $seoTitleDefault.' | '.$pageTitle;
-    $seoDescription = $pageIntro;
+    $seoTitle = 'Services | '.$doctorName.' in Surabaya';
+    $seoDescription = 'Explore obstetrics, gynecology, laparoscopy, myoma, endometriosis, ovarian cyst, and minimally invasive surgery services by '.$doctorName.' in Surabaya.';
+    $seoImageAlt = 'Services by '.$doctorName;
+    $seoImageType = 'image/png';
     $structuredData = json_encode([
         '@context' => 'https://schema.org',
-        '@type' => 'CollectionPage',
-        'name' => $pageTitle,
-        'description' => $pageIntro,
-        'url' => url()->current(),
+        '@graph' => [
+            [
+                '@type' => 'CollectionPage',
+                '@id' => url()->current().'#collection',
+                'name' => $pageTitle,
+                'description' => $seoDescription,
+                'url' => url()->current(),
+                'about' => [
+                    '@type' => 'Physician',
+                    'name' => $doctorName,
+                ],
+            ],
+            [
+                '@type' => 'BreadcrumbList',
+                'itemListElement' => [
+                    [
+                        '@type' => 'ListItem',
+                        'position' => 1,
+                        'name' => 'Home',
+                        'item' => route('site.home'),
+                    ],
+                    [
+                        '@type' => 'ListItem',
+                        'position' => 2,
+                        'name' => $pageTitle,
+                        'item' => url()->current(),
+                    ],
+                ],
+            ],
+            [
+                '@type' => 'ItemList',
+                'itemListElement' => collect($servicePages)->values()->map(fn ($page, $index) => [
+                    '@type' => 'ListItem',
+                    'position' => $index + 1,
+                    'url' => route('site.service.show', $page['slug']),
+                    'name' => $page['title'],
+                ])->all(),
+            ],
+        ],
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     $pagePadX = 'px-[10px] md:px-[22px] lg:px-16';
     $pageSectionTop = 'pt-6 md:pt-8 lg:pt-10';

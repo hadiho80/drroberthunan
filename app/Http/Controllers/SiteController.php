@@ -114,17 +114,25 @@ class SiteController extends Controller
     {
         return [
             'siteName' => 'Dr. Robert Hunan',
-            'seoTitleDefault' => 'Dr. Robert Hunan | Obstetrics, Gynecology, and Minimally Invasive Surgery',
-            'seoDescriptionDefault' => 'Official website of Dr. Robert Hunan Purwaka with women\'s health services, laparoscopic surgery, and appointment information.',
-            'seoKeywords' => 'dr robert hunan, obstetrics, gynecology, laparoscopy, women\'s health, surabaya',
+            'seoTitleDefault' => 'Dr. Robert Hunan Purwaka, Sp.OG, D.MAS, FMIS | Obstetrics, Gynecology, and Minimally Invasive Surgery in Surabaya',
+            'seoDescriptionDefault' => 'Official website of dr. Robert Hunan Purwaka, Sp.OG, D.MAS, FMIS, obstetrician and gynecologist in Surabaya with women\'s health services, laparoscopy, minimally invasive surgery, and appointment information.',
+            'seoKeywords' => 'dr robert hunan, robert hunan, dr robert hunan purwaka, dokter kandungan surabaya, obstetrician surabaya, gynecologist surabaya, laparoscopy surabaya, minimally invasive surgery surabaya, women health surabaya',
             'seoImage' => asset('assets/hero/doctor.png'),
             'doctorName' => 'dr. Robert Hunan Purwaka, Sp.OG, D.MAS, FMIS',
             'doctorSubtitle' => 'Obstetrician & Gynecologist',
             'doctorProfileImage' => asset('assets/hero/doctor-profile-hero.jpg'),
             'doctorProfileIntro' => 'Dr. Robert Hunan is an Obstetrician-gynecologist, specialized in Laparoscopic Surgery and Aesthetic Gynecology. He currently practices at National Hospital Surabaya, and also member of NHScope.',
+            'clinicName' => 'National Hospital Surabaya',
+            'clinicDepartment' => 'NH Scope',
             'contactPhone' => '+628121043450',
             'contactEmail' => 'roberthunan@gmail.com',
             'contactAddress' => 'Jl. Boulevard Famili Sel No.Kav. 1 Babatan, Kec. Wiyung, Surabaya, Jawa Timur 60227',
+            'contactCity' => 'Surabaya',
+            'contactRegion' => 'Jawa Timur',
+            'contactPostalCode' => '60227',
+            'contactCountry' => 'ID',
+            'seoOgLocale' => 'en_US',
+            'seoLang' => 'en',
         ];
     }
 

@@ -1,12 +1,94 @@
 @php
     $seoTitle = $seoTitleDefault;
     $seoDescription = $seoDescriptionDefault;
+    $seoImageAlt = $doctorName;
+    $seoImageType = 'image/png';
     $structuredData = json_encode([
         '@context' => 'https://schema.org',
-        '@type' => 'Physician',
-        'name' => $siteName,
-        'description' => $seoDescription,
-        'url' => url('/'),
+        '@graph' => [
+            [
+                '@type' => 'Physician',
+                '@id' => url('/').'#physician',
+                'name' => $doctorName,
+                'description' => $seoDescription,
+                'image' => $seoImage,
+                'url' => url('/'),
+                'telephone' => $contactPhone,
+                'email' => $contactEmail,
+                'medicalSpecialty' => [
+                    'Obstetrics',
+                    'Gynecology',
+                    'Minimally Invasive Surgery',
+                    'Laparoscopy',
+                ],
+                'areaServed' => [
+                    '@type' => 'City',
+                    'name' => $contactCity,
+                ],
+                'worksFor' => [
+                    '@id' => url('/').'#hospital',
+                ],
+            ],
+            [
+                '@type' => 'Hospital',
+                '@id' => url('/').'#hospital',
+                'name' => $clinicName,
+                'department' => $clinicDepartment,
+                'address' => [
+                    '@type' => 'PostalAddress',
+                    'streetAddress' => $contactAddress,
+                    'addressLocality' => $contactCity,
+                    'addressRegion' => $contactRegion,
+                    'postalCode' => $contactPostalCode,
+                    'addressCountry' => $contactCountry,
+                ],
+                'telephone' => $contactPhone,
+                'email' => $contactEmail,
+                'url' => route('site.contact'),
+                'availableService' => [
+                    [
+                        '@type' => 'MedicalProcedure',
+                        'name' => 'Obstetrics',
+                        'url' => route('site.service.show', 'obstetrics'),
+                    ],
+                    [
+                        '@type' => 'MedicalProcedure',
+                        'name' => 'Gynaecology',
+                        'url' => route('site.service.show', 'gynaecology'),
+                    ],
+                    [
+                        '@type' => 'MedicalProcedure',
+                        'name' => 'Minimally Invasive Surgery',
+                        'url' => route('site.service.show', 'minimally-invasive-surgery'),
+                    ],
+                    [
+                        '@type' => 'MedicalProcedure',
+                        'name' => 'Laparoscopy',
+                        'url' => route('site.service.show', 'laparoscopy'),
+                    ],
+                ],
+            ],
+            [
+                '@type' => 'WebSite',
+                '@id' => url('/').'#website',
+                'name' => $siteName,
+                'url' => url('/'),
+                'inLanguage' => 'en',
+            ],
+            [
+                '@type' => 'WebPage',
+                '@id' => url('/').'#webpage',
+                'name' => $seoTitle,
+                'description' => $seoDescription,
+                'url' => url('/'),
+                'isPartOf' => [
+                    '@id' => url('/').'#website',
+                ],
+                'about' => [
+                    '@id' => url('/').'#physician',
+                ],
+            ],
+        ],
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     $serviceCards = [
         [

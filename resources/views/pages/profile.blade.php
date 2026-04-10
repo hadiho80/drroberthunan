@@ -1,12 +1,57 @@
 @php
-    $seoTitle = $seoTitleDefault.' | '.$pageTitle;
-    $seoDescription = $pageIntro;
+    $seoTitle = $doctorName.' | Doctor Profile in Surabaya';
+    $seoDescription = 'Doctor profile of '.$doctorName.', obstetrician and gynecologist in Surabaya, including clinical experience, education, and minimally invasive surgery expertise.';
+    $seoImageAlt = $doctorName.' doctor profile';
+    $seoImageType = 'image/jpeg';
     $structuredData = json_encode([
         '@context' => 'https://schema.org',
-        '@type' => 'Physician',
-        'name' => $siteName,
-        'description' => $pageIntro,
-        'url' => url()->current(),
+        '@graph' => [
+            [
+                '@type' => 'Physician',
+                '@id' => url('/').'#physician',
+                'name' => $doctorName,
+                'description' => $doctorProfileIntro,
+                'image' => $doctorProfileImage,
+                'url' => url()->current(),
+                'telephone' => $contactPhone,
+                'email' => $contactEmail,
+                'medicalSpecialty' => [
+                    'Obstetrics',
+                    'Gynecology',
+                    'Minimally Invasive Surgery',
+                    'Laparoscopy',
+                ],
+                'worksFor' => [
+                    '@type' => 'Hospital',
+                    'name' => $clinicName,
+                ],
+                'address' => [
+                    '@type' => 'PostalAddress',
+                    'streetAddress' => $contactAddress,
+                    'addressLocality' => $contactCity,
+                    'addressRegion' => $contactRegion,
+                    'postalCode' => $contactPostalCode,
+                    'addressCountry' => $contactCountry,
+                ],
+            ],
+            [
+                '@type' => 'BreadcrumbList',
+                'itemListElement' => [
+                    [
+                        '@type' => 'ListItem',
+                        'position' => 1,
+                        'name' => 'Home',
+                        'item' => route('site.home'),
+                    ],
+                    [
+                        '@type' => 'ListItem',
+                        'position' => 2,
+                        'name' => $pageTitle,
+                        'item' => url()->current(),
+                    ],
+                ],
+            ],
+        ],
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     $pagePadX = 'px-5 md:px-10 lg:px-10';
     $pageHeroMax = 'mx-auto w-full max-w-[1100px]';

@@ -1,12 +1,97 @@
 @php
-    $seoTitle = $seoTitleDefault.' | '.$pageTitle;
-    $seoDescription = $pageIntro;
+    $seoTitle = 'Contact '.$doctorName.' | National Hospital Surabaya';
+    $seoDescription = 'Contact '.$doctorName.' at '.$clinicName.', Surabaya, for appointments, questions, and women health consultation support.';
+    $seoImageAlt = $clinicName;
+    $seoImageType = 'image/png';
     $structuredData = json_encode([
         '@context' => 'https://schema.org',
-        '@type' => 'ContactPage',
-        'name' => $pageTitle,
-        'description' => $pageIntro,
-        'url' => url()->current(),
+        '@graph' => [
+            [
+                '@type' => 'ContactPage',
+                '@id' => url()->current().'#contact-page',
+                'name' => $pageTitle,
+                'description' => $seoDescription,
+                'url' => url()->current(),
+            ],
+            [
+                '@type' => 'Hospital',
+                '@id' => url('/').'#hospital',
+                'name' => $clinicName,
+                'department' => $clinicDepartment,
+                'address' => [
+                    '@type' => 'PostalAddress',
+                    'streetAddress' => $contactAddress,
+                    'addressLocality' => $contactCity,
+                    'addressRegion' => $contactRegion,
+                    'postalCode' => $contactPostalCode,
+                    'addressCountry' => $contactCountry,
+                ],
+                'telephone' => $contactPhone,
+                'email' => $contactEmail,
+                'url' => url()->current(),
+                'openingHoursSpecification' => [
+                    [
+                        '@type' => 'OpeningHoursSpecification',
+                        'dayOfWeek' => 'Monday',
+                        'opens' => '17:00',
+                        'closes' => '20:00',
+                    ],
+                    [
+                        '@type' => 'OpeningHoursSpecification',
+                        'dayOfWeek' => 'Tuesday',
+                        'opens' => '09:00',
+                        'closes' => '12:00',
+                    ],
+                    [
+                        '@type' => 'OpeningHoursSpecification',
+                        'dayOfWeek' => 'Wednesday',
+                        'opens' => '17:00',
+                        'closes' => '20:00',
+                    ],
+                    [
+                        '@type' => 'OpeningHoursSpecification',
+                        'dayOfWeek' => 'Thursday',
+                        'opens' => '09:00',
+                        'closes' => '12:00',
+                    ],
+                    [
+                        '@type' => 'OpeningHoursSpecification',
+                        'dayOfWeek' => 'Friday',
+                        'opens' => '09:00',
+                        'closes' => '12:00',
+                    ],
+                    [
+                        '@type' => 'OpeningHoursSpecification',
+                        'dayOfWeek' => 'Friday',
+                        'opens' => '17:00',
+                        'closes' => '20:00',
+                    ],
+                    [
+                        '@type' => 'OpeningHoursSpecification',
+                        'dayOfWeek' => 'Sunday',
+                        'opens' => '09:00',
+                        'closes' => '13:00',
+                    ],
+                ],
+            ],
+            [
+                '@type' => 'BreadcrumbList',
+                'itemListElement' => [
+                    [
+                        '@type' => 'ListItem',
+                        'position' => 1,
+                        'name' => 'Home',
+                        'item' => route('site.home'),
+                    ],
+                    [
+                        '@type' => 'ListItem',
+                        'position' => 2,
+                        'name' => $pageTitle,
+                        'item' => url()->current(),
+                    ],
+                ],
+            ],
+        ],
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     $pagePadX = 'px-4 md:px-6 lg:px-10';
     $pageSectionTop = 'pt-7 md:pt-8 lg:pt-10';
