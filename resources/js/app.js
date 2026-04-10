@@ -1,20 +1,28 @@
 import './bootstrap';
 
 document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.service-card, .quote-card, .fact-card, .service-feature-card, .highlight-tile').forEach((element, index) => {
-        element.animate(
-            [
-                { opacity: 0, transform: 'translateY(18px)' },
-                { opacity: 1, transform: 'translateY(0)' },
-            ],
-            {
-                duration: 500,
-                delay: index * 80,
-                easing: 'ease-out',
-                fill: 'both',
-            },
-        );
-    });
+    const supportsAnimation =
+        typeof Element !== 'undefined' &&
+        typeof Element.prototype.animate === 'function' &&
+        typeof window.matchMedia === 'function' &&
+        !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (supportsAnimation) {
+        document.querySelectorAll('.service-card, .quote-card, .fact-card, .service-feature-card, .highlight-tile').forEach((element, index) => {
+            element.animate(
+                [
+                    { opacity: 0, transform: 'translateY(18px)' },
+                    { opacity: 1, transform: 'translateY(0)' },
+                ],
+                {
+                    duration: 500,
+                    delay: index * 80,
+                    easing: 'ease-out',
+                    fill: 'both',
+                },
+            );
+        });
+    }
 
     const menuToggle = document.querySelector('[data-menu-toggle]');
     const mobileNav = document.querySelector('[data-mobile-nav]');

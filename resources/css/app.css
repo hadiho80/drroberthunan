@@ -43,7 +43,7 @@
     }
 
     html {
-        scroll-behavior: smooth;
+        scroll-behavior: auto;
     }
 
     body {
@@ -2375,6 +2375,62 @@
     background: rgba(14, 68, 106, 0.78);
     box-shadow: 0 16px 36px rgba(14, 68, 106, 0.2);
     backdrop-filter: blur(8px);
+}
+
+@supports (scroll-behavior: smooth) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+@supports not ((-webkit-backdrop-filter: blur(8px)) or (backdrop-filter: blur(8px))) {
+    .admin-sidebar {
+        background: #fffaf3;
+    }
+
+    .floating-whatsapp {
+        background: #0e446a;
+    }
+}
+
+@supports not (display: grid) {
+    .site-main,
+    .home-hero-layout,
+    .doctor-intro-inner,
+    .about-nh-grid,
+    .profile-hero-inner,
+    .service-detail-content-grid,
+    .footer-main-grid {
+        display: block;
+    }
+
+    .home-hero-copy,
+    .home-hero-visual,
+    .doctor-intro-photo,
+    .doctor-intro-copy,
+    .about-nh-copy,
+    .about-nh-media,
+    .profile-hero-photo,
+    .profile-hero-copy {
+        width: 100%;
+        max-width: 100%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .home-hero-copy,
+    .doctor-intro-photo,
+    .about-nh-copy,
+    .profile-hero-photo {
+        margin-bottom: 32px;
+    }
+}
+
+@supports not (aspect-ratio: 1 / 1) {
+    .about-nh-media img,
+    .highlight-bottom-section img {
+        height: auto;
+    }
 }
 
 @media (min-width: 1440px) {
