@@ -466,27 +466,12 @@
             );
     }
 
-    .home-hero-background::before,
-    .home-hero-background::after {
+    .home-hero-background::before {
         content: "";
         position: absolute;
         border-radius: 999px;
         border: 10px solid rgba(172, 194, 211, 0.26);
         pointer-events: none;
-    }
-
-    .home-hero-background::before {
-        left: -52px;
-        top: 134px;
-        width: 314px;
-        height: 314px;
-    }
-
-    .home-hero-background::after {
-        left: 286px;
-        top: -132px;
-        width: 164px;
-        height: 164px;
     }
 
     .home-hero-copy {
@@ -1616,16 +1601,8 @@
     .home-hero-background::before {
         left: -86px;
         top: 116px;
-        width: 300px;
-        height: 300px;
-    }
-
-    .home-hero-background::after {
-        left: auto;
-        right: 124px;
-        top: -92px;
-        width: 150px;
-        height: 150px;
+        width: 100%;
+        height: 70%;
     }
 
     .doctor-intro-section {
@@ -1851,17 +1828,8 @@
     .home-hero-background::before {
         left: -88px;
         top: 112px;
-        width: 250px;
-        height: 250px;
-        border-width: 8px;
-    }
-
-    .home-hero-background::after {
-        right: 56px;
-        top: -68px;
-        left: auto;
-        width: 124px;
-        height: 124px;
+        width: 100%;
+        height: 70%;
         border-width: 8px;
     }
 
@@ -2155,16 +2123,8 @@
     .home-hero-background::before {
         left: -88px;
         top: 112px;
-        width: 220px;
-        height: 220px;
-        border-width: 8px;
-    }
-
-    .home-hero-background::after {
-        right: 56px;
-        top: -68px;
-        width: 108px;
-        height: 108px;
+        width: 100%;
+        height: 70%;
         border-width: 8px;
     }
 
@@ -2383,7 +2343,9 @@
     }
 }
 
-@supports not ((-webkit-backdrop-filter: blur(8px)) or (backdrop-filter: blur(8px))) {
+@supports not (
+    (-webkit-backdrop-filter: blur(8px)) or (backdrop-filter: blur(8px))
+) {
     .admin-sidebar {
         background: #fffaf3;
     }
@@ -2532,44 +2494,17 @@
         linear-gradient(180deg, #edf7ff 0%, #dbeefa 100%);
 }
 
-.home-hero-background::before,
-.home-hero-background::after {
+.home-hero-background::before {
     content: "";
     position: absolute;
     inset: 0;
     pointer-events: none;
-}
-
-.home-hero-background::before {
     border: 0;
     border-radius: 0;
-    background: url("/assets/hero/banner-home-detail.jpg") no-repeat center top /
-        cover;
+    background: url("/assets/hero/banner-home-detail.jpg") no-repeat center
+        top / cover;
     opacity: 0.12;
-}
-
-.home-hero-background::after {
-    border: 0;
-    border-radius: 0;
-    background:
-        radial-gradient(
-            circle at 18% 53%,
-            rgba(255, 255, 255, 0.84) 0,
-            rgba(255, 255, 255, 0.84) 46px,
-            transparent 47px
-        ),
-        radial-gradient(
-            circle at 18% 53%,
-            rgba(194, 214, 230, 0.34) 0,
-            rgba(194, 214, 230, 0.34) 112px,
-            transparent 113px
-        ),
-        radial-gradient(
-            circle at 58% 18%,
-            rgba(255, 255, 255, 0.72) 0,
-            rgba(255, 255, 255, 0.72) 30px,
-            transparent 31px
-        );
+    transform: scaleX(-1);
 }
 
 .home-hero-background,
@@ -2762,10 +2697,6 @@
         opacity: 0.13;
     }
 
-    .home-hero-background::after {
-        display: none;
-    }
-
     .home-hero-copy {
         max-width: 360px;
         padding-top: 100px;
@@ -2847,10 +2778,6 @@
         background-position: 66% top;
         background-size: auto 100%;
         opacity: 0.12;
-    }
-
-    .home-hero-background::after {
-        display: none;
     }
 
     .home-hero-copy {
@@ -3801,7 +3728,11 @@
     min-height: 100vh;
     margin: 0;
     background:
-        radial-gradient(circle at top left, rgba(208, 235, 255, 0.9), transparent 42%),
+        radial-gradient(
+            circle at top left,
+            rgba(208, 235, 255, 0.9),
+            transparent 42%
+        ),
         linear-gradient(135deg, #f8fbff 0%, #eef6fc 100%);
 }
 
@@ -3896,5 +3827,356 @@
 
     .admin-auth-copy h1 {
         font-size: 1.6rem;
+    }
+}
+
+@layer components {
+    .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(254, 254, 254, 0.94);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        box-shadow: 0 10px 26px rgba(14, 68, 106, 0.08);
+    }
+
+    .site-header-bar {
+        position: relative;
+        z-index: 2;
+    }
+
+    .mobile-nav-panel {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 1;
+        box-shadow: 0 18px 34px rgba(14, 68, 106, 0.14);
+    }
+
+    .home-hero-desktop {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        min-height: 718px;
+        background: #e7f2fb;
+    }
+
+    .home-hero-background {
+        --hero-stethoscope-top: -6px;
+        --hero-stethoscope-left: -42px;
+        --hero-stethoscope-width: 50vw;
+        --hero-stethoscope-opacity: 0.14;
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        overflow: hidden;
+        background:
+            linear-gradient(
+                180deg,
+                rgba(255, 255, 255, 0.36) 0%,
+                rgba(255, 255, 255, 0.08) 100%
+            ),
+            linear-gradient(180deg, #edf7ff 0%, #dbeefa 100%);
+    }
+
+    .home-hero-background::before {
+        content: "";
+        position: absolute;
+        top: var(--hero-stethoscope-top);
+        left: var(--hero-stethoscope-left);
+        width: var(--hero-stethoscope-width);
+        height: 100%;
+        z-index: 0;
+        opacity: var(--hero-stethoscope-opacity);
+        background-image: url("/assets/hero/stetoskop.jpg");
+        background-repeat: no-repeat;
+        background-position: left top;
+        background-size: auto 100%;
+        pointer-events: none;
+    }
+
+    .home-hero-layout {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: minmax(0, 430px) minmax(0, 1fr);
+        align-items: center;
+        gap: 24px;
+        min-height: 718px;
+        padding: 0 40px;
+    }
+
+    .home-hero-copy {
+        max-width: 430px;
+        margin: 0;
+        padding: 0;
+        text-align: left;
+    }
+
+    .home-hero-copy h1,
+    .home-hero-copy p,
+    .home-hero-copy .hero-actions {
+        margin-left: 0;
+        margin-right: 0;
+        text-align: left;
+        justify-content: flex-start;
+    }
+
+    .home-hero-copy h1 {
+        max-width: 390px;
+    }
+
+    .home-hero-copy p {
+        max-width: 430px;
+        color: #23435a;
+    }
+
+    .home-hero-visual {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        width: 100%;
+        max-width: 540px;
+        height: 100%;
+        margin-left: auto;
+    }
+
+    .home-hero-image {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        width: 100%;
+        min-height: 718px;
+    }
+
+    .home-hero-image img {
+        width: min(100%, 474px);
+        height: auto;
+        max-height: 666px;
+        object-fit: contain;
+        object-position: center bottom;
+    }
+
+    .hero-logo-card {
+        position: absolute;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 9px 16px;
+        border-radius: 10px;
+        background: #fdfefe;
+        box-shadow: 0 14px 28px rgba(14, 68, 106, 0.14);
+    }
+
+    .hero-logo-card img {
+        width: auto;
+        max-width: 108px;
+        max-height: 28px;
+    }
+
+    .hero-logo-card-scope {
+        top: 316px;
+        left: 34px;
+    }
+
+    .hero-logo-card-hospital {
+        top: 316px;
+        right: 12px;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+    .home-hero-desktop {
+        min-height: 620px;
+    }
+
+    .home-hero-layout {
+        grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
+        min-height: 620px;
+        gap: 20px;
+    }
+
+    .home-hero-copy {
+        max-width: 380px;
+    }
+
+    .home-hero-copy h1 {
+        max-width: 340px;
+    }
+
+    .home-hero-visual {
+        max-width: 410px;
+    }
+
+    .home-hero-image {
+        min-height: 620px;
+    }
+
+    .home-hero-image img {
+        width: min(100%, 372px);
+        max-height: 566px;
+    }
+
+    .hero-logo-card img {
+        max-width: 98px;
+        max-height: 24px;
+    }
+
+    .hero-logo-card-scope {
+        top: 274px;
+        left: 18px;
+    }
+
+    .hero-logo-card-hospital {
+        top: 276px;
+        right: 4px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .site-header {
+        background: rgba(254, 254, 254, 0.96);
+    }
+
+    .home-hero-desktop {
+        min-height: 829px;
+    }
+
+    .home-hero-background {
+        --hero-stethoscope-top: -4px;
+        --hero-stethoscope-left: -20px;
+        --hero-stethoscope-width: 100vw;
+        --hero-stethoscope-opacity: 0.125;
+    }
+
+    .home-hero-layout {
+        grid-template-columns: 1fr;
+        align-items: flex-start;
+        min-height: 829px;
+        padding: 0;
+    }
+
+    .home-hero-copy,
+    .home-hero-copy h1,
+    .home-hero-copy p,
+    .home-hero-copy .hero-actions {
+        text-align: center;
+        justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .home-hero-copy {
+        max-width: 360px;
+    }
+
+    .home-hero-visual {
+        max-width: 360px;
+        margin: -4px auto 0;
+    }
+
+    .home-hero-image {
+        min-height: 520px;
+    }
+
+    .home-hero-image img {
+        width: min(100%, 340px);
+        max-height: 470px;
+    }
+
+    .hero-logo-card {
+        padding: 8px 12px;
+        border-radius: 8px;
+    }
+
+    .hero-logo-card img {
+        max-width: 92px;
+        max-height: 22px;
+    }
+
+    .hero-logo-card-scope {
+        top: 138px;
+        left: -2px;
+    }
+
+    .hero-logo-card-hospital {
+        top: 174px;
+        right: -2px;
+    }
+}
+
+@media (max-width: 767px) {
+    .site-header {
+        background: rgba(254, 254, 254, 0.98);
+    }
+
+    .home-hero-desktop {
+        min-height: 624px;
+    }
+
+    .home-hero-background {
+        --hero-stethoscope-top: -2px;
+        --hero-stethoscope-left: -16px;
+        --hero-stethoscope-width: 100vw;
+        --hero-stethoscope-opacity: 0.12;
+    }
+
+    .home-hero-layout {
+        grid-template-columns: 1fr;
+        align-items: flex-start;
+        min-height: 624px;
+        padding: 0;
+    }
+
+    .home-hero-copy,
+    .home-hero-copy h1,
+    .home-hero-copy p,
+    .home-hero-copy .hero-actions {
+        text-align: center;
+        justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .home-hero-copy {
+        max-width: 278px;
+    }
+
+    .home-hero-visual {
+        max-width: 248px;
+        margin: 8px auto 0;
+    }
+
+    .home-hero-image {
+        min-height: 350px;
+    }
+
+    .home-hero-image img {
+        width: min(100%, 228px);
+        max-height: 332px;
+    }
+
+    .hero-logo-card {
+        padding: 6px 10px;
+        border-radius: 7px;
+        box-shadow: 0 10px 20px rgba(14, 68, 106, 0.12);
+    }
+
+    .hero-logo-card img {
+        max-width: 78px;
+        max-height: 18px;
+    }
+
+    .hero-logo-card-scope {
+        top: 112px;
+        left: -10px;
+    }
+
+    .hero-logo-card-hospital {
+        top: 144px;
+        right: -14px;
     }
 }

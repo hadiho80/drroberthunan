@@ -178,7 +178,7 @@
 
             <main class="site-main">
                 <section class="home-hero-desktop">
-                    <div class="home-hero-background"></div>
+                    <div class="home-hero-background" aria-hidden="true"></div>
                     <div class="home-hero-layout {{ $homeContentMax }}">
                         <div class="home-hero-copy">
                             <h1>Tailored Care for Your Unique Journey</h1>
