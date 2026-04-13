@@ -12,9 +12,12 @@
 <body class="admin-body">
     <div class="admin-shell">
         <aside class="admin-sidebar">
-            <a class="admin-brand" href="{{ route('admin.homepage.index') }}">Dr. Robert Hunan CMS</a>
+            <a class="admin-brand" href="{{ route('admin.site-settings.index') }}">Dr. Robert Hunan CMS</a>
             <nav class="admin-nav">
+                <a href="{{ route('admin.site-settings.index') }}" @class(['is-active' => request()->routeIs('admin.site-settings.*')])>Site Settings</a>
                 <a href="{{ route('admin.homepage.index') }}" @class(['is-active' => request()->routeIs('admin.homepage.*')])>Homepage & SEO</a>
+                <a href="{{ route('admin.doctor-profile.index') }}" @class(['is-active' => request()->routeIs('admin.doctor-profile.*')])>Doctor Profile</a>
+                <a href="{{ route('admin.contact-info.index') }}" @class(['is-active' => request()->routeIs('admin.contact-info.*')])>Contact Info</a>
                 <a href="{{ route('admin.services.index') }}" @class(['is-active' => request()->routeIs('admin.services.*')])>Layanan</a>
                 <a href="{{ url('/') }}" target="_blank" rel="noreferrer">Lihat Website</a>
             </nav>

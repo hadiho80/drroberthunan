@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\HomePage;
+use App\Models\HomepageContent;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -13,86 +13,78 @@ class HomePageController extends Controller
     public function index(): View
     {
         return view('admin.homepage', [
-            'homepage' => $this->homepage(),
+            'homepage' => HomepageContent::query()->with('highlights')->firstOr(fn () => HomepageContent::singleton()->load('highlights')),
+            'highlightsText' => $this->highlightsText(),
         ]);
     }
 
     public function update(Request $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'site_name' => ['required', 'string', 'max:255'],
-            'site_tagline' => ['nullable', 'string', 'max:255'],
-            'hero_badge' => ['nullable', 'string', 'max:255'],
+        $data = $request->validate([
             'hero_title' => ['required', 'string', 'max:255'],
-            'hero_highlight' => ['nullable', 'string', 'max:255'],
             'hero_description' => ['required', 'string'],
-            'primary_cta_label' => ['nullable', 'string', 'max:255'],
-            'primary_cta_url' => ['nullable', 'string', 'max:255'],
-            'secondary_cta_label' => ['nullable', 'string', 'max:255'],
-            'secondary_cta_url' => ['nullable', 'string', 'max:255'],
+            'hero_primary_cta_label' => ['nullable', 'string', 'max:255'],
+            'hero_primary_cta_url' => ['nullable', 'string', 'max:255'],
             'hero_image' => ['nullable', 'image', 'max:4096'],
-            'experience_label' => ['nullable', 'string', 'max:255'],
-            'experience_value' => ['nullable', 'string', 'max:255'],
-            'patients_label' => ['nullable', 'string', 'max:255'],
-            'patients_value' => ['nullable', 'string', 'max:255'],
-            'about_eyebrow' => ['nullable', 'string', 'max:255'],
-            'about_title' => ['required', 'string', 'max:255'],
-            'about_description' => ['required', 'string'],
-            'quote_text' => ['nullable', 'string'],
-            'quote_author' => ['nullable', 'string', 'max:255'],
-            'doctor_profile_title' => ['nullable', 'string', 'max:255'],
-            'doctor_profile_subtitle' => ['nullable', 'string', 'max:255'],
-            'doctor_profile_intro' => ['nullable', 'string'],
-            'doctor_profile_biography' => ['nullable', 'string'],
-            'doctor_profile_experience' => ['nullable', 'string'],
-            'doctor_profile_education' => ['nullable', 'string'],
-            'doctor_profile_training' => ['nullable', 'string'],
-            'doctor_profile_image' => ['nullable', 'image', 'max:4096'],
-            'seo_title' => ['required', 'string', 'max:255'],
-            'seo_description' => ['required', 'string', 'max:320'],
-            'seo_keywords' => ['nullable', 'string', 'max:500'],
-            'seo_image' => ['nullable', 'image', 'max:4096'],
-            'contact_phone' => ['nullable', 'string', 'max:255'],
-            'contact_email' => ['nullable', 'email', 'max:255'],
-            'contact_address' => ['nullable', 'string', 'max:255'],
-            'contact_page_title' => ['nullable', 'string', 'max:255'],
-            'contact_page_intro' => ['nullable', 'string'],
-            'facility_image' => ['nullable', 'image', 'max:4096'],
+            'doctor_intro_title' => ['nullable', 'string', 'max:255'],
+            'doctor_intro_body' => ['nullable', 'string'],
+            'doctor_intro_stat' => ['nullable', 'string', 'max:255'],
+            'doctor_intro_cta_label' => ['nullable', 'string', 'max:255'],
+            'doctor_intro_cta_url' => ['nullable', 'string', 'max:255'],
+            'doctor_intro_image' => ['nullable', 'image', 'max:4096'],
+            'about_title' => ['nullable', 'string', 'max:255'],
+            'about_body' => ['nullable', 'string'],
+            'about_secondary_body' => ['nullable', 'string'],
+            'about_cta_label' => ['nullable', 'string', 'max:255'],
+            'about_cta_url' => ['nullable', 'string', 'max:255'],
+            'about_image' => ['nullable', 'image', 'max:4096'],
+            'services_title' => ['nullable', 'string', 'max:255'],
+            'highlights_title' => ['nullable', 'string', 'max:255'],
+            'highlight_bottom_image' => ['nullable', 'image', 'max:4096'],
+            'contact_title' => ['nullable', 'string', 'max:255'],
+            'contact_image' => ['nullable', 'image', 'max:4096'],
+            'highlights_text' => ['nullable', 'string'],
         ]);
 
-        $homepage = $this->homepage();
+        $homepage = HomepageContent::query()->with('highlights')->firstOr(fn () => HomepageContent::singleton()->load('highlights'));
 
-        if ($request->hasFile('hero_image')) {
-            $validated['hero_image'] = $request->file('hero_image')->store('homepage', 'public');
-        } else {
-            unset($validated['hero_image']);
+        foreach (['hero_image', 'doctor_intro_image', 'about_image', 'highlight_bottom_image', 'contact_image'] as $field) {
+            if ($request->hasFile($field)) {
+                $data[$field] = $request->file($field)->store('homepage', 'public');
+            } else {
+                unset($data[$field]);
+            }
         }
 
-        if ($request->hasFile('seo_image')) {
-            $validated['seo_image'] = $request->file('seo_image')->store('seo', 'public');
-        } else {
-            unset($validated['seo_image']);
+        $homepage->fill(collect($data)->except('highlights_text')->all())->save();
+
+        $homepage->highlights()->delete();
+
+        foreach ($this->parseHighlights($data['highlights_text'] ?? '') as $index => $highlight) {
+            $homepage->highlights()->create($highlight + ['sort_order' => ($index + 1) * 10]);
         }
 
-        if ($request->hasFile('doctor_profile_image')) {
-            $validated['doctor_profile_image'] = $request->file('doctor_profile_image')->store('profile', 'public');
-        } else {
-            unset($validated['doctor_profile_image']);
-        }
-
-        if ($request->hasFile('facility_image')) {
-            $validated['facility_image'] = $request->file('facility_image')->store('facility', 'public');
-        } else {
-            unset($validated['facility_image']);
-        }
-
-        $homepage->fill($validated)->save();
-
-        return back()->with('status', 'Konten homepage berhasil diperbarui.');
+        return back()->with('status', 'Homepage berhasil diperbarui.');
     }
 
-    private function homepage(): HomePage
+    private function highlightsText(): string
     {
-        return HomePage::query()->firstOrCreate([], HomePage::defaults());
+        return HomepageContent::singleton()->highlights
+            ->map(fn ($item) => implode('|', [$item->title, $item->url, $item->image]))
+            ->implode("\n");
+    }
+
+    private function parseHighlights(string $value): array
+    {
+        return collect(preg_split('/\r\n|\r|\n/', $value) ?: [])
+            ->map(fn ($line) => array_map('trim', explode('|', $line)))
+            ->filter(fn ($parts) => count($parts) >= 3 && $parts[0] !== '' && $parts[1] !== '')
+            ->map(fn ($parts) => [
+                'title' => $parts[0],
+                'url' => $parts[1],
+                'image' => $parts[2],
+            ])
+            ->values()
+            ->all();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Service;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 
@@ -38,16 +39,7 @@ class SitemapController extends Controller
             ],
         ];
 
-        foreach ([
-            'obstetrics',
-            'gynaecology',
-            'minimally-invasive-surgery',
-            'laparoscopy',
-            'myoma',
-            'endometriosis',
-            'ovarian-cyst',
-            'hysterectomy',
-        ] as $slug) {
+        foreach (Service::query()->whereNotNull('slug')->orderBy('sort_order')->pluck('slug') as $slug) {
             $urls[] = [
                 'loc' => route('site.service.show', $slug),
                 'changefreq' => 'monthly',

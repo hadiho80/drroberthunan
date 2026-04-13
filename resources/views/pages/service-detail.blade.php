@@ -4,17 +4,7 @@
     $pagePadX = 'px-4 md:px-6 lg:px-10';
     $pageSectionTop = '';
     $pageContentMax = 'mx-auto w-full max-w-[1100px]';
-    $serviceVisualMap = [
-        'obstetrics' => asset('assets/service-hero/obstetrics-hero.jpg'),
-        'gynaecology' => asset('assets/service-hero/gynaecology-hero.jpg'),
-        'minimally-invasive-surgery' => asset('assets/service-hero/minimally-invasive-surgery-hero.png'),
-        'laparoscopy' => asset('assets/service-hero/laparoscopy-hero.png'),
-        'myoma' => asset('assets/service-hero/myoma-hero.jpg'),
-        'endometriosis' => asset('assets/service-hero/endometriosis-hero.jpg'),
-        'ovarian-cyst' => asset('assets/service-hero/ovarian-cyst-hero.jpg'),
-        'hysterectomy' => asset('assets/service-hero/hysterectomy-hero.jpg'),
-    ];
-    $serviceHeroImage = $serviceVisualMap[$servicePage['slug']] ?? asset('assets/highlights/nhscope.png');
+    $serviceHeroImage = $servicePage['hero_image'] ?? asset('assets/highlights/nhscope.png');
     $seoImageAlt = $servicePage['title'].' service by '.$doctorName;
     $seoImageType = str_ends_with($serviceHeroImage, '.jpg') || str_ends_with($serviceHeroImage, '.jpeg') ? 'image/jpeg' : 'image/png';
     $serviceHeroSuffix = $servicePage['hero_suffix'] ?? '';

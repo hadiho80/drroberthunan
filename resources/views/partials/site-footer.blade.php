@@ -12,7 +12,7 @@
                 <ul class="m-0 grid list-none gap-[8px] p-0 md:gap-[7px] lg:gap-[10px]">
                     <li><a class="text-[0.58rem] leading-[1.3] font-normal text-white/88 [font-family:'DM_Sans',sans-serif] transition-opacity hover:opacity-100 md:text-[0.5rem] lg:text-[0.64rem]" href="{{ route('site.home') }}">Home</a></li>
                     <li><a class="text-[0.58rem] leading-[1.3] font-normal text-white/88 [font-family:'DM_Sans',sans-serif] transition-opacity hover:opacity-100 md:text-[0.5rem] lg:text-[0.64rem]" href="{{ route('site.profile') }}">Doctor's Profile</a></li>
-                    <li><a class="text-[0.58rem] leading-[1.3] font-normal text-white/88 [font-family:'DM_Sans',sans-serif] transition-opacity hover:opacity-100 md:text-[0.5rem] lg:text-[0.64rem]" href="https://national-hospital.com/id/mitra/mitra-asuransi?t=1774324454" target="_blank" rel="noreferrer">Insurance</a></li>
+                    <li><a class="text-[0.58rem] leading-[1.3] font-normal text-white/88 [font-family:'DM_Sans',sans-serif] transition-opacity hover:opacity-100 md:text-[0.5rem] lg:text-[0.64rem]" href="{{ $insuranceLink }}" target="_blank" rel="noreferrer">Insurance</a></li>
                     <li><a class="text-[0.58rem] leading-[1.3] font-normal text-white/88 [font-family:'DM_Sans',sans-serif] transition-opacity hover:opacity-100 md:text-[0.5rem] lg:text-[0.64rem]" href="{{ route('site.contact') }}">Contact Us</a></li>
                 </ul>
             </div>
@@ -28,17 +28,17 @@
 
             <div class="footer-contact-block col-span-2 gap-[10px] md:col-span-3 md:gap-[8px] lg:col-span-1 lg:gap-[10px]">
                 <h3 class="mb-0 text-[0.66rem] font-extrabold text-white [font-family:'DM_Sans',sans-serif] md:text-[0.56rem] lg:text-[0.68rem]">Contact Us</h3>
-                <p class="footer-doctor-line max-w-[240px] text-[0.58rem] leading-[1.5] font-semibold text-white [font-family:'DM_Sans',sans-serif] md:max-w-none md:text-[0.52rem] lg:max-w-[250px] lg:text-[0.62rem] lg:leading-[1.58]">dr. Robert Hunan Purwaka, Sp.OG, D.MAS, FMIS Schedule</p>
+                <p class="footer-doctor-line text-[0.58rem] leading-[1.5] font-semibold text-white [font-family:'DM_Sans',sans-serif] md:text-[0.52rem] lg:text-[0.62rem] lg:leading-[1.58]">{{ $scheduleHeading }}</p>
                 <ul class="m-0 grid gap-0 p-0 list-none">
-                    <li class="footer-schedule-row border-b border-white/16 py-[6px] md:py-[5px] lg:py-[6px]"><span class="text-[0.58rem] text-white/88 [font-family:'DM_Sans',sans-serif] md:text-[0.5rem] lg:text-[0.64rem]">Monday</span><span class="text-[0.58rem] text-white/88 [font-family:'DM_Sans',sans-serif] md:text-[0.5rem] lg:text-[0.64rem]">17:00 - 20:00</span></li>
-                    <li class="footer-schedule-row border-b border-white/16 py-[6px] md:py-[5px] lg:py-[6px]"><span class="text-[0.58rem] text-white/88 [font-family:'DM_Sans',sans-serif] md:text-[0.5rem] lg:text-[0.64rem]">Tuesday</span><span class="text-[0.58rem] text-white/88 [font-family:'DM_Sans',sans-serif] md:text-[0.5rem] lg:text-[0.64rem]">09:00 - 12:00</span></li>
-                    <li class="footer-schedule-row border-b border-white/16 py-[6px] md:py-[5px] lg:py-[6px]"><span class="text-[0.58rem] text-white/88 [font-family:'DM_Sans',sans-serif] md:text-[0.5rem] lg:text-[0.64rem]">Wednesday</span><span class="text-[0.58rem] text-white/88 [font-family:'DM_Sans',sans-serif] md:text-[0.5rem] lg:text-[0.64rem]">17:00 - 20:00</span></li>
-                    <li class="footer-schedule-row border-b border-white/16 py-[6px] md:py-[5px] lg:py-[6px]"><span class="text-[0.58rem] text-white/88 [font-family:'DM_Sans',sans-serif] md:text-[0.5rem] lg:text-[0.64rem]">Thursday</span><span class="text-[0.58rem] text-white/88 [font-family:'DM_Sans',sans-serif] md:text-[0.5rem] lg:text-[0.64rem]">09:00 - 12:00</span></li>
-                    <li class="footer-schedule-row border-b border-white/16 py-[6px] md:py-[5px] lg:py-[6px]"><span class="text-[0.58rem] text-white/88 [font-family:'DM_Sans',sans-serif] md:text-[0.5rem] lg:text-[0.64rem]">Friday</span><span class="text-[0.58rem] text-right text-white/88 [font-family:'DM_Sans',sans-serif] md:text-[0.5rem] lg:text-[0.64rem]">09:00 - 12:00 / 17:00 - 20:00</span></li>
-                    <li class="footer-schedule-row py-[6px] md:py-[5px] lg:py-[6px]"><span class="text-[0.58rem] text-white/88 [font-family:'DM_Sans',sans-serif] md:text-[0.5rem] lg:text-[0.64rem]">Sunday</span><span class="text-[0.58rem] text-white/88 [font-family:'DM_Sans',sans-serif] md:text-[0.5rem] lg:text-[0.64rem]">09:00 - 13:00</span></li>
+                    @foreach($contactSchedules as $index => $schedule)
+                        <li class="footer-schedule-row {{ $loop->last ? '' : 'border-b border-white/16' }} py-[6px] md:py-[5px] lg:py-[6px]">
+                            <span class="text-[0.58rem] text-white/88 [font-family:'DM_Sans',sans-serif] md:text-[0.5rem] lg:text-[0.64rem]">{{ $schedule['day'] }}</span>
+                            <span class="text-[0.58rem] text-right text-white/88 [font-family:'DM_Sans',sans-serif] md:text-[0.5rem] lg:text-[0.64rem]">{{ $schedule['time'] }}</span>
+                        </li>
+                    @endforeach
                 </ul>
                 <div class="footer-ask-row mt-1 gap-[10px]">
-                    <span class="text-[0.6rem] font-semibold text-white [font-family:'DM_Sans',sans-serif] md:text-[0.52rem] lg:text-[0.64rem]">Ask Me A Question:</span>
+                    <span class="text-[0.6rem] font-semibold text-white [font-family:'DM_Sans',sans-serif] md:text-[0.52rem] lg:text-[0.64rem]">{{ $askLabel }}</span>
                     <a href="mailto:{{ $contactEmail }}" aria-label="Email">
                         <span class="footer-icon-button">
                             <img class="footer-contact-icon footer-contact-icon-mail" src="{{ asset('assets/footer/icon-mail.png') }}" alt="">

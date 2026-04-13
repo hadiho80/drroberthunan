@@ -48,16 +48,6 @@
     $pagePadX = 'px-[10px] md:px-[22px] lg:px-16';
     $pageSectionTop = 'pt-6 md:pt-8 lg:pt-10';
     $pageContentMax = 'mx-auto w-full max-w-[900px]';
-    $serviceVisualMap = [
-        'obstetrics' => asset('assets/highlights/obstetrics.png'),
-        'gynaecology' => asset('assets/highlights/gynecology.png'),
-        'minimally-invasive-surgery' => asset('assets/highlights/minimally-invasive-surgery.png'),
-        'laparoscopy' => asset('assets/highlights/laparoscopy.png'),
-        'myoma' => asset('assets/highlights/myoma.png'),
-        'endometriosis' => asset('assets/highlights/endometriosis.png'),
-        'ovarian-cyst' => asset('assets/highlights/ovarian-cyst.png'),
-        'hysterectomy' => asset('assets/highlights/hysterectomy.png'),
-    ];
 @endphp
 
 @extends('layouts.site')
@@ -80,7 +70,7 @@
                             @foreach($servicePages as $page)
                                 <article class="overflow-hidden rounded-[4px] border border-[var(--site-line)] bg-white shadow-[0_12px_28px_rgba(14,68,106,0.04)]">
                                     <div class="relative min-h-[88px] overflow-hidden md:min-h-[120px] lg:min-h-[132px]">
-                                        <img class="absolute inset-0 h-full w-full object-cover" src="{{ $serviceVisualMap[$page['slug']] ?? asset('assets/highlights/nhscope.png') }}" alt="{{ $page['title'] }}" loading="lazy" decoding="async">
+                                        <img class="absolute inset-0 h-full w-full object-cover" src="{{ $page['card_image'] ?? asset('assets/highlights/nhscope.png') }}" alt="{{ $page['title'] }}" loading="lazy" decoding="async">
                                         <span class="absolute inset-0 bg-[linear-gradient(180deg,rgba(14,68,106,0.18)_0%,rgba(14,68,106,0.52)_100%)]"></span>
                                     </div>
                                     <div class="grid gap-[8px] p-[10px] md:gap-[8px] md:p-[12px] lg:gap-[10px] lg:p-[15px]">

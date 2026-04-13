@@ -29,50 +29,12 @@
                 'telephone' => $contactPhone,
                 'email' => $contactEmail,
                 'url' => url()->current(),
-                'openingHoursSpecification' => [
-                    [
-                        '@type' => 'OpeningHoursSpecification',
-                        'dayOfWeek' => 'Monday',
-                        'opens' => '17:00',
-                        'closes' => '20:00',
-                    ],
-                    [
-                        '@type' => 'OpeningHoursSpecification',
-                        'dayOfWeek' => 'Tuesday',
-                        'opens' => '09:00',
-                        'closes' => '12:00',
-                    ],
-                    [
-                        '@type' => 'OpeningHoursSpecification',
-                        'dayOfWeek' => 'Wednesday',
-                        'opens' => '17:00',
-                        'closes' => '20:00',
-                    ],
-                    [
-                        '@type' => 'OpeningHoursSpecification',
-                        'dayOfWeek' => 'Thursday',
-                        'opens' => '09:00',
-                        'closes' => '12:00',
-                    ],
-                    [
-                        '@type' => 'OpeningHoursSpecification',
-                        'dayOfWeek' => 'Friday',
-                        'opens' => '09:00',
-                        'closes' => '12:00',
-                    ],
-                    [
-                        '@type' => 'OpeningHoursSpecification',
-                        'dayOfWeek' => 'Friday',
-                        'opens' => '17:00',
-                        'closes' => '20:00',
-                    ],
-                    [
-                        '@type' => 'OpeningHoursSpecification',
-                        'dayOfWeek' => 'Sunday',
-                        'opens' => '09:00',
-                        'closes' => '13:00',
-                    ],
-                ],
+                'openingHoursSpecification' => collect($contactScheduleSchema)->map(fn ($schedule) => [
+                    '@type' => 'OpeningHoursSpecification',
+                    'dayOfWeek' => $schedule['day'],
+                    'opens' => $schedule['opens_at'],
+                    'closes' => $schedule['closes_at'],
+                ])->filter(fn ($item) => !empty($item['opens']) && !empty($item['closes']))->values()->all(),
             ],
             [
                 '@type' => 'BreadcrumbList',
@@ -126,19 +88,19 @@
                                 </div>
 
                                 <div>
-                                    <h2 class="m-0 font-sans text-[20px] leading-[1.35] font-semibold text-[#00223A] md:text-[24px] lg:max-w-[420px]">dr. Robert Hunan Purwaka, Sp.OG, D.MAS, FMIS's Schedule</h2>
+                                    <h2 class="m-0 font-sans text-[20px] leading-[1.35] font-semibold text-[#00223A] md:text-[24px] lg:max-w-[420px]">{{ $scheduleHeading }}</h2>
 
                                     <ul class="mt-5 m-0 grid gap-0 p-0 list-none">
-                                        <li class="grid grid-cols-[1fr_auto] items-center gap-4 py-[7px] font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:py-[8px] md:text-[18px]"><span>Monday</span><span>17:00 - 20:00</span></li>
-                                        <li class="grid grid-cols-[1fr_auto] items-center gap-4 py-[7px] font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:py-[8px] md:text-[18px]"><span>Tuesday</span><span>09:00 - 12:00</span></li>
-                                        <li class="grid grid-cols-[1fr_auto] items-center gap-4 py-[7px] font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:py-[8px] md:text-[18px]"><span>Wednesday</span><span>17:00 - 20:00</span></li>
-                                        <li class="grid grid-cols-[1fr_auto] items-center gap-4 py-[7px] font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:py-[8px] md:text-[18px]"><span>Thursday</span><span>09:00 - 12:00</span></li>
-                                        <li class="grid grid-cols-[1fr_auto] items-center gap-4 py-[7px] font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:py-[8px] md:text-[18px]"><span>Friday</span><span class="text-right">09:00 - 12:00 / 17:00 - 20:00</span></li>
-                                        <li class="grid grid-cols-[1fr_auto] items-center gap-4 py-[7px] font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:py-[8px] md:text-[18px]"><span>Sunday</span><span>09:00 - 13:00</span></li>
+                                        @foreach($contactSchedules as $schedule)
+                                            <li class="grid grid-cols-[1fr_auto] items-center gap-4 py-[7px] font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:py-[8px] md:text-[18px]">
+                                                <span>{{ $schedule['day'] }}</span>
+                                                <span class="text-right">{{ $schedule['time'] }}</span>
+                                            </li>
+                                        @endforeach
                                     </ul>
 
                                     <div class="mt-5 flex items-center gap-3 font-sans text-[14px] leading-[1.4] font-semibold text-[#00223A] md:text-[18px]">
-                                        <span>Ask Me A Question:</span>
+                                        <span>{{ $askLabel }}</span>
                                         <a href="mailto:{{ $contactEmail }}" aria-label="Email">
                                             <img class="h-[18px] w-auto md:h-[22px]" style="filter: brightness(0) saturate(100%) invert(10%) sepia(20%) saturate(2339%) hue-rotate(172deg) brightness(96%) contrast(102%);" src="{{ asset('assets/footer/icon-mail.png') }}" alt="">
                                         </a>

@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\ContactInfoController;
+use App\Http\Controllers\Admin\DoctorProfileController;
 use App\Http\Controllers\Admin\HomePageController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\SiteSettingsController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
@@ -23,8 +26,15 @@ Route::prefix('admin')->group(function () {
 
     Route::middleware('auth')->group(function () {
         Route::post('/logout', [AuthController::class, 'destroy'])->name('admin.logout');
-        Route::get('/', [HomePageController::class, 'index'])->name('admin.homepage.index');
+        Route::redirect('/', '/admin/site-settings');
+        Route::get('/site-settings', [SiteSettingsController::class, 'index'])->name('admin.site-settings.index');
+        Route::post('/site-settings', [SiteSettingsController::class, 'update'])->name('admin.site-settings.update');
+        Route::get('/homepage', [HomePageController::class, 'index'])->name('admin.homepage.index');
         Route::post('/homepage', [HomePageController::class, 'update'])->name('admin.homepage.update');
+        Route::get('/doctor-profile', [DoctorProfileController::class, 'index'])->name('admin.doctor-profile.index');
+        Route::post('/doctor-profile', [DoctorProfileController::class, 'update'])->name('admin.doctor-profile.update');
+        Route::get('/contact-info', [ContactInfoController::class, 'index'])->name('admin.contact-info.index');
+        Route::post('/contact-info', [ContactInfoController::class, 'update'])->name('admin.contact-info.update');
         Route::resource('/services', ServiceController::class)->names('admin.services')->except(['show']);
     });
 });
