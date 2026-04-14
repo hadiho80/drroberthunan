@@ -30,8 +30,11 @@ class SiteController extends Controller
         $profile = $this->doctorProfilePayload();
 
         return view('pages.profile', $data + [
-            'pageTitle' => $profile['title'],
-            'pageIntro' => $profile['subtitle'],
+            'pageTitle' => $profile['title'] ?: $data['doctorName'],
+            'pageIntro' => $profile['subtitle'] ?: $profile['intro'],
+            'doctorName' => $profile['title'] ?: $data['doctorName'],
+            'doctorProfileIntro' => $profile['subtitle'] ?: $profile['intro'] ?: $data['doctorProfileIntro'],
+            'doctorProfileImage' => $this->cms->mediaUrl($profile['image']) ?: $data['doctorProfileImage'],
             'profileSections' => $profile['sections'],
         ]);
     }
@@ -66,7 +69,12 @@ class SiteController extends Controller
 
         return view('pages.contact', $data + [
             'pageTitle' => $contact['page_title'],
-            'pageIntro' => $contact['page_intro'],
+            // 'pageIntro' => $contact['page_intro'],
+            'contactPagePhone' => $contact['phone'],
+            'contactPageEmail' => $contact['email'],
+            'contactPageAddress' => $contact['address'],
+            'contactPageWhatsAppLink' => $contact['whatsapp_link'],
+            'contactPageImage' => $contact['contact_image'],
             'contactSchedules' => $contact['schedules'],
             'scheduleHeading' => $contact['schedule_heading'],
             'askLabel' => $contact['ask_label'],
@@ -188,6 +196,12 @@ class SiteController extends Controller
             'highlight_bottom_image' => $this->cms->mediaUrl($homepage->highlight_bottom_image),
             'contact_title' => $homepage->contact_title,
             'contact_image' => $this->cms->mediaUrl($homepage->contact_image),
+            'contact_success_message' => $homepage->contact_success_message,
+            'contact_name_placeholder' => $homepage->contact_name_placeholder,
+            'contact_phone_placeholder' => $homepage->contact_phone_placeholder,
+            'contact_email_placeholder' => $homepage->contact_email_placeholder,
+            'contact_message_placeholder' => $homepage->contact_message_placeholder,
+            'contact_button_label' => $homepage->contact_button_label,
         ];
     }
 
@@ -202,15 +216,21 @@ class SiteController extends Controller
 
     private function featuredServices(): array
     {
+        $serviceCards = $this->cms->homepage()
+            ->serviceCards
+            ->filter(fn ($card) => $card->service && $card->service->slug && $card->service->is_published);
+
+        if ($serviceCards->isNotEmpty()) {
+            return $serviceCards
+                ->map(fn ($card) => $this->mapServiceCard($card->service))
+                ->values()
+                ->all();
+        }
+
         return $this->cms->services()
             ->where('is_featured', true)
             ->take(3)
-            ->map(fn (Service $service) => [
-                'label' => $service->title,
-                'url' => route('site.service.show', $service->slug),
-                'icon' => $this->cms->mediaUrl($service->card_icon),
-                'copy' => $service->card_description ?: $service->intro,
-            ])
+            ->map(fn (Service $service) => $this->mapServiceCard($service))
             ->values()
             ->all();
     }
@@ -260,7 +280,12 @@ class SiteController extends Controller
 
         return [
             'page_title' => $contact->page_title,
-            'page_intro' => $contact->page_intro,
+            // 'page_intro' => $contact->page_intro,
+            'phone' => $contact->phone ?: $this->siteSettingsPayload()['contact_phone'],
+            'email' => $contact->email ?: $this->siteSettingsPayload()['contact_email'],
+            'address' => $contact->address ?: $this->siteSettingsPayload()['contact_address'],
+            'whatsapp_link' => $contact->whatsapp_link ?: $this->siteSettingsPayload()['whatsapp_link'],
+            'contact_image' => $this->cms->mediaUrl($contact->contact_image),
             'schedule_heading' => $contact->schedule_heading,
             'ask_label' => $contact->ask_label,
             'schedules' => $groupedSchedules,
@@ -295,6 +320,8 @@ class SiteController extends Controller
                 'hero_image' => $this->cms->mediaUrl($service->hero_image),
                 'card_image' => $this->cms->mediaUrl($service->card_image),
                 'highlight_image' => $this->cms->mediaUrl($service->highlight_image),
+                'seo_title' => $service->seo_title,
+                'seo_description' => $service->seo_description,
                 'sections' => $service->sections->map(fn ($section) => [
                     'title' => $section->title,
                     'copy' => $section->copy,
@@ -304,5 +331,15 @@ class SiteController extends Controller
                 ])->all(),
             ];
         })->all();
+    }
+
+    private function mapServiceCard(Service $service): array
+    {
+        return [
+            'label' => $service->title,
+            'url' => route('site.service.show', $service->slug),
+            'icon' => $this->cms->mediaUrl($service->card_icon),
+            'copy' => $service->card_description ?: $service->intro,
+        ];
     }
 }

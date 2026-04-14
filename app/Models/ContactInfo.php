@@ -10,16 +10,14 @@ class ContactInfo extends Model
 {
     protected $fillable = [
         'page_title',
-        'page_intro',
+        // 'page_intro',
         'phone',
         'email',
         'address',
-        'city',
-        'region',
-        'postal_code',
-        'country',
+        'whatsapp_link',
         'schedule_heading',
         'ask_label',
+        'contact_image',
     ];
 
     public static function singleton(): self

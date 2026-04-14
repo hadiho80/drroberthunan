@@ -32,6 +32,9 @@ class Service extends Model
         'image',
         'sort_order',
         'is_featured',
+        'is_published',
+        'seo_title',
+        'seo_description',
     ];
 
     protected $casts = [
@@ -42,6 +45,7 @@ class Service extends Model
         'gallery_images' => 'array',
         'feature_copy' => 'array',
         'is_featured' => 'boolean',
+        'is_published' => 'boolean',
     ];
 
     public function sections(): HasMany

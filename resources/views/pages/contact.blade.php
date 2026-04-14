@@ -1,5 +1,6 @@
 @php
     $seoTitle = 'Contact '.$doctorName.' | National Hospital Surabaya';
+    // $seoDescription = $pageIntro ?: ('Contact '.$doctorName.' at '.$clinicName.', Surabaya, for appointments, questions, and women health consultation support.');
     $seoDescription = 'Contact '.$doctorName.' at '.$clinicName.', Surabaya, for appointments, questions, and women health consultation support.';
     $seoImageAlt = $clinicName;
     $seoImageType = 'image/png';
@@ -20,14 +21,14 @@
                 'department' => $clinicDepartment,
                 'address' => [
                     '@type' => 'PostalAddress',
-                    'streetAddress' => $contactAddress,
+                    'streetAddress' => $contactPageAddress,
                     'addressLocality' => $contactCity,
                     'addressRegion' => $contactRegion,
                     'postalCode' => $contactPostalCode,
                     'addressCountry' => $contactCountry,
                 ],
-                'telephone' => $contactPhone,
-                'email' => $contactEmail,
+                'telephone' => $contactPagePhone,
+                'email' => $contactPageEmail,
                 'url' => url()->current(),
                 'openingHoursSpecification' => collect($contactScheduleSchema)->map(fn ($schedule) => [
                     '@type' => 'OpeningHoursSpecification',
@@ -80,10 +81,18 @@
                             <div class="grid grid-cols-1 gap-7 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.05fr)] md:items-start md:gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:gap-14">
                                 <div>
                                     <h1 class="m-0 font-sans text-[32px] leading-[1.08] font-extrabold tracking-[-0.03em] text-[#0E446A] md:text-[40px] md:leading-[1.05]">{{ strtoupper($pageTitle) }}</h1>
+                                    {{-- @if($pageIntro)
+                                        <p class="mt-4 max-w-[520px] font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]">{{ $pageIntro }}</p>
+                                    @endif --}}
 
                                     <div class="mt-8 md:mt-10">
                                         <img class="w-[150px] md:w-[168px] lg:w-[176px]" src="{{ asset('assets/branding/nhscope-logo-dark.png') }}" alt="NH Scope logo">
-                                        <p class="mt-5 max-w-[360px] font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]">{{ $contactAddress }}</p>
+                                        <p class="mt-5 max-w-[360px] font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]">{{ $contactPageAddress }}</p>
+                                        @if($contactPageImage)
+                                            <div class="mt-5 max-w-[360px] overflow-hidden rounded-[8px] border border-[#d7e7f3] bg-white">
+                                                <img class="block h-auto w-full object-cover" src="{{ $contactPageImage }}" alt="{{ $pageTitle }}" loading="lazy" decoding="async">
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
 
@@ -101,10 +110,10 @@
 
                                     <div class="mt-5 flex items-center gap-3 font-sans text-[14px] leading-[1.4] font-semibold text-[#00223A] md:text-[18px]">
                                         <span>{{ $askLabel }}</span>
-                                        <a href="mailto:{{ $contactEmail }}" aria-label="Email">
+                                        <a href="mailto:{{ $contactPageEmail }}" aria-label="Email">
                                             <img class="h-[18px] w-auto md:h-[22px]" style="filter: brightness(0) saturate(100%) invert(10%) sepia(20%) saturate(2339%) hue-rotate(172deg) brightness(96%) contrast(102%);" src="{{ asset('assets/footer/icon-mail.png') }}" alt="">
                                         </a>
-                                        <a href="{{ $whatsAppLink }}" target="_blank" rel="noreferrer" aria-label="WhatsApp">
+                                        <a href="{{ $contactPageWhatsAppLink ?: $whatsAppLink }}" target="_blank" rel="noreferrer" aria-label="WhatsApp">
                                             <img class="h-[18px] w-[18px] md:h-[22px] md:w-[22px]" style="filter: brightness(0) saturate(100%) invert(10%) sepia(20%) saturate(2339%) hue-rotate(172deg) brightness(96%) contrast(102%);" src="{{ asset('assets/footer/icon-wa.png') }}" alt="">
                                         </a>
                                     </div>

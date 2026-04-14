@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Service;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 class ServiceController extends Controller
@@ -22,6 +24,7 @@ class ServiceController extends Controller
         return view('admin.services.form', [
             'service' => new Service([
                 'show_intro' => true,
+                'is_published' => true,
                 'sections_json' => json_encode([], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE),
             ]),
             'action' => route('admin.services.store'),
@@ -59,7 +62,7 @@ class ServiceController extends Controller
 
     public function update(Request $request, Service $service): RedirectResponse
     {
-        $data = $this->validatedData($request);
+        $data = $this->validatedData($request, $service);
         $service->update($this->payload($request, $data, $service));
         $this->syncSections($service, $data['sections_json'] ?? '[]');
 
@@ -73,11 +76,19 @@ class ServiceController extends Controller
         return redirect()->route('admin.services.index')->with('status', 'Layanan berhasil dihapus.');
     }
 
-    private function validatedData(Request $request): array
+    private function validatedData(Request $request, ?Service $service = null): array
     {
+        $serviceId = $service?->id;
+
         return $request->validate([
             'title' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string', 'max:255'],
+            'slug' => [
+                'required',
+                'string',
+                'max:255',
+                'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/',
+                Rule::unique('services', 'slug')->ignore($serviceId),
+            ],
             'eyebrow' => ['nullable', 'string', 'max:255'],
             'intro' => ['nullable', 'string'],
             'card_description' => ['nullable', 'string'],
@@ -93,6 +104,9 @@ class ServiceController extends Controller
             'gallery_images_text' => ['nullable', 'string'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
             'is_featured' => ['nullable', 'boolean'],
+            'is_published' => ['nullable', 'boolean'],
+            'seo_title' => ['nullable', 'string', 'max:255'],
+            'seo_description' => ['nullable', 'string', 'max:320'],
             'sections_json' => ['nullable', 'string'],
             'card_icon' => ['nullable', 'image', 'max:4096'],
             'card_image' => ['nullable', 'image', 'max:4096'],
@@ -106,8 +120,8 @@ class ServiceController extends Controller
     {
         $payload = [
             'title' => $data['title'],
-            'slug' => $data['slug'],
-            'description' => $data['intro'] ?? $data['card_description'] ?? $data['title'],
+            'slug' => Str::slug($data['slug']),
+            'description' => $data['card_description'] ?? $data['intro'] ?? $data['title'],
             'eyebrow' => $data['eyebrow'] ?? null,
             'intro' => $data['intro'] ?? null,
             'card_description' => $data['card_description'] ?? null,
@@ -123,6 +137,9 @@ class ServiceController extends Controller
             'gallery_images' => $this->lines($data['gallery_images_text'] ?? ''),
             'sort_order' => (int) ($data['sort_order'] ?? 0),
             'is_featured' => $request->boolean('is_featured'),
+            'is_published' => $request->boolean('is_published'),
+            'seo_title' => $data['seo_title'] ?? null,
+            'seo_description' => $data['seo_description'] ?? null,
         ];
 
         foreach (['card_icon', 'card_image', 'hero_image', 'highlight_image', 'feature_image'] as $field) {

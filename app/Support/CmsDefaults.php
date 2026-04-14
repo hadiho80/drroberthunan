@@ -61,6 +61,27 @@ class CmsDefaults
         ];
     }
 
+    public static function homepageContactForm(): array
+    {
+        return [
+            'contact_success_message' => 'Your enquiry has been sent.',
+            'contact_name_placeholder' => 'Name *',
+            'contact_phone_placeholder' => 'Phone No. *',
+            'contact_email_placeholder' => 'Email *',
+            'contact_message_placeholder' => 'Message',
+            'contact_button_label' => 'Send An Enquiry',
+        ];
+    }
+
+    public static function homepageServiceCards(): array
+    {
+        return [
+            ['service_slug' => 'obstetrics', 'sort_order' => 10],
+            ['service_slug' => 'gynaecology', 'sort_order' => 20],
+            ['service_slug' => 'minimally-invasive-surgery', 'sort_order' => 30],
+        ];
+    }
+
     public static function homepageHighlights(): array
     {
         return [
@@ -121,6 +142,17 @@ class CmsDefaults
             'page_intro' => 'Reach our team for appointment scheduling, questions, and follow-up support.',
             'schedule_heading' => 'dr. Robert Hunan Purwaka, Sp.OG, D.MAS, FMIS\'s Schedule',
             'ask_label' => 'Ask Me A Question:',
+        ];
+    }
+
+    public static function contactPublicFields(): array
+    {
+        return [
+            'phone' => '+628121043450',
+            'email' => 'roberthunan@gmail.com',
+            'address' => 'Jl. Boulevard Famili Sel No.Kav. 1 Babatan, Kec. Wiyung, Surabaya, Jawa Timur 60227',
+            'whatsapp_link' => 'https://wa.me/628121043450',
+            'contact_image' => null,
         ];
     }
 

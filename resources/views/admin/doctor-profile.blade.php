@@ -17,11 +17,11 @@
         <form action="{{ route('admin.doctor-profile.update') }}" method="POST" enctype="multipart/form-data" class="admin-form-grid">
             @csrf
             <label>
-                <span>Page title</span>
+                <span>Nama dokter</span>
                 <input type="text" name="title" value="{{ old('title', $profile->title) }}">
             </label>
             <label>
-                <span>Page subtitle</span>
+                <span>Subtitle</span>
                 <input type="text" name="subtitle" value="{{ old('subtitle', $profile->subtitle) }}">
             </label>
             <label class="span-2">
@@ -33,7 +33,7 @@
                 <textarea name="biography" rows="5">{{ old('biography', $profile->biography) }}</textarea>
             </label>
             <label class="span-2">
-                <span>Image</span>
+                <span>Foto profile</span>
                 <input type="file" name="image" accept="image/*">
             </label>
             <label class="span-2">

@@ -87,6 +87,24 @@
                 <span>Judul section services</span>
                 <input type="text" name="services_title" value="{{ old('services_title', $homepage->services_title) }}">
             </label>
+            <div class="span-2">
+                <span class="mb-3 block text-sm font-semibold text-slate-700">Kartu service homepage</span>
+                <div class="grid gap-3">
+                    @php
+                        $selectedCards = $homepage->serviceCards->keyBy('service_id');
+                    @endphp
+                    @foreach($services as $service)
+                        @php
+                            $selectedCard = $selectedCards->get($service->id);
+                        @endphp
+                        <label class="flex flex-wrap items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3">
+                            <input type="checkbox" name="service_cards[{{ $service->id }}][enabled]" value="1" @checked(old("service_cards.{$service->id}.enabled", (bool) $selectedCard))>
+                            <span class="min-w-[220px] flex-1">{{ $service->title }}</span>
+                            <input type="number" name="service_cards[{{ $service->id }}][sort_order]" value="{{ old("service_cards.{$service->id}.sort_order", $selectedCard->sort_order ?? ($service->sort_order ?? 0)) }}" placeholder="Urutan" class="max-w-[140px]">
+                        </label>
+                    @endforeach
+                </div>
+            </div>
             <label>
                 <span>Judul section highlights</span>
                 <input type="text" name="highlights_title" value="{{ old('highlights_title', $homepage->highlights_title) }}">
@@ -102,6 +120,30 @@
             <label class="span-2">
                 <span>Gambar contact section</span>
                 <input type="file" name="contact_image" accept="image/*">
+            </label>
+            <label>
+                <span>Pesan sukses contact form</span>
+                <input type="text" name="contact_success_message" value="{{ old('contact_success_message', $homepage->contact_success_message) }}">
+            </label>
+            <label>
+                <span>Label tombol contact form</span>
+                <input type="text" name="contact_button_label" value="{{ old('contact_button_label', $homepage->contact_button_label) }}">
+            </label>
+            <label>
+                <span>Placeholder nama</span>
+                <input type="text" name="contact_name_placeholder" value="{{ old('contact_name_placeholder', $homepage->contact_name_placeholder) }}">
+            </label>
+            <label>
+                <span>Placeholder telepon</span>
+                <input type="text" name="contact_phone_placeholder" value="{{ old('contact_phone_placeholder', $homepage->contact_phone_placeholder) }}">
+            </label>
+            <label>
+                <span>Placeholder email</span>
+                <input type="text" name="contact_email_placeholder" value="{{ old('contact_email_placeholder', $homepage->contact_email_placeholder) }}">
+            </label>
+            <label>
+                <span>Placeholder pesan</span>
+                <input type="text" name="contact_message_placeholder" value="{{ old('contact_message_placeholder', $homepage->contact_message_placeholder) }}">
             </label>
             <label class="span-2">
                 <span>Highlights homepage `Title|URL|ImagePath`, satu baris satu item</span>

@@ -39,7 +39,7 @@ class SitemapController extends Controller
             ],
         ];
 
-        foreach (Service::query()->whereNotNull('slug')->orderBy('sort_order')->pluck('slug') as $slug) {
+        foreach (Service::query()->where('is_published', true)->whereNotNull('slug')->orderBy('sort_order')->pluck('slug') as $slug) {
             $urls[] = [
                 'loc' => route('site.service.show', $slug),
                 'changefreq' => 'monthly',

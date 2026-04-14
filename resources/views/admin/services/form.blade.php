@@ -24,6 +24,10 @@
                 <span>Slug</span>
                 <input type="text" name="slug" value="{{ old('slug', $service->slug) }}">
             </label>
+            <label class="span-2">
+                <span>Ringkasan layanan</span>
+                <textarea name="card_description" rows="3">{{ old('card_description', $service->card_description) }}</textarea>
+            </label>
             <label>
                 <span>Eyebrow</span>
                 <input type="text" name="eyebrow" value="{{ old('eyebrow', $service->eyebrow) }}">
@@ -36,9 +40,9 @@
                 <span>Intro</span>
                 <textarea name="intro" rows="4">{{ old('intro', $service->intro) }}</textarea>
             </label>
-            <label class="span-2">
-                <span>Deskripsi kartu layanan</span>
-                <textarea name="card_description" rows="3">{{ old('card_description', $service->card_description) }}</textarea>
+            <label class="span-2 inline-flex items-center gap-3">
+                <input type="checkbox" name="is_published" value="1" @checked(old('is_published', $service->is_published ?? true))>
+                <span>Publish layanan ini ke halaman public</span>
             </label>
             <label>
                 <span>Hero suffix</span>
@@ -71,6 +75,14 @@
             <label class="span-2">
                 <span>Gallery images path/url, satu baris satu item</span>
                 <textarea name="gallery_images_text" rows="4">{{ old('gallery_images_text', collect($service->gallery_images ?? [])->implode("\n")) }}</textarea>
+            </label>
+            <label class="span-2">
+                <span>SEO title</span>
+                <input type="text" name="seo_title" value="{{ old('seo_title', $service->seo_title) }}">
+            </label>
+            <label class="span-2">
+                <span>SEO description</span>
+                <textarea name="seo_description" rows="3">{{ old('seo_description', $service->seo_description) }}</textarea>
             </label>
             <label>
                 <span>Card icon</span>
@@ -106,6 +118,7 @@
             </label>
             <label class="span-2">
                 <span>Sections JSON terstruktur</span>
+                <small>Gunakan array section dengan field seperti `title`, `copy`, `list_items`, `copy_blocks`, `split_columns`, dan `sort_order`.</small>
                 <textarea name="sections_json" rows="16">{{ old('sections_json', $service->sections_json ?? '[]') }}</textarea>
             </label>
 

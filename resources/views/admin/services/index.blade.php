@@ -15,8 +15,8 @@
                 <article class="admin-table-row">
                     <div>
                         <h2>{{ $service->title }}</h2>
-                        <p>{{ $service->slug }} · {{ $service->eyebrow ?: 'No eyebrow' }} · order {{ $service->sort_order }}</p>
-                        <p>{{ $service->card_description ?: $service->intro }}</p>
+                        <p>{{ $service->slug }} | {{ $service->eyebrow ?: 'No eyebrow' }} | order {{ $service->sort_order }}</p>
+                        <p>{{ $service->is_published ? 'Published' : 'Draft' }} | {{ $service->card_description ?: $service->intro }}</p>
                     </div>
                     <div class="admin-table-actions">
                         <a href="{{ route('admin.services.edit', $service) }}" class="button-secondary">Edit</a>

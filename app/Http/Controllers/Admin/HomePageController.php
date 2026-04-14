@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\HomepageContent;
+use App\Models\Service;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -13,8 +14,11 @@ class HomePageController extends Controller
     public function index(): View
     {
         return view('admin.homepage', [
-            'homepage' => HomepageContent::query()->with('highlights')->firstOr(fn () => HomepageContent::singleton()->load('highlights')),
+            'homepage' => HomepageContent::query()
+                ->with(['highlights', 'serviceCards'])
+                ->firstOr(fn () => HomepageContent::singleton()->load(['highlights', 'serviceCards'])),
             'highlightsText' => $this->highlightsText(),
+            'services' => Service::query()->orderBy('sort_order')->orderBy('title')->get(),
         ]);
     }
 
@@ -43,10 +47,21 @@ class HomePageController extends Controller
             'highlight_bottom_image' => ['nullable', 'image', 'max:4096'],
             'contact_title' => ['nullable', 'string', 'max:255'],
             'contact_image' => ['nullable', 'image', 'max:4096'],
+            'contact_success_message' => ['nullable', 'string', 'max:255'],
+            'contact_name_placeholder' => ['nullable', 'string', 'max:255'],
+            'contact_phone_placeholder' => ['nullable', 'string', 'max:255'],
+            'contact_email_placeholder' => ['nullable', 'string', 'max:255'],
+            'contact_message_placeholder' => ['nullable', 'string', 'max:255'],
+            'contact_button_label' => ['nullable', 'string', 'max:255'],
             'highlights_text' => ['nullable', 'string'],
+            'service_cards' => ['nullable', 'array'],
+            'service_cards.*.enabled' => ['nullable', 'boolean'],
+            'service_cards.*.sort_order' => ['nullable', 'integer', 'min:0'],
         ]);
 
-        $homepage = HomepageContent::query()->with('highlights')->firstOr(fn () => HomepageContent::singleton()->load('highlights'));
+        $homepage = HomepageContent::query()
+            ->with(['highlights', 'serviceCards'])
+            ->firstOr(fn () => HomepageContent::singleton()->load(['highlights', 'serviceCards']));
 
         foreach (['hero_image', 'doctor_intro_image', 'about_image', 'highlight_bottom_image', 'contact_image'] as $field) {
             if ($request->hasFile($field)) {
@@ -56,12 +71,18 @@ class HomePageController extends Controller
             }
         }
 
-        $homepage->fill(collect($data)->except('highlights_text')->all())->save();
+        $homepage->fill(collect($data)->except(['highlights_text', 'service_cards'])->all())->save();
 
         $homepage->highlights()->delete();
 
         foreach ($this->parseHighlights($data['highlights_text'] ?? '') as $index => $highlight) {
             $homepage->highlights()->create($highlight + ['sort_order' => ($index + 1) * 10]);
+        }
+
+        $homepage->serviceCards()->delete();
+
+        foreach ($this->parseServiceCards($data['service_cards'] ?? []) as $card) {
+            $homepage->serviceCards()->create($card);
         }
 
         return back()->with('status', 'Homepage berhasil diperbarui.');
@@ -84,6 +105,19 @@ class HomePageController extends Controller
                 'url' => $parts[1],
                 'image' => $parts[2],
             ])
+            ->values()
+            ->all();
+    }
+
+    private function parseServiceCards(array $cards): array
+    {
+        return collect($cards)
+            ->filter(fn ($card) => (bool) ($card['enabled'] ?? false))
+            ->map(fn ($card, $serviceId) => [
+                'service_id' => (int) $serviceId,
+                'sort_order' => (int) ($card['sort_order'] ?? 0),
+            ])
+            ->sortBy('sort_order')
             ->values()
             ->all();
     }

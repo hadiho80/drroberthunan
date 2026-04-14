@@ -18,7 +18,9 @@ class CmsData
 
     public function homepage(): HomepageContent
     {
-        return HomepageContent::query()->with('highlights')->firstOr(fn () => HomepageContent::singleton()->load('highlights'));
+        return HomepageContent::query()
+            ->with(['highlights', 'serviceCards.service'])
+            ->firstOr(fn () => HomepageContent::singleton()->load(['highlights', 'serviceCards.service']));
     }
 
     public function doctorProfile(): DoctorProfile
@@ -37,6 +39,7 @@ class CmsData
             ->with('sections')
             ->whereNotNull('slug')
             ->where('slug', '!=', '')
+            ->where('is_published', true)
             ->orderBy('sort_order')
             ->orderBy('id')
             ->get();

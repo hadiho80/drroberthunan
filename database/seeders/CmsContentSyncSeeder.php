@@ -29,11 +29,25 @@ class CmsContentSyncSeeder extends Seeder
 
     private function syncHomepage(): void
     {
-        $homepage = HomepageContent::query()->updateOrCreate(['id' => 1], CmsDefaults::homepage());
+        $homepage = HomepageContent::query()->updateOrCreate(['id' => 1], CmsDefaults::homepage() + CmsDefaults::homepageContactForm());
         $homepage->highlights()->delete();
+        $homepage->serviceCards()->delete();
 
         foreach (CmsDefaults::homepageHighlights() as $highlight) {
             $homepage->highlights()->create($highlight);
+        }
+
+        foreach (CmsDefaults::homepageServiceCards() as $card) {
+            $serviceId = Service::query()->where('slug', $card['service_slug'])->value('id');
+
+            if (! $serviceId) {
+                continue;
+            }
+
+            $homepage->serviceCards()->create([
+                'service_id' => $serviceId,
+                'sort_order' => $card['sort_order'],
+            ]);
         }
     }
 

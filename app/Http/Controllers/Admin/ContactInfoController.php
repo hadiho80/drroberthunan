@@ -22,13 +22,25 @@ class ContactInfoController extends Controller
     {
         $data = $request->validate([
             'page_title' => ['required', 'string', 'max:255'],
-            'page_intro' => ['required', 'string'],
+            // 'page_intro' => ['required', 'string'],
+            'phone' => ['nullable', 'string', 'max:255'],
+            'email' => ['nullable', 'email', 'max:255'],
+            'address' => ['nullable', 'string', 'max:255'],
+            'whatsapp_link' => ['nullable', 'string', 'max:255'],
             'schedule_heading' => ['required', 'string', 'max:255'],
             'ask_label' => ['required', 'string', 'max:255'],
+            'contact_image' => ['nullable', 'image', 'max:4096'],
             'schedule_rows' => ['nullable', 'string'],
         ]);
 
         $contact = ContactInfo::query()->with('schedules')->firstOr(fn () => ContactInfo::singleton()->load('schedules'));
+
+        if ($request->hasFile('contact_image')) {
+            $data['contact_image'] = $request->file('contact_image')->store('contact', 'public');
+        } else {
+            unset($data['contact_image']);
+        }
+
         $contact->fill(collect($data)->except('schedule_rows')->all())->save();
 
         $contact->schedules()->delete();

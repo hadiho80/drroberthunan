@@ -31,6 +31,12 @@ class HomepageContent extends Model
         'highlight_bottom_image',
         'contact_title',
         'contact_image',
+        'contact_success_message',
+        'contact_name_placeholder',
+        'contact_phone_placeholder',
+        'contact_email_placeholder',
+        'contact_message_placeholder',
+        'contact_button_label',
     ];
 
     public static function singleton(): self
@@ -41,5 +47,10 @@ class HomepageContent extends Model
     public function highlights(): HasMany
     {
         return $this->hasMany(HomepageHighlight::class, 'homepage_content_id')->orderBy('sort_order');
+    }
+
+    public function serviceCards(): HasMany
+    {
+        return $this->hasMany(HomepageServiceCard::class, 'homepage_content_id')->orderBy('sort_order');
     }
 }

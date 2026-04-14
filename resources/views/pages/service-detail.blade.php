@@ -1,6 +1,6 @@
 @php
-    $seoTitle = $servicePage['title'].' | '.$doctorName.' in Surabaya';
-    $seoDescription = $servicePage['intro'].' Learn more about consultation and treatment with '.$doctorName.' at '.$clinicName.'.';
+    $seoTitle = ($servicePage['seo_title'] ?: $servicePage['title']).' | '.$doctorName.' in Surabaya';
+    $seoDescription = $servicePage['seo_description'] ?: ($servicePage['intro'].' Learn more about consultation and treatment with '.$doctorName.' at '.$clinicName.'.');
     $pagePadX = 'px-4 md:px-6 lg:px-10';
     $pageSectionTop = '';
     $pageContentMax = 'mx-auto w-full max-w-[1100px]';
