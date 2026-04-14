@@ -1,7 +1,8 @@
 @php
-    $seoTitle = 'Contact '.$doctorName.' | National Hospital Surabaya';
-    // $seoDescription = $pageIntro ?: ('Contact '.$doctorName.' at '.$clinicName.', Surabaya, for appointments, questions, and women health consultation support.');
-    $seoDescription = 'Contact '.$doctorName.' at '.$clinicName.', Surabaya, for appointments, questions, and women health consultation support.';
+    $seoTitle = $pageSeoTitle ?? ('Contact '.$doctorName.' | National Hospital Surabaya');
+    $seoDescription = $pageSeoDescription ?? ('Contact '.$doctorName.' at '.$clinicName.', Surabaya, for appointments, questions, and women health consultation support.');
+    $seoKeywords = $pageSeoKeywords ?? $seoKeywords;
+    $seoImage = $pageSeoImage ?? $seoImage;
     $seoImageAlt = $clinicName;
     $seoImageType = 'image/png';
     $structuredData = json_encode([
@@ -81,10 +82,6 @@
                             <div class="grid grid-cols-1 gap-7 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.05fr)] md:items-start md:gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:gap-14">
                                 <div>
                                     <h1 class="m-0 font-sans text-[32px] leading-[1.08] font-extrabold tracking-[-0.03em] text-[#0E446A] md:text-[40px] md:leading-[1.05]">{{ strtoupper($pageTitle) }}</h1>
-                                    {{-- @if($pageIntro)
-                                        <p class="mt-4 max-w-[520px] font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]">{{ $pageIntro }}</p>
-                                    @endif --}}
-
                                     <div class="mt-8 md:mt-10">
                                         <img class="w-[150px] md:w-[168px] lg:w-[176px]" src="{{ asset('assets/branding/nhscope-logo-dark.png') }}" alt="NH Scope logo">
                                         <p class="mt-5 max-w-[360px] font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]">{{ $contactPageAddress }}</p>

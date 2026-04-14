@@ -1,6 +1,8 @@
 @php
-    $seoTitle = $seoTitleDefault;
-    $seoDescription = $seoDescriptionDefault;
+    $seoTitle = $pageSeoTitle ?? $seoTitleDefault;
+    $seoDescription = $pageSeoDescription ?? $seoDescriptionDefault;
+    $seoKeywords = $pageSeoKeywords ?? $seoKeywords;
+    $seoImage = $pageSeoImage ?? $seoImage;
     $seoImageAlt = $doctorName;
     $seoImageType = 'image/png';
     $structuredData = json_encode([

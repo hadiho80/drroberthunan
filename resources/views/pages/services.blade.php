@@ -1,6 +1,8 @@
 @php
-    $seoTitle = 'Services | '.$doctorName.' in Surabaya';
-    $seoDescription = 'Explore obstetrics, gynecology, laparoscopy, myoma, endometriosis, ovarian cyst, and minimally invasive surgery services by '.$doctorName.' in Surabaya.';
+    $seoTitle = $pageSeoTitle ?? ('Services | '.$doctorName.' in Surabaya');
+    $seoDescription = $pageSeoDescription ?? ('Explore obstetrics, gynecology, laparoscopy, myoma, endometriosis, ovarian cyst, and minimally invasive surgery services by '.$doctorName.' in Surabaya.');
+    $seoKeywords = $pageSeoKeywords ?? $seoKeywords;
+    $seoImage = $pageSeoImage ?? $seoImage;
     $seoImageAlt = 'Services by '.$doctorName;
     $seoImageType = 'image/png';
     $structuredData = json_encode([

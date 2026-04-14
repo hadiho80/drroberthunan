@@ -63,6 +63,10 @@ class CmsData
             return url($path);
         }
 
+        if (! Storage::disk('public')->exists($path)) {
+            return null;
+        }
+
         return Storage::url($path);
     }
 

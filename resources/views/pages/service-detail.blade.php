@@ -1,10 +1,12 @@
 @php
     $seoTitle = ($servicePage['seo_title'] ?: $servicePage['title']).' | '.$doctorName.' in Surabaya';
     $seoDescription = $servicePage['seo_description'] ?: ($servicePage['intro'].' Learn more about consultation and treatment with '.$doctorName.' at '.$clinicName.'.');
+    $seoKeywords = $servicePage['seo_keywords'] ?? $seoKeywords;
     $pagePadX = 'px-4 md:px-6 lg:px-10';
     $pageSectionTop = '';
     $pageContentMax = 'mx-auto w-full max-w-[1100px]';
     $serviceHeroImage = $servicePage['hero_image'] ?? asset('assets/highlights/nhscope.png');
+    $seoImage = $servicePage['og_image'] ?? $serviceHeroImage;
     $seoImageAlt = $servicePage['title'].' service by '.$doctorName;
     $seoImageType = str_ends_with($serviceHeroImage, '.jpg') || str_ends_with($serviceHeroImage, '.jpeg') ? 'image/jpeg' : 'image/png';
     $serviceHeroSuffix = $servicePage['hero_suffix'] ?? '';

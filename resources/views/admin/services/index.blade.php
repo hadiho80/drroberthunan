@@ -15,8 +15,15 @@
                 <article class="admin-table-row">
                     <div>
                         <h2>{{ $service->title }}</h2>
-                        <p>{{ $service->slug }} | {{ $service->eyebrow ?: 'No eyebrow' }} | order {{ $service->sort_order }}</p>
-                        <p>{{ $service->is_published ? 'Published' : 'Draft' }} | {{ $service->card_description ?: $service->intro }}</p>
+                        <div class="admin-table-meta">
+                            <span class="admin-status-pill {{ $service->is_published ? 'is-published' : 'is-draft' }}">
+                                {{ $service->is_published ? 'Published' : 'Draft' }}
+                            </span>
+                            <span class="admin-status-pill">Slug: {{ $service->slug }}</span>
+                            <span class="admin-status-pill">Urutan: {{ $service->sort_order }}</span>
+                        </div>
+                        <p>{{ $service->eyebrow ?: 'Eyebrow belum diisi.' }}</p>
+                        <p>{{ $service->card_description ?: $service->intro ?: 'Ringkasan layanan belum diisi.' }}</p>
                     </div>
                     <div class="admin-table-actions">
                         <a href="{{ route('admin.services.edit', $service) }}" class="button-secondary">Edit</a>

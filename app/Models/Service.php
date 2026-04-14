@@ -35,6 +35,8 @@ class Service extends Model
         'is_published',
         'seo_title',
         'seo_description',
+        'seo_keywords',
+        'og_image',
     ];
 
     protected $casts = [

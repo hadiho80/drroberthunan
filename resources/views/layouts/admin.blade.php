@@ -37,12 +37,20 @@
             </div>
 
             @if(session('status'))
-                <div class="admin-alert">{{ session('status') }}</div>
+                <div class="admin-alert">
+                    <strong>Perubahan berhasil disimpan.</strong>
+                    <div>{{ session('status') }}</div>
+                </div>
             @endif
 
             @if($errors->any())
                 <div class="admin-alert admin-alert-error">
-                    {{ $errors->first() }}
+                    <strong>Form belum bisa disimpan.</strong>
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
             @endif
 

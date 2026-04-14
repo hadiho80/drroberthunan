@@ -1,6 +1,8 @@
 @php
-    $seoTitle = $doctorName.' | Doctor Profile in Surabaya';
-    $seoDescription = 'Doctor profile of '.$doctorName.', obstetrician and gynecologist in Surabaya, including clinical experience, education, and minimally invasive surgery expertise.';
+    $seoTitle = $pageSeoTitle ?? ($doctorName.' | Doctor Profile in Surabaya');
+    $seoDescription = $pageSeoDescription ?? ('Doctor profile of '.$doctorName.', obstetrician and gynecologist in Surabaya, including clinical experience, education, and minimally invasive surgery expertise.');
+    $seoKeywords = $pageSeoKeywords ?? $seoKeywords;
+    $seoImage = $pageSeoImage ?? $seoImage;
     $seoImageAlt = $doctorName.' doctor profile';
     $seoImageType = 'image/jpeg';
     $structuredData = json_encode([

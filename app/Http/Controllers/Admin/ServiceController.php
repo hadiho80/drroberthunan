@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Service;
+use App\Support\CmsMediaManager;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -12,6 +13,10 @@ use Illuminate\View\View;
 
 class ServiceController extends Controller
 {
+    public function __construct(private readonly CmsMediaManager $media)
+    {
+    }
+
     public function index(): View
     {
         return view('admin.services.index', [
@@ -71,6 +76,10 @@ class ServiceController extends Controller
 
     public function destroy(Service $service): RedirectResponse
     {
+        foreach (['card_icon', 'card_image', 'hero_image', 'highlight_image', 'feature_image', 'og_image'] as $field) {
+            $this->media->deleteManagedFile($service->{$field});
+        }
+
         $service->delete();
 
         return redirect()->route('admin.services.index')->with('status', 'Layanan berhasil dihapus.');
@@ -107,12 +116,14 @@ class ServiceController extends Controller
             'is_published' => ['nullable', 'boolean'],
             'seo_title' => ['nullable', 'string', 'max:255'],
             'seo_description' => ['nullable', 'string', 'max:320'],
+            'seo_keywords' => ['nullable', 'string', 'max:500'],
             'sections_json' => ['nullable', 'string'],
-            'card_icon' => ['nullable', 'image', 'max:4096'],
-            'card_image' => ['nullable', 'image', 'max:4096'],
-            'hero_image' => ['nullable', 'image', 'max:4096'],
-            'highlight_image' => ['nullable', 'image', 'max:4096'],
-            'feature_image' => ['nullable', 'image', 'max:4096'],
+            'card_icon' => $this->media->imageRules(),
+            'card_image' => $this->media->imageRules(),
+            'hero_image' => $this->media->imageRules(),
+            'highlight_image' => $this->media->imageRules(),
+            'feature_image' => $this->media->imageRules(),
+            'og_image' => $this->media->imageRules(),
         ]);
     }
 
@@ -140,15 +151,15 @@ class ServiceController extends Controller
             'is_published' => $request->boolean('is_published'),
             'seo_title' => $data['seo_title'] ?? null,
             'seo_description' => $data['seo_description'] ?? null,
+            'seo_keywords' => $data['seo_keywords'] ?? null,
         ];
 
-        foreach (['card_icon', 'card_image', 'hero_image', 'highlight_image', 'feature_image'] as $field) {
-            if ($request->hasFile($field)) {
-                $payload[$field] = $request->file($field)->store('services', 'public');
-            } elseif ($service && $service->{$field}) {
-                $payload[$field] = $service->{$field};
-            }
-        }
+        $payload['card_icon'] = $this->media->replaceImage($request, 'card_icon', 'cms/services', $service?->card_icon);
+        $payload['card_image'] = $this->media->replaceImage($request, 'card_image', 'cms/services', $service?->card_image);
+        $payload['hero_image'] = $this->media->replaceImage($request, 'hero_image', 'cms/services', $service?->hero_image);
+        $payload['highlight_image'] = $this->media->replaceImage($request, 'highlight_image', 'cms/services', $service?->highlight_image);
+        $payload['feature_image'] = $this->media->replaceImage($request, 'feature_image', 'cms/services', $service?->feature_image);
+        $payload['og_image'] = $this->media->replaceImage($request, 'og_image', 'cms/services', $service?->og_image);
 
         return $payload;
     }

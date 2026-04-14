@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Service;
 use App\Support\CmsData;
+use App\Support\CmsDefaults;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -17,7 +18,14 @@ class SiteController extends Controller
 
     public function home(): View
     {
+        $page = $this->staticPageSettings('home');
+        abort_unless($page['is_published'], 404);
+
         return view('pages.home', $this->sharedData() + [
+            'pageSeoTitle' => $page['seo_title'],
+            'pageSeoDescription' => $page['seo_description'],
+            'pageSeoKeywords' => $page['seo_keywords'],
+            'pageSeoImage' => $page['og_image'],
             'homepage' => $this->homepagePayload(),
             'featuredServices' => $this->featuredServices(),
             'highlightItems' => $this->homepageHighlights(),
@@ -28,10 +36,16 @@ class SiteController extends Controller
     {
         $data = $this->sharedData();
         $profile = $this->doctorProfilePayload();
+        $page = $this->staticPageSettings('profile');
+        abort_unless($page['is_published'], 404);
 
         return view('pages.profile', $data + [
             'pageTitle' => $profile['title'] ?: $data['doctorName'],
             'pageIntro' => $profile['subtitle'] ?: $profile['intro'],
+            'pageSeoTitle' => $page['seo_title'],
+            'pageSeoDescription' => $page['seo_description'],
+            'pageSeoKeywords' => $page['seo_keywords'],
+            'pageSeoImage' => $page['og_image'],
             'doctorName' => $profile['title'] ?: $data['doctorName'],
             'doctorProfileIntro' => $profile['subtitle'] ?: $profile['intro'] ?: $data['doctorProfileIntro'],
             'doctorProfileImage' => $this->cms->mediaUrl($profile['image']) ?: $data['doctorProfileImage'],
@@ -42,10 +56,16 @@ class SiteController extends Controller
     public function services(): View
     {
         $data = $this->sharedData();
+        $page = $this->staticPageSettings('services');
+        abort_unless($page['is_published'], 404);
 
         return view('pages.services', $data + [
             'pageTitle' => 'Services',
             'pageIntro' => 'A clear overview of our main service areas with links to more detailed information.',
+            'pageSeoTitle' => $page['seo_title'],
+            'pageSeoDescription' => $page['seo_description'],
+            'pageSeoKeywords' => $page['seo_keywords'],
+            'pageSeoImage' => $page['og_image'],
             'servicePages' => $this->servicePages(),
         ]);
     }
@@ -66,9 +86,15 @@ class SiteController extends Controller
     {
         $data = $this->sharedData();
         $contact = $this->contactPayload();
+        $page = $this->staticPageSettings('contact');
+        abort_unless($page['is_published'], 404);
 
         return view('pages.contact', $data + [
             'pageTitle' => $contact['page_title'],
+            'pageSeoTitle' => $page['seo_title'],
+            'pageSeoDescription' => $page['seo_description'],
+            'pageSeoKeywords' => $page['seo_keywords'],
+            'pageSeoImage' => $page['og_image'],
             // 'pageIntro' => $contact['page_intro'],
             'contactPagePhone' => $contact['phone'],
             'contactPageEmail' => $contact['email'],
@@ -142,10 +168,10 @@ class SiteController extends Controller
             'seoTitleDefault' => $siteSettings['seo_title_default'],
             'seoDescriptionDefault' => $siteSettings['seo_description_default'],
             'seoKeywords' => $siteSettings['seo_keywords'],
-            'seoImage' => $this->cms->mediaUrl($siteSettings['seo_image']),
+            'seoImage' => $this->cms->mediaUrl($siteSettings['seo_image']) ?: asset(CmsDefaults::siteSettings()['seo_image']),
             'doctorName' => $siteSettings['doctor_name'],
             'doctorSubtitle' => $siteSettings['doctor_subtitle'],
-            'doctorProfileImage' => $this->cms->mediaUrl($doctorProfile['image']),
+            'doctorProfileImage' => $this->cms->mediaUrl($doctorProfile['image']) ?: asset(CmsDefaults::doctorProfile()['image']),
             'doctorProfileIntro' => $doctorProfile['intro'],
             'clinicName' => $siteSettings['clinic_name'],
             'clinicDepartment' => $siteSettings['clinic_department'],
@@ -178,24 +204,24 @@ class SiteController extends Controller
             'hero_description' => $homepage->hero_description,
             'hero_primary_cta_label' => $homepage->hero_primary_cta_label,
             'hero_primary_cta_url' => $this->cms->appUrl($homepage->hero_primary_cta_url),
-            'hero_image' => $this->cms->mediaUrl($homepage->hero_image),
+            'hero_image' => $this->cms->mediaUrl($homepage->hero_image) ?: asset(CmsDefaults::homepage()['hero_image']),
             'doctor_intro_title' => $homepage->doctor_intro_title,
             'doctor_intro_body' => $homepage->doctor_intro_body,
             'doctor_intro_stat' => $homepage->doctor_intro_stat,
             'doctor_intro_cta_label' => $homepage->doctor_intro_cta_label,
             'doctor_intro_cta_url' => $this->cms->appUrl($homepage->doctor_intro_cta_url),
-            'doctor_intro_image' => $this->cms->mediaUrl($homepage->doctor_intro_image),
+            'doctor_intro_image' => $this->cms->mediaUrl($homepage->doctor_intro_image) ?: asset(CmsDefaults::homepage()['doctor_intro_image']),
             'about_title' => $homepage->about_title,
             'about_body' => $homepage->about_body,
             'about_secondary_body' => $homepage->about_secondary_body,
             'about_cta_label' => $homepage->about_cta_label,
             'about_cta_url' => $this->cms->appUrl($homepage->about_cta_url),
-            'about_image' => $this->cms->mediaUrl($homepage->about_image),
+            'about_image' => $this->cms->mediaUrl($homepage->about_image) ?: asset(CmsDefaults::homepage()['about_image']),
             'services_title' => $homepage->services_title,
             'highlights_title' => $homepage->highlights_title,
-            'highlight_bottom_image' => $this->cms->mediaUrl($homepage->highlight_bottom_image),
+            'highlight_bottom_image' => $this->cms->mediaUrl($homepage->highlight_bottom_image) ?: asset(CmsDefaults::homepage()['highlight_bottom_image']),
             'contact_title' => $homepage->contact_title,
-            'contact_image' => $this->cms->mediaUrl($homepage->contact_image),
+            'contact_image' => $this->cms->mediaUrl($homepage->contact_image) ?: asset(CmsDefaults::homepage()['contact_image']),
             'contact_success_message' => $homepage->contact_success_message,
             'contact_name_placeholder' => $homepage->contact_name_placeholder,
             'contact_phone_placeholder' => $homepage->contact_phone_placeholder,
@@ -322,6 +348,8 @@ class SiteController extends Controller
                 'highlight_image' => $this->cms->mediaUrl($service->highlight_image),
                 'seo_title' => $service->seo_title,
                 'seo_description' => $service->seo_description,
+                'seo_keywords' => $service->seo_keywords,
+                'og_image' => $this->cms->mediaUrl($service->og_image) ?: $this->cms->mediaUrl($service->hero_image),
                 'sections' => $service->sections->map(fn ($section) => [
                     'title' => $section->title,
                     'copy' => $section->copy,
@@ -331,6 +359,20 @@ class SiteController extends Controller
                 ])->all(),
             ];
         })->all();
+    }
+
+    private function staticPageSettings(string $key): array
+    {
+        $settings = $this->siteSettingsPayload();
+
+        return [
+            'slug' => $settings["{$key}_slug"] ?? null,
+            'is_published' => (bool) ($settings["{$key}_is_published"] ?? true),
+            'seo_title' => $settings["{$key}_seo_title"] ?: $settings['seo_title_default'],
+            'seo_description' => $settings["{$key}_seo_description"] ?: $settings['seo_description_default'],
+            'seo_keywords' => $settings["{$key}_seo_keywords"] ?: $settings['seo_keywords'],
+            'og_image' => $this->cms->mediaUrl($settings["{$key}_og_image"] ?? null) ?: $this->cms->mediaUrl($settings['seo_image']) ?: asset(CmsDefaults::siteSettings()['seo_image']),
+        ];
     }
 
     private function mapServiceCard(Service $service): array

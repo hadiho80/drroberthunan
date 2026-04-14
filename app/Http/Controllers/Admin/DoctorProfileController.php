@@ -4,12 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\DoctorProfile;
+use App\Support\CmsMediaManager;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class DoctorProfileController extends Controller
 {
+    public function __construct(private readonly CmsMediaManager $media)
+    {
+    }
+
     public function index(): View
     {
         return view('admin.doctor-profile', [
@@ -24,7 +29,7 @@ class DoctorProfileController extends Controller
             'subtitle' => ['required', 'string', 'max:255'],
             'intro' => ['required', 'string'],
             'biography' => ['nullable', 'string'],
-            'image' => ['nullable', 'image', 'max:4096'],
+            'image' => $this->media->imageRules(),
             'experience_intro' => ['nullable', 'string'],
             'experience_items' => ['nullable', 'string'],
             'education_items' => ['nullable', 'string'],
@@ -33,11 +38,7 @@ class DoctorProfileController extends Controller
 
         $profile = DoctorProfile::query()->with('sections')->firstOr(fn () => DoctorProfile::singleton()->load('sections'));
 
-        if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('profile', 'public');
-        } else {
-            unset($data['image']);
-        }
+        $data['image'] = $this->media->replaceImage($request, 'image', 'cms/doctor-profile', $profile->image);
 
         $profile->fill(collect($data)->except([
             'experience_intro',
