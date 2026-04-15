@@ -57,7 +57,7 @@ class CmsDefaults
             'highlights_title' => 'Highlights',
             'highlight_bottom_image' => 'assets/highlights/highlight-bottom.png',
             'contact_title' => 'Contact Us',
-            'contact_image' => 'assets/contact/contact-us-home.png',
+            'contact_image' => 'assets/contact/contact-us-home.jpg',
         ];
     }
 
