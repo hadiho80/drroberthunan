@@ -166,9 +166,9 @@
 
                 <section class="highlights-section {{ $homeSectionPadTop }} {{ $homeSectionPadBottom }} bg-white">
                     <h2 class="{{ $sectionTitleClass }}">{{ $homepage['highlights_title'] }}</h2>
-                    <div class="{{ $homeContentMax }} grid max-w-[286px] grid-cols-1 overflow-hidden rounded-[12px] md:max-w-full md:grid-cols-3 lg:rounded-[14px]">
+                    <div class="{{ $homeContentMax }} grid max-w-[286px] grid-cols-2 overflow-hidden rounded-[12px] md:max-w-full md:grid-cols-3 lg:rounded-[14px]">
                         @foreach($highlightItems as $item)
-                            <a href="{{ $item['url'] }}" class="relative flex min-h-[120px] items-end justify-center overflow-hidden px-2 py-[10px] text-center text-[0.68rem] text-white md:min-h-[136px] md:px-[10px] md:py-3 md:text-[0.96rem] lg:min-h-[188px] lg:px-4 lg:py-4 lg:text-[1rem]">
+                            <a href="{{ $item['url'] }}" class="highlights-card-mobile {{ $loop->iteration === 3 ? 'highlights-card-mobile-span-2' : '' }} relative flex min-h-[120px] items-end justify-center overflow-hidden px-2 py-[10px] text-center text-[0.68rem] text-white md:min-h-[136px] md:px-[10px] md:py-3 md:text-[0.96rem] lg:min-h-[188px] lg:px-4 lg:py-4 lg:text-[1rem]">
                                 <img class="absolute inset-0 h-full w-full object-cover" src="{{ $item['image'] }}" alt="{{ $item['title'] }}" loading="lazy" decoding="async">
                                 <span class="absolute inset-0 bg-[linear-gradient(180deg,rgba(14,68,106,0.08)_0%,rgba(14,68,106,0.46)_100%)]"></span>
                                 <span class="relative max-w-[90%] font-bold [font-family:'DM_Sans',sans-serif] leading-[1.2]">{{ $item['title'] }}</span>
@@ -179,7 +179,67 @@
 
                 <section class="highlight-bottom-section {{ $homeSectionPadTop }} {{ $homeSectionPadBottom }} bg-white">
                     <div class="{{ $homeContentMax }} max-w-[286px] overflow-hidden rounded-[12px] md:max-w-full lg:rounded-[10px]">
-                        <img class="block w-full aspect-[335/177] object-cover" src="{{ $homepage['highlight_bottom_image'] }}" alt="NH Scope highlight" loading="lazy" decoding="async">
+                        @if(($homepage['highlight_bottom_media_type'] ?? 'image') === 'youtube')
+                            <div class="highlight-bottom-media group relative">
+                                <img
+                                    class="highlight-bottom-poster block h-full w-full object-cover"
+                                    src="{{ $homepage['highlight_bottom_poster'] }}"
+                                    alt="NH Scope highlight video thumbnail"
+                                    loading="lazy"
+                                    decoding="async"
+                                    data-highlight-youtube-poster
+                                >
+                                <iframe
+                                    class="highlight-bottom-frame absolute inset-0 hidden h-full w-full"
+                                    title="NH Scope highlight video"
+                                    loading="lazy"
+                                    referrerpolicy="strict-origin-when-cross-origin"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen
+                                    data-highlight-youtube-frame
+                                    data-src="{{ $homepage['highlight_bottom_embed_url'] }}"
+                                ></iframe>
+                                <button
+                                    type="button"
+                                    class="highlight-bottom-play absolute inset-0 flex items-center justify-center bg-[linear-gradient(180deg,rgba(8,37,58,0.12)_0%,rgba(8,37,58,0.4)_100%)] text-white transition-opacity duration-200"
+                                    aria-label="Play highlight video"
+                                    data-highlight-youtube-trigger
+                                >
+                                    <span class="highlight-bottom-play-icon">
+                                        <span></span>
+                                    </span>
+                                </button>
+                            </div>
+                        @elseif(($homepage['highlight_bottom_media_type'] ?? 'image') === 'video')
+                            <div class="highlight-bottom-media group relative">
+                                <video
+                                    class="highlight-bottom-video block h-full w-full object-cover"
+                                    preload="none"
+                                    playsinline
+                                    controlslist="nodownload noplaybackrate"
+                                    disablepictureinpicture
+                                    aria-label="NH Scope highlight video"
+                                    @if(!empty($homepage['highlight_bottom_poster']))
+                                        poster="{{ $homepage['highlight_bottom_poster'] }}"
+                                    @endif
+                                    data-highlight-video
+                                >
+                                    <source src="{{ $homepage['highlight_bottom_image'] }}">
+                                </video>
+                                <button
+                                    type="button"
+                                    class="highlight-bottom-play absolute inset-0 flex items-center justify-center bg-[linear-gradient(180deg,rgba(8,37,58,0.12)_0%,rgba(8,37,58,0.4)_100%)] text-white transition-opacity duration-200"
+                                    aria-label="Play highlight video"
+                                    data-highlight-video-trigger
+                                >
+                                    <span class="highlight-bottom-play-icon">
+                                        <span></span>
+                                    </span>
+                                </button>
+                            </div>
+                        @else
+                            <img class="block w-full aspect-[335/177] object-cover" src="{{ $homepage['highlight_bottom_image'] }}" alt="NH Scope highlight" loading="lazy" decoding="async">
+                        @endif
                     </div>
                 </section>
 

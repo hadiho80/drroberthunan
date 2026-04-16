@@ -49,7 +49,7 @@ class HomePageController extends Controller
             'about_image' => $this->media->imageRules(),
             'services_title' => ['nullable', 'string', 'max:255'],
             'highlights_title' => ['nullable', 'string', 'max:255'],
-            'highlight_bottom_image' => $this->media->imageRules(),
+            'highlight_bottom_image' => $this->media->videoRules(),
             'contact_title' => ['nullable', 'string', 'max:255'],
             'contact_image' => $this->media->imageRules(),
             'contact_success_message' => ['nullable', 'string', 'max:255'],
@@ -71,7 +71,7 @@ class HomePageController extends Controller
         $data['hero_image'] = $this->media->replaceImage($request, 'hero_image', 'cms/homepage', $homepage->hero_image);
         $data['doctor_intro_image'] = $this->media->replaceImage($request, 'doctor_intro_image', 'cms/homepage', $homepage->doctor_intro_image);
         $data['about_image'] = $this->media->replaceImage($request, 'about_image', 'cms/homepage', $homepage->about_image);
-        $data['highlight_bottom_image'] = $this->media->replaceImage($request, 'highlight_bottom_image', 'cms/homepage', $homepage->highlight_bottom_image);
+        $data['highlight_bottom_image'] = $this->media->replaceVideo($request, 'highlight_bottom_image', 'cms/homepage', $homepage->highlight_bottom_image);
         $data['contact_image'] = $this->media->replaceImage($request, 'contact_image', 'cms/homepage', $homepage->contact_image);
 
         $homepage->fill(collect($data)->except(['highlights_text', 'service_cards'])->all())->save();

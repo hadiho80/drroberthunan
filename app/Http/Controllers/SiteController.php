@@ -5,14 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Service;
 use App\Support\CmsData;
 use App\Support\CmsDefaults;
+use App\Support\CmsMediaManager;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class SiteController extends Controller
 {
-    public function __construct(private readonly CmsData $cms)
+    public function __construct(
+        private readonly CmsData $cms,
+        private readonly CmsMediaManager $media,
+    )
     {
     }
 
@@ -198,6 +203,10 @@ class SiteController extends Controller
     private function homepagePayload(): array
     {
         $homepage = $this->cms->homepage();
+        $highlightBottomSource = $homepage->highlight_bottom_image;
+        $highlightBottomMedia = $this->cms->mediaUrl($highlightBottomSource) ?: asset(CmsDefaults::homepage()['highlight_bottom_image']);
+        $highlightBottomMediaType = $this->resolveHighlightBottomMediaType($highlightBottomSource, $highlightBottomMedia);
+        $highlightBottomPoster = $this->resolveHighlightBottomPoster($highlightBottomSource, $highlightBottomMediaType);
 
         return [
             'hero_title' => $homepage->hero_title,
@@ -219,7 +228,10 @@ class SiteController extends Controller
             'about_image' => $this->cms->mediaUrl($homepage->about_image) ?: asset(CmsDefaults::homepage()['about_image']),
             'services_title' => $homepage->services_title,
             'highlights_title' => $homepage->highlights_title,
-            'highlight_bottom_image' => $this->cms->mediaUrl($homepage->highlight_bottom_image) ?: asset(CmsDefaults::homepage()['highlight_bottom_image']),
+            'highlight_bottom_image' => $highlightBottomMedia,
+            'highlight_bottom_media_type' => $highlightBottomMediaType,
+            'highlight_bottom_poster' => $highlightBottomPoster,
+            'highlight_bottom_embed_url' => $highlightBottomMediaType === 'youtube' ? $this->media->youtubeEmbedUrl($highlightBottomSource) : null,
             'contact_title' => $homepage->contact_title,
             'contact_image' => $this->cms->mediaUrl($homepage->contact_image) ?: asset(CmsDefaults::homepage()['contact_image']),
             'contact_success_message' => $homepage->contact_success_message,
@@ -229,6 +241,46 @@ class SiteController extends Controller
             'contact_message_placeholder' => $homepage->contact_message_placeholder,
             'contact_button_label' => $homepage->contact_button_label,
         ];
+    }
+
+    private function resolveHighlightBottomMediaType(?string $sourcePath, ?string $resolvedPath): string
+    {
+        if ($this->media->isYoutubeUrl($sourcePath)) {
+            return 'youtube';
+        }
+
+        if ($this->media->isVideoPath($sourcePath) || $this->media->isVideoPath($resolvedPath)) {
+            return 'video';
+        }
+
+        return 'image';
+    }
+
+    private function resolveHighlightBottomPoster(?string $path, string $mediaType): ?string
+    {
+        if ($mediaType === 'youtube') {
+            return $this->media->youtubeThumbnailUrl($path);
+        }
+
+        if ($mediaType !== 'video') {
+            return null;
+        }
+
+        $info = pathinfo($path ?? '');
+
+        if (! isset($info['dirname'], $info['filename'])) {
+            return null;
+        }
+
+        foreach (['png', 'jpg', 'jpeg', 'webp'] as $extension) {
+            $posterPath = trim($info['dirname'], './').'/'.$info['filename'].'-poster.'.$extension;
+
+            if (Storage::disk('public')->exists($posterPath)) {
+                return $this->cms->mediaUrl($posterPath);
+            }
+        }
+
+        return null;
     }
 
     private function homepageHighlights(): array

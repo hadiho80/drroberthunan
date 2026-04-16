@@ -51,4 +51,52 @@ document.addEventListener('DOMContentLoaded', () => {
             menu.hidden = isOpen;
         });
     });
+
+    document.querySelectorAll('[data-highlight-video-trigger]').forEach((trigger) => {
+        const wrapper = trigger.closest('.highlight-bottom-media');
+        const video = wrapper?.querySelector('[data-highlight-video]');
+
+        if (!wrapper || !video) {
+            return;
+        }
+
+        trigger.addEventListener('click', async () => {
+            trigger.classList.add('is-hidden');
+
+            try {
+                await video.play();
+                video.setAttribute('controls', 'controls');
+            } catch (error) {
+                trigger.classList.remove('is-hidden');
+            }
+        });
+
+        video.addEventListener('pause', () => {
+            if (video.currentTime > 0 && !video.ended) {
+                trigger.classList.remove('is-hidden');
+            }
+        });
+
+        video.addEventListener('ended', () => {
+            trigger.classList.remove('is-hidden');
+        });
+    });
+
+    document.querySelectorAll('[data-highlight-youtube-trigger]').forEach((trigger) => {
+        const wrapper = trigger.closest('.highlight-bottom-media');
+        const frame = wrapper?.querySelector('[data-highlight-youtube-frame]');
+        const poster = wrapper?.querySelector('[data-highlight-youtube-poster]');
+        const source = frame?.dataset.src;
+
+        if (!wrapper || !frame || !poster || !source) {
+            return;
+        }
+
+        trigger.addEventListener('click', () => {
+            frame.src = source;
+            frame.classList.remove('hidden');
+            poster.classList.add('hidden');
+            trigger.classList.add('is-hidden');
+        });
+    });
 });

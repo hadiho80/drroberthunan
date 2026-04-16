@@ -125,7 +125,7 @@
                             @endforeach
                         </div>
                     </div>
-                    @include('admin.partials.image-upload-field', ['name' => 'highlight_bottom_image', 'label' => 'Gambar highlight bottom', 'value' => old('highlight_bottom_image', $homepage->highlight_bottom_image), 'class' => 'span-2', 'fallbackLabel' => 'Belum ada gambar highlight bottom.', 'help' => 'Gunakan gambar yang sama proporsinya dengan tampilan existing agar layout tetap aman.'])
+                    @include('admin.partials.image-upload-field', ['name' => 'highlight_bottom_image', 'label' => 'Video highlight bottom', 'value' => old('highlight_bottom_image', $homepage->highlight_bottom_image), 'class' => 'span-2', 'accept' => 'video/mp4,video/quicktime,video/webm,video/x-m4v,.mp4,.mov,.webm,.m4v', 'fallbackLabel' => 'Belum ada video highlight bottom.', 'help' => 'Upload video landscape. Video tidak autoplay dan baru diputar saat pengunjung klik play agar tetap ringan.'])
                     <label class="span-2">
                         <span>Data highlights</span>
                         <small class="admin-field-help">Gunakan format `Title|URL|ImagePath`, satu baris satu item.</small>
