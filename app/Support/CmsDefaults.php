@@ -55,7 +55,7 @@ class CmsDefaults
             'about_image' => 'assets/hero/about-nh-scope.png',
             'services_title' => 'Our Services',
             'highlights_title' => 'Highlights',
-            'highlight_bottom_image' => 'assets/highlights/highlight-bottom.png',
+            'highlight_bottom_image' => 'https://youtu.be/vAhcd0PcFnY',
             'contact_title' => 'Contact Us',
             'contact_image' => 'assets/contact/contact-us-home.jpg',
         ];
@@ -100,9 +100,9 @@ class CmsDefaults
     public static function doctorProfile(): array
     {
         return [
-            'title' => 'Doctor\'s Profile',
-            'subtitle' => 'Clinical background, education, and care philosophy for Dr. Robert Hunan Purwaka.',
-            'intro' => 'Dr. Robert Hunan is an Obstetrician-gynecologist, specialized in Laparoscopic Surgery and Aesthetic Gynecology. He currently practices at National Hospital Surabaya, and also member of NHScope.',
+            'title' => 'dr. Robert Hunan Purwaka, Sp.OG, D.MAS, F.MIS',
+            'subtitle' => 'Dr. Robert Hunan is an Obstetrician-gynecologist, specialized in <strong>Laparoscopic Surgery</strong> and <strong>Aesthetic Gynaecology</strong>. He currently practices at <strong>National Hospital Surabaya</strong>, and also member of NHScope.',
+            'intro' => 'Dr. Robert Hunan is an Obstetrician-gynecologist, specialized in Laparoscopic Surgery and Aesthetic Gynaecology. He currently practices at National Hospital Surabaya, and also member of NHScope.',
             'biography' => 'Dr. Robert Hunan Purwaka is known for a calm, structured consultation style that helps patients understand their condition clearly and move forward with confidence. His care combines evidence-based treatment planning, minimally invasive surgical expertise, and a strong focus on patient comfort from diagnosis through recovery.',
             'image' => 'assets/hero/doctor-profile-hero.jpg',
         ];
@@ -114,7 +114,7 @@ class CmsDefaults
             [
                 'key' => 'experience',
                 'title' => 'Clinical Experience & Expertise',
-                'intro' => 'To date, dr. Robert has handled more than 1,000 laparoscopic cases, including:',
+                'intro' => 'To date, Dr. Robert has handled more than 1,200 laparoscopic cases, including:',
                 'items' => ['Ovarian cyst treatment', 'Myoma uteri surgery', 'Hysterectomy', 'Endometriosis treatment', 'Various other gynecological laparoscopic procedures'],
                 'sort_order' => 10,
             ],
@@ -122,15 +122,29 @@ class CmsDefaults
                 'key' => 'education',
                 'title' => 'Education',
                 'intro' => null,
-                'items' => ['Faculty of Medicine Universitas Brawijaya', 'Obstetrics and Gynecology Specialist Education at Universitas Indonesia', 'Diploma of Minimal Access Surgery (Laparoscopy) | World Laparoscopy Hospital India', 'Fellowship in Minimally Invasive Surgery (Laparoscopy) | Link K Hospital, Singapore'],
+                'items' => ['Faculty of Medicine Universitas Brawijaya', 'Obstetrics and Gynecology Specialist Education at Universitas Indonesia'],
                 'sort_order' => 20,
             ],
             [
                 'key' => 'training',
-                'title' => 'Training Experience',
+                'title' => 'Training & International Experience',
                 'intro' => null,
-                'items' => ['AAGL 25th Annual Scientific Meeting Attended Regional Meeting Sydney Australia 2024', 'The 2nd Indonesian Gynecological Endoscopy Society (IGES) National Meeting Jakarta 2012', '17th Annual Colposcopy Course Singapore 2012', 'SCOG 2012, Korean Society for Gynecologic Endoscopy 2012', 'Basic Laparoscopic Workshop Surabaya 2008', 'Workshop on Laparoscopic Tubal Occlusion with local anesthesia RS Sumber Jakarta 2011', 'Basic BTL skill course by POGI 2008', 'Intermediate Gynecologic Laparoscopic skill as a part of Aesculap workshop 2009', 'Intermediate Gynecologic Laparoscopic Skill as a part of Asia Pacific Conference Bali 2011', 'Cervical and Ovarian Cancer Management as a part of Asia Pacific Conference Bali 2011', 'Advanced Gynecologic Surgical Skill part of APGSB Bali 2011'],
+                'items' => ['Fellow of Minimally Access Surgery, World Laparoscopy Hospital, India', 'Diploma of Minimally Access Surgery, World Laparoscopy Hospital, India', 'Fellow of Minimally Invasive Surgery, KK Women\'s and Children\'s Hospital, Singapore', 'Fellow of Endoscopic Gynecology Reproductive & Fertility - Indonesian Medical Council', 'Advanced Course in Gynecological Endometriosis Surgery, ASIAN IRCAD - Taiwan', 'Clinical Associate, KK Women\'s and Children\'s Hospital, Singapore (2012)', 'Senior Clinical Associate, KK Women\'s and Children\'s Hospital, Singapore (2013)'],
                 'sort_order' => 30,
+            ],
+            [
+                'key' => 'organization',
+                'title' => 'Organization',
+                'intro' => null,
+                'items' => ['Member of International Society for Gynecologic Endoscopy (ISGE)', 'Member of Asia Pacific Association of Gynecologic Endoscopy (APAGE)', 'Member of Singapore - Minimally Invasive Surgery (SG-MIS)', 'Member of Indonesian Gynecologic Endoscopy Society (IGES)', 'Member of IDI (Ikatan Dokter Indonesia)', 'Member of POGI (Perhimpunan Obstetri Ginekologi Indonesia)'],
+                'sort_order' => 40,
+            ],
+            [
+                'key' => 'seminars',
+                'title' => 'Seminar & Workshops',
+                'intro' => null,
+                'items' => ['2025, Robotic Surgery Training Edge Medical, Beijing, China', '2025, The XII Indonesian Gynecological Endoscopy Society (IGES), Indonesia', '2025, The 14th Congress of the Asia Pacific Initiative on Reproduction (ASPIRE), Singapore', '2024, Asian Society of Gynecologic Oncology, Indonesia', '2024, Workshop Stem Cell batch XXII, Indonesia', '2023, The 11th Asian Congress on Endometriosis, Philippines', '2021, Instructor on Wet lab suturing, 9th IGES, November 4th, 2021'],
+                'sort_order' => 50,
             ],
         ];
     }

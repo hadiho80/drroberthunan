@@ -79,7 +79,7 @@
                             <div class="ml-10 lg:ml-20">
                                 <div class="w-full max-w-[360px] text-left text-white md:max-w-[420px]">
                                     <h1 class="m-0 font-sans text-[32px] leading-[1.08] font-extrabold tracking-[-0.03em] text-white md:text-[40px] md:leading-[1.05]">{{ strtoupper($servicePage['title']) }}</h1>
-                                    <p class="mt-3 font-sans text-[14px] leading-[1.6] font-normal text-white/90 md:text-[18px]">{{ $servicePage['hero_body'] ?? $servicePage['intro'] }}</p>
+                                    <p class="mt-3 font-sans text-[14px] leading-[1.6] font-normal text-white/90 md:text-[18px]">{!! \App\Support\CmsRichText::render($servicePage['hero_body'] ?? $servicePage['intro']) !!}</p>
                                 </div>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                             <article class="rounded-[6px] border border-[#d9e7f2] bg-white px-4 py-4 shadow-[0_6px_18px_rgba(14,68,106,0.04)] md:px-5 md:py-5 lg:px-8 lg:py-6">
                                 <div class="grid gap-3">
                                     @foreach($servicePage['feature_copy'] ?? [] as $paragraph)
-                                        <p class="m-0 font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]">{{ $paragraph }}</p>
+                                        <p class="m-0 font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]">{!! \App\Support\CmsRichText::render($paragraph) !!}</p>
                                     @endforeach
                                 </div>
                             </article>
@@ -103,16 +103,18 @@
 
                             @foreach($servicePage['sections'] as $section)
                                 <article class="rounded-[6px] border border-[#d9e7f2] bg-white px-4 py-4 shadow-[0_6px_18px_rgba(14,68,106,0.04)] md:px-5 md:py-5 lg:px-8 lg:py-6">
-                                    <h2 class="m-0 font-sans text-[24px] leading-[1.25] font-semibold text-[#00223A] md:text-[32px]">{{ $section['title'] }}</h2>
+                                    @if(!empty($section['title']))
+                                        <h2 class="m-0 font-sans text-[24px] leading-[1.25] font-semibold text-[#00223A] md:text-[32px]">{{ $section['title'] }}</h2>
+                                    @endif
 
                                     @if(!empty($section['copy']))
-                                        <p class="mt-3 mb-0 font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]">{{ $section['copy'] }}</p>
+                                        <p class="{{ !empty($section['title']) ? 'mt-3' : 'mt-0' }} mb-0 font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]">{!! \App\Support\CmsRichText::render($section['copy']) !!}</p>
                                     @endif
 
                                     @if(!empty($section['list']))
                                         <ul class="mt-3 grid list-disc gap-2 pl-[1.2em] marker:text-[#495057] md:gap-[0.35rem] lg:mt-4 lg:gap-[0.45rem]">
                                             @foreach($section['list'] as $item)
-                                                <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]"><span>{{ $item }}</span></li>
+                                                <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]"><span>{!! \App\Support\CmsRichText::render($item) !!}</span></li>
                                             @endforeach
                                         </ul>
                                     @endif
@@ -122,7 +124,7 @@
                                             @foreach($section['copy_blocks'] as $block)
                                                 <div>
                                                     <h3 class="m-0 font-sans text-[20px] leading-[1.3] font-semibold text-[#00223A] md:text-[24px]">{{ $block['heading'] }}</h3>
-                                                    <p class="mt-2 mb-0 font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]">{{ $block['body'] }}</p>
+                                                    <p class="mt-2 mb-0 font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]">{!! \App\Support\CmsRichText::render($block['body']) !!}</p>
                                                 </div>
                                             @endforeach
                                         </div>
@@ -139,7 +141,7 @@
                             <div class="ml-10 lg:ml-20">
                                 <div class="w-full max-w-[390px] text-left text-white md:max-w-[470px]">
                                     <h1 class="m-0 font-sans text-[32px] leading-[1.08] font-extrabold tracking-[-0.03em] text-white md:text-[40px] md:leading-[1.05]">{{ strtoupper($servicePage['title']) }}</h1>
-                                    <p class="mt-3 font-sans text-[14px] leading-[1.6] font-normal text-white/90 md:text-[18px]">{{ $servicePage['hero_body'] ?? $servicePage['intro'] }}</p>
+                                    <p class="mt-3 font-sans text-[14px] leading-[1.6] font-normal text-white/90 md:text-[18px]">{!! \App\Support\CmsRichText::render($servicePage['hero_body'] ?? $servicePage['intro']) !!}</p>
                                 </div>
                             </div>
                         </div>
@@ -147,19 +149,37 @@
 
                     <section class="service-detail-page-section {{ $pagePadX }} {{ $pageSectionTop }} pb-6 md:pb-8 lg:pb-10 bg-white">
                         <div class="{{ $pageContentMax }} service-detail-content-grid">
+                            @php
+                                $hysterectomyOverview = $servicePage['overview'] ?? [];
+                                $hysterectomyFirstBullet = $hysterectomyOverview[0] ?? null;
+                                $hysterectomyLeadParagraph = $hysterectomyOverview[1] ?? null;
+                                $hysterectomyRemainingBullets = array_slice($hysterectomyOverview, 2);
+                            @endphp
                             <article class="rounded-[6px] border border-[#d9e7f2] bg-white px-4 py-4 shadow-[0_6px_18px_rgba(14,68,106,0.04)] md:px-5 md:py-5 lg:px-8 lg:py-6">
                                 <h2 class="m-0 font-sans text-[24px] leading-[1.25] font-semibold text-[#00223A] md:text-[32px]">{{ $servicePage['overview_title'] }}</h2>
-                                <ul class="mt-3 grid list-disc gap-2 pl-[1.2em] marker:text-[#495057] md:gap-[0.35rem] lg:mt-4 lg:gap-[0.45rem]">
-                                    @foreach($servicePage['overview'] as $item)
-                                        <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]"><span>{{ $item }}</span></li>
-                                    @endforeach
-                                </ul>
+                                @if($hysterectomyFirstBullet)
+                                    <ul class="mt-3 grid list-disc gap-2 pl-[1.2em] marker:text-[#495057] md:gap-[0.35rem] lg:mt-4 lg:gap-[0.45rem]">
+                                        <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]"><span>{!! \App\Support\CmsRichText::render($hysterectomyFirstBullet) !!}</span></li>
+                                    </ul>
+                                @endif
+
+                                @if($hysterectomyLeadParagraph)
+                                    <p class="mt-2 mb-0 font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]">{!! \App\Support\CmsRichText::render($hysterectomyLeadParagraph) !!}</p>
+                                @endif
+
+                                @if(!empty($hysterectomyRemainingBullets))
+                                    <ul class="mt-2 grid list-disc gap-2 pl-[1.2em] marker:text-[#495057] md:gap-[0.35rem] lg:gap-[0.45rem]">
+                                        @foreach($hysterectomyRemainingBullets as $item)
+                                            <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]"><span>{!! \App\Support\CmsRichText::render($item) !!}</span></li>
+                                        @endforeach
+                                    </ul>
+                                @endif
                             </article>
 
                             @foreach($servicePage['sections'] as $section)
                                 <article class="rounded-[6px] border border-[#d9e7f2] bg-white px-4 py-4 shadow-[0_6px_18px_rgba(14,68,106,0.04)] md:px-5 md:py-5 lg:px-8 lg:py-6">
                                     <h2 class="m-0 font-sans text-[24px] leading-[1.25] font-semibold text-[#00223A] md:text-[32px]">{{ $section['title'] }}</h2>
-                                    <p class="mt-3 mb-0 font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]">{{ $section['copy'] }}</p>
+                                    <p class="mt-3 mb-0 font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]">{!! \App\Support\CmsRichText::render($section['copy']) !!}</p>
                                 </article>
                             @endforeach
                         </div>
@@ -172,7 +192,7 @@
                             <div class="ml-10 lg:ml-20">
                                 <div class="w-full max-w-[410px] text-left text-white md:max-w-[520px]">
                                     <h1 class="m-0 font-sans text-[32px] leading-[1.08] font-extrabold tracking-[-0.03em] text-white md:text-[40px] md:leading-[1.05]">{{ strtoupper($servicePage['title']) }}</h1>
-                                    <p class="mt-3 font-sans text-[14px] leading-[1.6] font-normal text-white/90 md:text-[18px]">{{ $servicePage['hero_body'] ?? $servicePage['intro'] }}</p>
+                                    <p class="mt-3 font-sans text-[14px] leading-[1.6] font-normal text-white/90 md:text-[18px]">{!! \App\Support\CmsRichText::render($servicePage['hero_body'] ?? $servicePage['intro']) !!}</p>
                                 </div>
                             </div>
                         </div>
@@ -184,7 +204,7 @@
                                 <h2 class="m-0 font-sans text-[24px] leading-[1.25] font-semibold text-[#00223A] md:text-[32px]">{{ $servicePage['overview_title'] }}</h2>
                                 <ul class="mt-3 grid list-disc gap-2 pl-[1.2em] marker:text-[#495057] md:gap-[0.35rem] lg:mt-4 lg:gap-[0.45rem]">
                                     @foreach($servicePage['overview'] as $item)
-                                        <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]"><span>{{ $item }}</span></li>
+                                        <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]"><span>{!! \App\Support\CmsRichText::render($item) !!}</span></li>
                                     @endforeach
                                 </ul>
                             </article>
@@ -193,7 +213,14 @@
                                 @php
                                     $sectionSplitColumns = $section['split_columns'] ?? false;
                                     $sectionColumns = $sectionSplitColumns && !empty($section['list'])
-                                        ? array_chunk($section['list'], (int) ceil(count($section['list']) / 2))
+                                        ? (
+                                            $section['title'] === 'Advantages of laparoscopy surgery including:' && count($section['list']) > 8
+                                                ? [
+                                                    array_slice($section['list'], 0, 8),
+                                                    array_slice($section['list'], 8),
+                                                ]
+                                                : array_chunk($section['list'], (int) ceil(count($section['list']) / 2))
+                                        )
                                         : [];
                                 @endphp
                                 <article class="rounded-[6px] border border-[#d9e7f2] bg-white px-4 py-4 shadow-[0_6px_18px_rgba(14,68,106,0.04)] md:px-5 md:py-5 lg:px-8 lg:py-6">
@@ -203,7 +230,7 @@
                                             @foreach($sectionColumns as $column)
                                                 <ul class="list-disc pl-[1.2em] marker:text-[#495057]">
                                                     @foreach($column as $item)
-                                                        <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]"><span>{{ $item }}</span></li>
+                                                        <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]"><span>{!! \App\Support\CmsRichText::render($item) !!}</span></li>
                                                     @endforeach
                                                 </ul>
                                             @endforeach
@@ -211,7 +238,7 @@
                                     @else
                                         <ul class="mt-3 grid list-disc gap-2 pl-[1.2em] marker:text-[#495057] md:gap-[0.35rem] lg:mt-4 lg:gap-[0.45rem]">
                                             @foreach($section['list'] as $item)
-                                                <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]"><span>{{ $item }}</span></li>
+                                                <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]"><span>{!! \App\Support\CmsRichText::render($item) !!}</span></li>
                                             @endforeach
                                         </ul>
                                     @endif
@@ -239,7 +266,7 @@
                             <div class="ml-10 lg:ml-20">
                                 <div class="w-full max-w-[430px] text-left text-white md:max-w-[520px]">
                                     <h1 class="m-0 font-sans text-[32px] leading-[1.08] font-extrabold tracking-[-0.03em] text-white md:text-[40px] md:leading-[1.05]">{{ strtoupper($servicePage['title']) }}</h1>
-                                    <p class="mt-3 font-sans text-[14px] leading-[1.6] font-normal text-white/90 md:text-[18px]">{{ $servicePage['hero_body'] ?? $servicePage['intro'] }}</p>
+                                    <p class="mt-3 font-sans text-[14px] leading-[1.6] font-normal text-white/90 md:text-[18px]">{!! \App\Support\CmsRichText::render($servicePage['hero_body'] ?? $servicePage['intro']) !!}</p>
                                 </div>
                             </div>
                         </div>
@@ -251,7 +278,7 @@
                                 <article class="rounded-[6px] border border-[#d9e7f2] bg-white px-4 py-4 shadow-[0_6px_18px_rgba(14,68,106,0.04)] md:px-5 md:py-5 lg:px-8 lg:py-6">
                                     <div class="grid gap-3">
                                         @foreach($servicePage['feature_copy'] as $paragraph)
-                                            <p class="m-0 font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]">{{ $paragraph }}</p>
+                                            <p class="m-0 font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]">{!! \App\Support\CmsRichText::render($paragraph) !!}</p>
                                         @endforeach
                                     </div>
                                 </article>
@@ -273,12 +300,12 @@
                                 <article class="rounded-[6px] border border-[#d9e7f2] bg-white px-4 py-4 shadow-[0_6px_18px_rgba(14,68,106,0.04)] md:px-5 md:py-5 lg:px-8 lg:py-6">
                                     <h2 class="m-0 font-sans text-[24px] leading-[1.25] font-semibold text-[#00223A] md:text-[32px]">{{ $section['title'] }}</h2>
                                     @if(!empty($section['copy']))
-                                        <p class="mt-3 mb-0 font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]">{{ $section['copy'] }}</p>
+                                        <p class="mt-3 mb-0 font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]">{!! \App\Support\CmsRichText::render($section['copy']) !!}</p>
                                     @endif
                                     @if(!empty($section['list']))
                                         <ul class="mt-3 grid list-disc gap-2 pl-[1.2em] marker:text-[#495057] md:gap-[0.35rem] lg:mt-4 lg:gap-[0.45rem]">
                                             @foreach($section['list'] as $item)
-                                                <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]"><span>{{ $item }}</span></li>
+                                                <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]"><span>{!! \App\Support\CmsRichText::render($item) !!}</span></li>
                                             @endforeach
                                         </ul>
                                     @endif
@@ -294,7 +321,7 @@
                             <div class="ml-10 lg:ml-20">
                                 <div class="w-full max-w-[430px] text-left text-white md:max-w-[540px]">
                                     <h1 class="m-0 font-sans text-[32px] leading-[1.08] font-extrabold tracking-[-0.03em] text-white md:text-[40px] md:leading-[1.05]">{{ strtoupper($servicePage['title']) }}</h1>
-                                    <p class="mt-3 font-sans text-[14px] leading-[1.6] font-normal text-white/90 md:text-[18px]">{{ $servicePage['hero_body'] ?? $servicePage['intro'] }}</p>
+                                    <p class="mt-3 font-sans text-[14px] leading-[1.6] font-normal text-white/90 md:text-[18px]">{!! \App\Support\CmsRichText::render($servicePage['hero_body'] ?? $servicePage['intro']) !!}</p>
                                 </div>
                             </div>
                         </div>
@@ -302,13 +329,47 @@
 
                     <section class="service-detail-page-section {{ $pagePadX }} {{ $pageSectionTop }} pb-6 md:pb-8 lg:pb-10 bg-white">
                         <div class="{{ $pageContentMax }} service-detail-content-grid">
+                            @php
+                                $ovarianOverview = $servicePage['overview'] ?? [];
+                                $ovarianMainItems = array_slice($ovarianOverview, 0, 2);
+                                $ovarianNestedHeading = $ovarianOverview[2] ?? null;
+                                $ovarianNestedItems = array_slice($ovarianOverview, 3, 5);
+                                $ovarianWarning = $ovarianOverview[8] ?? null;
+                                $ovarianClosingItems = array_slice($ovarianOverview, 9);
+                            @endphp
                             <article class="rounded-[6px] border border-[#d9e7f2] bg-white px-4 py-4 shadow-[0_6px_18px_rgba(14,68,106,0.04)] md:px-5 md:py-5 lg:px-8 lg:py-6">
                                 <h2 class="m-0 font-sans text-[24px] leading-[1.25] font-semibold text-[#00223A] md:text-[32px]">{{ $servicePage['overview_title'] }}</h2>
                                 <ul class="mt-3 grid list-disc gap-2 pl-[1.2em] marker:text-[#495057] md:gap-[0.35rem] lg:mt-4 lg:gap-[0.45rem]">
-                                    @foreach($servicePage['overview'] as $item)
-                                        <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]"><span>{{ $item }}</span></li>
+                                    @foreach($ovarianMainItems as $item)
+                                        <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]"><span>{!! \App\Support\CmsRichText::render($item) !!}</span></li>
                                     @endforeach
+
+                                    @if($ovarianNestedHeading)
+                                        <div class="pl-[1.8em] md:pl-[2.2em]">
+                                            <ul class="mt-0 list-disc space-y-1 marker:text-[#495057]">
+                                                <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]">
+                                                    <span>{!! \App\Support\CmsRichText::render($ovarianNestedHeading) !!}</span>
+                                                </li>
+
+                                                @foreach($ovarianNestedItems as $item)
+                                                    <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]">{{ $item }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                 </ul>
+
+                                @if($ovarianWarning)
+                                    <p class="mt-3 mb-0 pl-[0.6em] font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:pl-[0.9em] md:text-[18px]">{!! \App\Support\CmsRichText::render($ovarianWarning) !!}</p>
+                                @endif
+
+                                @if(!empty($ovarianClosingItems))
+                                    <ul class="mt-2 grid list-disc gap-2 pl-[1.2em] marker:text-[#495057] md:gap-[0.35rem] lg:gap-[0.45rem]">
+                                        @foreach($ovarianClosingItems as $item)
+                                            <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]"><span>{!! \App\Support\CmsRichText::render($item) !!}</span></li>
+                                        @endforeach
+                                    </ul>
+                                @endif
                             </article>
 
                             @if(!empty($servicePage['feature_images']))
@@ -327,14 +388,21 @@
                                 <article class="rounded-[6px] border border-[#d9e7f2] bg-white px-4 py-4 shadow-[0_6px_18px_rgba(14,68,106,0.04)] md:px-5 md:py-5 lg:px-8 lg:py-6">
                                     <h2 class="m-0 font-sans text-[24px] leading-[1.25] font-semibold text-[#00223A] md:text-[32px]">{{ $section['title'] }}</h2>
                                     @if(!empty($section['copy']))
-                                        <p class="mt-3 mb-0 font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]">{{ $section['copy'] }}</p>
+                                        <p class="mt-3 mb-0 font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]">{!! \App\Support\CmsRichText::render($section['copy']) !!}</p>
+                                    @endif
+                                    @if(!empty($section['list']))
+                                        <ul class="mt-3 grid list-disc gap-2 pl-[1.2em] marker:text-[#495057] md:gap-[0.35rem] lg:mt-4 lg:gap-[0.45rem]">
+                                            @foreach($section['list'] as $item)
+                                                <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]"><span>{!! \App\Support\CmsRichText::render($item) !!}</span></li>
+                                            @endforeach
+                                        </ul>
                                     @endif
                                     @if(!empty($section['copy_blocks']))
                                         <div class="mt-3 grid gap-4 lg:mt-4 lg:gap-5">
                                             @foreach($section['copy_blocks'] as $block)
                                                 <div>
                                                     <h3 class="m-0 font-sans text-[20px] leading-[1.3] font-semibold text-[#00223A] md:text-[24px]">{{ $block['heading'] }}</h3>
-                                                    <p class="mt-2 mb-0 font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]">{{ $block['body'] }}</p>
+                                                    <p class="mt-2 mb-0 font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]">{!! \App\Support\CmsRichText::render($block['body']) !!}</p>
                                                 </div>
                                             @endforeach
                                         </div>
@@ -373,7 +441,7 @@
                         <div class="{{ $pageContentMax }} service-detail-content-grid">
                             @if($showServiceIntro)
                                 <div class="max-w-[980px]">
-                                    <h3 class="m-0 font-sans text-[24px] leading-[1.45] font-medium text-[#00223A] md:text-[32px] md:leading-[1.4]">{{ $servicePage['intro'] }}</h3>
+                                    <h3 class="m-0 font-sans text-[24px] leading-[1.45] font-medium text-[#00223A] md:text-[32px] md:leading-[1.4]">{!! \App\Support\CmsRichText::render($servicePage['intro']) !!}</h3>
                                 </div>
                             @endif
 
@@ -384,7 +452,7 @@
                                         @foreach($overviewColumns as $column)
                                             <ul class="list-disc pl-[1.2em] marker:text-[#495057]">
                                                 @foreach($column as $item)
-                                                    <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]"><span>{{ $item }}</span></li>
+                                                    <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]"><span>{!! \App\Support\CmsRichText::render($item) !!}</span></li>
                                                 @endforeach
                                             </ul>
                                         @endforeach
@@ -392,7 +460,7 @@
                                 @else
                                     <ul class="mt-3 grid list-disc gap-2 pl-[1.2em] marker:text-[#495057] md:gap-[0.35rem] lg:mt-4 lg:gap-[0.45rem]">
                                         @foreach($servicePage['overview'] as $item)
-                                            <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]"><span>{{ $item }}</span></li>
+                                            <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]"><span>{!! \App\Support\CmsRichText::render($item) !!}</span></li>
                                         @endforeach
                                     </ul>
                                 @endif
@@ -413,7 +481,7 @@
                                                 @foreach($sectionColumns as $column)
                                                     <ul class="list-disc pl-[1.2em] marker:text-[#495057]">
                                                         @foreach($column as $item)
-                                                            <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]"><span>{{ $item }}</span></li>
+                                                            <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]"><span>{!! \App\Support\CmsRichText::render($item) !!}</span></li>
                                                         @endforeach
                                                     </ul>
                                                 @endforeach
@@ -421,12 +489,12 @@
                                         @else
                                             <ul class="mt-3 grid list-disc gap-2 pl-[1.2em] marker:text-[#495057] md:gap-[0.35rem] lg:mt-4 lg:gap-[0.45rem]">
                                                 @foreach($section['list'] as $item)
-                                                    <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]"><span>{{ $item }}</span></li>
+                                                    <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]"><span>{!! \App\Support\CmsRichText::render($item) !!}</span></li>
                                                 @endforeach
                                             </ul>
                                         @endif
                                     @else
-                                        <p class="mt-3 mb-0 font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]">{{ $section['copy'] }}</p>
+                                        <p class="mt-3 mb-0 font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]">{!! \App\Support\CmsRichText::render($section['copy']) !!}</p>
                                     @endif
                                 </article>
                             @endforeach

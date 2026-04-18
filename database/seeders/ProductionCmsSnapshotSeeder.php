@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Support\CmsContentSynchronizer;
 use Illuminate\Database\Seeder;
 
-class CmsContentSyncSeeder extends Seeder
+class ProductionCmsSnapshotSeeder extends Seeder
 {
     public function run(): void
     {

@@ -1,9 +1,9 @@
 @php
     $seoTitle = $pageSeoTitle ?? ($doctorName.' | Doctor Profile in Surabaya');
-    $seoDescription = $pageSeoDescription ?? ('Doctor profile of '.$doctorName.', obstetrician and gynecologist in Surabaya, including clinical experience, education, and minimally invasive surgery expertise.');
+    $seoDescription = $pageSeoDescription ?? ('Doctor profile of '.strip_tags($doctorName).', obstetrician and gynecologist in Surabaya, including clinical experience, education, and minimally invasive surgery expertise.');
     $seoKeywords = $pageSeoKeywords ?? $seoKeywords;
     $seoImage = $pageSeoImage ?? $seoImage;
-    $seoImageAlt = $doctorName.' doctor profile';
+    $seoImageAlt = strip_tags($doctorName).' doctor profile';
     $seoImageType = 'image/jpeg';
     $structuredData = json_encode([
         '@context' => 'https://schema.org',
@@ -11,8 +11,8 @@
             [
                 '@type' => 'Physician',
                 '@id' => url('/').'#physician',
-                'name' => $doctorName,
-                'description' => $doctorProfileIntro,
+                'name' => strip_tags($doctorName),
+                'description' => strip_tags($doctorProfileIntro),
                 'image' => $doctorProfileImage,
                 'url' => url()->current(),
                 'telephone' => $contactPhone,
@@ -76,8 +76,8 @@
                             <img class="profile-hero-photo-image" src="{{ $profilePhoto }}" alt="{{ $doctorName }}" fetchpriority="high" decoding="async">
                         </div>
                         <div class="profile-hero-copy text-left text-[#24435a]">
-                            <h1 class="m-0 font-sans text-[32px] leading-[1.08] font-extrabold tracking-[-0.03em] text-[#0E446A] md:text-[40px] md:leading-[1.05]">{{ $doctorName }}</h1>
-                            <h3 class="font-sans text-[24px] leading-[1.45] font-medium text-[#00223A] md:text-[32px] md:leading-[1.4]">{{ $profileIntro }}</h3>
+                            <h1 class="m-0 font-sans text-[32px] leading-[1.08] font-extrabold tracking-[-0.03em] text-[#0E446A] md:text-[40px] md:leading-[1.05]">{!! \App\Support\CmsRichText::render($doctorName) !!}</h1>
+                            <h3 class="font-sans text-[24px] leading-[1.45] font-medium text-[#00223A] md:text-[32px] md:leading-[1.4]">{!! \App\Support\CmsRichText::render($profileIntro) !!}</h3>
                         </div>
                     </div>
                 </section>
@@ -89,12 +89,12 @@
                                 <h2 class="m-0 font-sans text-[24px] leading-[1.25] font-semibold text-[#00223A] md:text-[32px]">{{ $section['title'] }}</h2>
 
                                 @if(!empty($section['intro']))
-                                    <p class="mt-3 mb-0 font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]">{{ $section['intro'] }}</p>
+                                    <p class="mt-3 mb-0 font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]">{!! \App\Support\CmsRichText::render($section['intro']) !!}</p>
                                 @endif
 
                                 <ul class="mt-3 list-disc pl-[1.2em] grid gap-2 marker:text-[#495057] md:gap-[0.35rem] lg:mt-4 lg:gap-[0.45rem]">
                                     @foreach($section['items'] as $item)
-                                        <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]"><span>{{ $item }}</span></li>
+                                        <li class="font-sans text-[14px] leading-[1.65] font-normal text-[#495057] md:text-[18px]"><span>{!! \App\Support\CmsRichText::render($item) !!}</span></li>
                                     @endforeach
                                 </ul>
                             </article>
