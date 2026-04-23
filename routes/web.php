@@ -18,7 +18,7 @@ Route::get('/contact-us', [SiteController::class, 'contact'])->name('site.contac
 Route::post('/enquiry', [SiteController::class, 'submitEnquiry'])->name('site.enquiry.submit');
 Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
 
-Route::prefix('admin')->group(function () {
+Route::prefix('monro')->group(function () {
     Route::middleware('guest')->group(function () {
         Route::get('/login', [AuthController::class, 'create'])->name('admin.login');
         Route::post('/login', [AuthController::class, 'store'])->name('admin.login.store');
@@ -26,7 +26,7 @@ Route::prefix('admin')->group(function () {
 
     Route::middleware('auth')->group(function () {
         Route::post('/logout', [AuthController::class, 'destroy'])->name('admin.logout');
-        Route::redirect('/', '/admin/site-settings');
+        Route::redirect('/', '/monro/site-settings');
         Route::get('/site-settings', [SiteSettingsController::class, 'index'])->name('admin.site-settings.index');
         Route::post('/site-settings', [SiteSettingsController::class, 'update'])->name('admin.site-settings.update');
         Route::get('/homepage', [HomePageController::class, 'index'])->name('admin.homepage.index');

@@ -11,10 +11,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->redirectGuestsTo(fn ($request) => $request->is('admin') || $request->is('admin/*')
+        $middleware->redirectGuestsTo(fn ($request) => $request->is('monro') || $request->is('monro/*')
             ? route('admin.login')
             : null);
-        $middleware->redirectUsersTo(fn ($request) => $request->is('admin') || $request->is('admin/*')
+        $middleware->redirectUsersTo(fn ($request) => $request->is('monro') || $request->is('monro/*')
             ? route('admin.homepage.index')
             : route('site.home'));
     })
